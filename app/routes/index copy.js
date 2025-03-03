@@ -3,7 +3,7 @@ const router = express.Router()
 const HomeController = require("../controllers/HomeController")
 const AuthController = require("../controllers/AuthController")
 
-// Rotas do site principal
+// Rotas
 router.get("/", HomeController.index)
 router.get("/login", AuthController.login)
 
@@ -19,14 +19,11 @@ router.get("/criar-memorial", (req, res) => {
 router.get("/plano-opcoes", (req, res) => {
   res.render("plano-opcoes", { title: "Plano e Opções - In Memoriam Brasil" })
 })
-
 /*
-// Rota comentada (pode ser ativada no futuro)
 router.get("/testemunhos", (req, res) => {
-  res.render("testemunhos", { title: "Testemunhos - In Memoriam Brasil" });
-});
+  res.render("testemunhos", { title: "Testemunhos - In Memoriam Brasil" })
+})
 */
-
 router.get("/contato", (req, res) => {
   res.render("contato", { title: "Contato - In Memoriam Brasil" })
 })
@@ -52,16 +49,6 @@ router.get("/politica-privacidade", (req, res) => {
 
 router.get("/mapa-site", (req, res) => {
   res.render("mapa-site", { title: "Mapa do Site - In Memoriam Brasil" })
-})
-
-router.post("/criar-memorial", HomeController.criarMemorial)
-router.get("/:nomeSobrenome", HomeController.exibirMemorial)
-
-// Rota para páginas não encontradas (404)
-router.use((req, res) => {
-  res
-    .status(404)
-    .render("404", { title: "Página Não Encontrada", layout: false })
 })
 
 module.exports = router

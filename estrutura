@@ -1,0 +1,72 @@
+Comando para listar a estrutura de pastas e arquivos:
+
+tree -L 5 -I "node_modules"
+
+Resultado do comando:
+
+
+├── app
+│   ├── controllers
+│   │   ├── AuthController.js
+│   │   └── HomeController.js
+│   ├── models
+│   ├── routes
+│   │   ├── index copy.js
+│   │   └── index.js
+│   └── views
+│       ├── 404.hbs
+│       ├── 500.hbs
+│       ├── condicoes-utilizacao.hbs
+│       ├── contato.hbs
+│       ├── criar-memorial.hbs
+│       ├── home.hbs
+│       ├── jose-silva.hbs
+│       ├── layouts
+│       │   ├── main.hbs
+│       │   └── user-layout.hbs
+│       ├── login.hbs
+│       ├── mapa-site.hbs
+│       ├── memoriais-virtuais.hbs
+│       ├── partials
+│       │   ├── footer.hbs
+│       │   ├── header.hbs
+│       │   └── navbar.hbs
+│       ├── plano-opcoes.hbs
+│       ├── politica-privacidade.hbs
+│       ├── sobre.hbs
+│       ├── testemunhos.hbs
+│       ├── user.hbs
+│       └── user-partials
+│           ├── user-footer.hbs
+│           ├── user-header.hbs
+│           ├── user-navbar.hbs
+│           └── user-sidebar.hbs
+├── config
+│   └── db.js
+├── estrutura
+├── estrutura_1
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── public
+│   ├── css
+│   │   ├── styles.css
+│   │   └── user-styles.css
+│   ├── images
+│   │   ├── background1.jpg
+│   │   ├── background.jpg
+│   │   ├── homenageado1.png
+│   │   ├── homenageado2.png
+│   │   ├── homenageado3.png
+│   │   ├── homenageado4.png
+│   │   ├── logo_1.png
+│   │   ├── logo_3.png
+│   │   ├── logo.png
+│   │   └── time.jpg
+│   ├── js
+│   │   └── scripts.js
+│   └── videos
+│       └── tutorial.mp4
+├── README.md
+├── server copy.js
+└── server.js

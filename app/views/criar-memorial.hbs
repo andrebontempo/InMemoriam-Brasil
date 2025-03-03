@@ -1,311 +1,38 @@
-<main class="container my-5 mx-auto" style="max-width: 1000px;">
-  <!-- Abas -->
-  <ul class="nav nav-tabs mb-4" id="myTab" role="tablist">
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link active"
-        id="sobre-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#sobre"
-        type="button"
-        role="tab"
-        aria-controls="sobre"
-        aria-selected="true"
-      >
-        1. Sobre o Homenageado
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link disabled"
-        id="plano-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#plano"
-        type="button"
-        role="tab"
-        aria-controls="plano"
-        aria-selected="false"
-      >
-        2. Selecione o seu Plano
-      </button>
-    </li>
-    <li class="nav-item" role="presentation">
-      <button
-        class="nav-link disabled"
-        id="privacidade-tab"
-        data-bs-toggle="tab"
-        data-bs-target="#privacidade"
-        type="button"
-        role="tab"
-        aria-controls="privacidade"
-        aria-selected="false"
-      >
-        3. Opções de Privacidade
-      </button>
-    </li>
-  </ul>
+<main class="container my-5">
+  <div class="bg-white p-4">
+    <h2 class="text-center mb-4">Criar Memorial</h2>
 
-  <!-- Conteúdo das Abas -->
-  <div class="tab-content" id="myTabContent">
-    <!-- Primeira Aba: Sobre o Homenageado -->
-    <div
-      class="tab-pane fade show active"
-      id="sobre"
-      role="tabpanel"
-      aria-labelledby="sobre-tab"
+    <form
+      action="/criar-memorial"
+      method="POST"
+      class="mx-auto"
+      style="max-width: 80%;"
     >
-      <div class="bg-white p-4 rounded shadow">
-        <h2>1. Sobre o Homenageado</h2>
-        <p class="lead">Este memorial é dedicado a:</p>
-
-        <form id="form-sobre">
-          <!-- Nome -->
-          <div class="mb-3">
-            <label for="nome" class="form-label">Nome:</label>
-            <input type="text" class="form-control" id="nome" />
-          </div>
-
-          <!-- Nome do Meio -->
-          <div class="mb-3">
-            <label for="nome-meio" class="form-label">Nome do Meio:</label>
-            <input type="text" class="form-control" id="nome-meio" />
-          </div>
-
-          <!-- Sobrenome -->
-          <div class="mb-3">
-            <label for="sobrenome" class="form-label">Sobrenome:</label>
-            <input type="text" class="form-control" id="sobrenome" />
-          </div>
-
-          <!-- Sexo -->
-          <div class="mb-3">
-            <label for="sexo" class="form-label">Sexo:</label>
-            <select class="form-select" id="sexo">
-              <option value="masculino">Masculino</option>
-              <option value="feminino">Feminino</option>
-              <option value="outro">Outro</option>
-            </select>
-          </div>
-
-          <!-- Parentesco -->
-          <div class="mb-3">
-            <label for="parentesco" class="form-label">Parentesco:</label>
-            <input type="text" class="form-control" id="parentesco" />
-          </div>
-
-          <!-- Informação Adicional -->
-          <div class="mb-3">
-            <label for="informacao-adicional" class="form-label">Informação
-              Adicional:</label>
-            <textarea
-              class="form-control"
-              id="informacao-adicional"
-              rows="3"
-            ></textarea>
-          </div>
-
-          <!-- Endereço Web do Memorial -->
-          <div class="mb-3">
-            <label class="form-label">Endereço web do Memorial:</label>
-            <div class="input-group">
-              <span
-                class="input-group-text"
-              >https://inmemmoriambrasil.com.br/</span>
-              <input type="text" class="form-control" id="endereco-memorial" />
-            </div>
-          </div>
-
-          <!-- Botão Continuar -->
-          <div class="d-flex justify-content-end">
-            <button
-              type="button"
-              class="btn btn-primary"
-              id="continuar-sobre"
-            >Continuar</button>
-          </div>
-        </form>
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          name="nome"
+          required
+        />
       </div>
-    </div>
 
-    <!-- Segunda Aba: Selecione o seu Plano -->
-    <div
-      class="tab-pane fade"
-      id="plano"
-      role="tabpanel"
-      aria-labelledby="plano-tab"
-    >
-      <div class="bg-white p-4 rounded shadow">
-        <h2>2. Selecione o seu Plano</h2>
-        <p class="lead">Selecione o plano que pretende:</p>
-
-        <!-- Cards de Planos -->
-        <div class="row">
-          <!-- Plano Base -->
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-              <div class="card-body">
-                <h5 class="card-title">Base</h5>
-                <p class="card-text">Grátis</p>
-                <button class="btn btn-primary">Selecionar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Plano Mensal -->
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-              <div class="card-body">
-                <h5 class="card-title">Mensal</h5>
-                <p class="card-text">R$ 36,00/mês</p>
-                <button class="btn btn-primary">Selecionar</button>
-              </div>
-            </div>
-          </div>
-
-          <!-- Plano Anual -->
-          <div class="col-md-4 mb-4">
-            <div class="card h-100 text-center">
-              <div class="card-body">
-                <h5 class="card-title">Anual</h5>
-                <p class="card-text">R$ 360,00/ano</p>
-                <button class="btn btn-primary">Selecionar</button>
-              </div>
-            </div>
-          </div>
-        </div>
-
-        <!-- Garantia de Devolução -->
-        <div class="mt-5">
-          <h4>Garantia de devolução nos primeiros 30 dias</h4>
-          <p>
-            Queremos que se sinta completamente satisfeito com o memorial que
-            criou. Caso deseje cancelar o seu acesso Premium nos 30 dias após a
-            subscrição, devolvemos a totalidade do que pagou, sem quaisquer
-            condições.
-          </p>
-        </div>
-
-        <!-- Seguro e Fiável -->
-        <div class="mt-4">
-          <h4>Seguro e Fiável</h4>
-          <p>
-            Os dados pessoais e as memórias estão seguros e protegidos connosco:
-          </p>
-          <ul>
-            <li>Nunca iremos partilhar os seus dados pessoais com terceiros.</li>
-            <li>Os nossos servidores estão instalados em edifícios de alta
-              segurança com vigilância permanente.</li>
-            <li>São efetuadas diariamente cópias de segurança de toda a
-              informação (texto, fotos, etc.) que esteja guardada no Memorial.</li>
-            <li>Todas as transações com cartões de crédito são processadas
-              usando tecnologia de encriptação SSL de última geração e toda a
-              faturação é gerada em software certificado.</li>
-          </ul>
-        </div>
-
-        <!-- Botão Continuar -->
-        <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-primary"
-            id="continuar-plano"
-          >Continuar</button>
-        </div>
+      <div class="mb-3">
+        <label for="sobrenome" class="form-label">Sobrenome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="sobrenome"
+          name="sobrenome"
+          required
+        />
       </div>
-    </div>
 
-    <!-- Terceira Aba: Opções de Privacidade -->
-    <div
-      class="tab-pane fade"
-      id="privacidade"
-      role="tabpanel"
-      aria-labelledby="privacidade-tab"
-    >
-      <div class="bg-white p-4 rounded shadow">
-        <h2>3. Opções de Privacidade</h2>
-        <p class="lead">Prefere partilhar este memorial com os visitantes ou
-          mantê-lo privado? (Pode ser alterado posteriormente)</p>
-
-        <!-- Opções de Radio Button -->
-        <div class="mb-3">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="privacidade"
-              id="publico"
-              value="publico"
-              checked
-            />
-            <label class="form-check-label" for="publico">
-              <strong>Todos os visitantes podem ver e contribuir.</strong><br />
-              <small>Recomendado. Esta é a opção que permite colaboração. Esta
-                opção permite acesso fácil ao memorial e permite que qualquer um
-                contribua.</small>
-            </label>
-          </div>
-        </div>
-
-        <div class="mb-3">
-          <div class="form-check">
-            <input
-              class="form-check-input"
-              type="radio"
-              name="privacidade"
-              id="privado"
-              value="privado"
-            />
-            <label class="form-check-label" for="privado">
-              <strong>Visível apenas para mim.</strong><br />
-              <small>Esta é a opção que lhe dá total privacidade. Selecione esta
-                opção caso pretenda manter este memorial visível apenas para si,
-                neste momento.</small>
-            </label>
-          </div>
-        </div>
-
-        <!-- Botão Criar Memorial -->
-        <div class="d-flex justify-content-end">
-          <button
-            type="button"
-            class="btn btn-primary"
-            id="criar-memorial"
-          >Criar Memorial</button>
-        </div>
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Criar Memorial</button>
       </div>
-    </div>
+    </form>
   </div>
 </main>
-
-<!-- Bootstrap JS e Dependências -->
-<script
-  src="https://cdn.jsdelivr.net/npm/@popperjs/core@2.11.6/dist/umd/popper.min.js"
-></script>
-<script
-  src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/js/bootstrap.min.js"
-></script>
-
-<!-- Script para navegação entre abas -->
-<script>
-  document.addEventListener("DOMContentLoaded", function () { const
-  continuarSobre = document.getElementById("continuar-sobre"); const
-  continuarPlano = document.getElementById("continuar-plano"); const
-  criarMemorial = document.getElementById("criar-memorial"); const
-  planoTabButton = document.getElementById("plano-tab"); const
-  privacidadeTabButton = document.getElementById("privacidade-tab"); //
-  Navegação para a segunda aba continuarSobre.addEventListener("click", function
-  () { planoTabButton.classList.remove("disabled"); const tab = new
-  bootstrap.Tab(planoTabButton); tab.show(); // Navega para a segunda aba }); //
-  Navegação para a terceira aba continuarPlano.addEventListener("click",
-  function () { privacidadeTabButton.classList.remove("disabled"); const tab =
-  new bootstrap.Tab(privacidadeTabButton); tab.show(); // Navega para a terceira
-  aba }); // Ação do botão Criar Memorial
-  criarMemorial.addEventListener("click", function () { alert("Memorial criado
-  com sucesso!"); }); });
-</script>
-
-<!-- Estilo personalizado para as abas inativas -->
-<style>
-  .nav-link.disabled { color: #6c757d; /* Cor da fonte das abas inativas */ }
-  .nav-link.active { color: #0d6efd; /* Cor da fonte da aba ativa */ }
-</style>
