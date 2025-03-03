@@ -1,6 +1,8 @@
 /* Header do usuário */
 .user-header {
   height: 300px;
+  background-image: url("/images/background1.jpg"); /* Caminho para a imagem */
+  background-color: #e595ab;
   background-size: cover;
   background-position: center;
   display: flex;
@@ -8,6 +10,10 @@
   justify-content: center;
   color: green;
   text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-image: "/public/images/background1.jpg"; /* Caminho para a imagem */
 }
 
 /* Navbar do usuário */
