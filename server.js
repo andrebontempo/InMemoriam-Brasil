@@ -1,8 +1,10 @@
 const express = require("express")
 const exphbs = require("express-handlebars")
 const path = require("path")
+const conectarDB = require("./config/db")
 
 const app = express()
+conectarDB() // Conectar ao banco de dados
 
 app.use(express.urlencoded({ extended: true })) // Para processar POST forms
 app.use(express.json()) // Para processar JSON

@@ -55,7 +55,7 @@ router.get("/mapa-site", (req, res) => {
 })
 
 router.post("/criar-memorial", HomeController.criarMemorial)
-router.get("/:nomeSobrenome", HomeController.exibirMemorial)
+router.get("/memorial/:nomeSobrenome", HomeController.exibirMemorial)
 
 // Rota para páginas não encontradas (404)
 router.use((req, res) => {

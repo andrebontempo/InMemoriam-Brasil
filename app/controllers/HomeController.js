@@ -1,63 +1,66 @@
-const fs = require("fs")
-const path = require("path")
+const Memorial = require("../models/Memorial")
 
 const HomeController = {
   index: (req, res) => {
     res.render("home", { title: "In Memoriam Brasil" })
   },
 
-  criarMemorial: (req, res) => {
+  criarMemorial: async (req, res) => {
     const { nome, sobrenome } = req.body
 
     if (!nome || !sobrenome) {
       return res.status(400).send("Nome e sobrenome são obrigatórios!")
     }
 
-    const nomeSobrenome = `${nome}-${sobrenome}`
-      .toLowerCase()
-      .replace(/\s+/g, "-")
+    const slug = `${nome}-${sobrenome}`.toLowerCase().replace(/\s+/g, "-")
 
-    const memorialPath = path.join(
-      __dirname,
-      "../views/memoriais",
-      `${nomeSobrenome}.hbs`
-    )
-
-    // Criar conteúdo dinâmico para a página do homenageado
     const memorialContent = `
-            <main class="container my-5">
-                <div class="bg-white p-4 text-center">
-                    <h1>Memorial de ${nome} ${sobrenome}</h1>
-                    <p>Homenagem a ${nome} ${sobrenome}.</p>
-                </div>
-            </main>
-        `
+      <main class="container my-5">
+          <div class="bg-white p-4 text-center">
+              <h1>Memorial de ${nome} ${sobrenome}</h1>
+              <p>Homenagem a ${nome} ${sobrenome}.</p>
+          </div>
+      </main>
+    `
 
-    // Salvar a página como um novo arquivo
-    fs.writeFile(memorialPath, memorialContent, (err) => {
-      if (err) {
-        console.error("Erro ao criar memorial:", err)
-        return res.status(500).send("Erro ao criar memorial.")
+    try {
+      const memorialExistente = await Memorial.findOne({ slug })
+      if (memorialExistente) {
+        return res.status(400).send("Já existe um memorial com esse nome.")
       }
 
-      // Redirecionar para a nova página criada
-      return res.redirect(`/${nomeSobrenome}`)
-    })
+      const memorial = new Memorial({
+        nome,
+        sobrenome,
+        slug,
+        conteudo: memorialContent,
+      })
+
+      await memorial.save()
+      return res.redirect(`/memorial/${slug}`)
+    } catch (error) {
+      console.error("Erro ao criar memorial:", error)
+      return res.status(500).send("Erro ao criar memorial.")
+    }
   },
 
-  exibirMemorial: (req, res) => {
-    const nomeSobrenome = req.params.nomeSobrenome
-    const memorialPath = path.join(
-      __dirname,
-      "../views/memoriais",
-      `${nomeSobrenome}.hbs`
-    )
+  exibirMemorial: async (req, res) => {
+    const { nomeSobrenome } = req.params
 
-    // Verifica se o arquivo do memorial existe
-    if (fs.existsSync(memorialPath)) {
-      return res.render(`memoriais/${nomeSobrenome}`, { layout: "user-layout" })
-    } else {
-      return res.status(404).render("404")
+    try {
+      const memorial = await Memorial.findOne({ slug: nomeSobrenome })
+
+      if (!memorial) {
+        return res.status(404).render("404")
+      }
+
+      return res.render("memorial", {
+        layout: "user-layout",
+        conteudo: memorial.conteudo,
+      })
+    } catch (error) {
+      console.error("Erro ao exibir memorial:", error)
+      return res.status(500).send("Erro ao exibir memorial.")
     }
   },
 }
