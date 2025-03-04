@@ -5,7 +5,7 @@ const AuthController = require("../controllers/AuthController")
 const MemorialController = require("../controllers/MemorialController")
 
 // Rotas de Autenticação
-router.post("/register", AuthController.register)
+//router.post("/login", AuthController.login)
 
 // Rotas de Memoriais
 //router.post("/memorials", MemorialController.createMemorial)
@@ -13,6 +13,10 @@ router.post("/register", AuthController.register)
 // Rotas do site principal
 router.get("/", HomeController.index)
 //router.get("/login", AuthController.login)
+// Rota do botão login
+router.get("/login", (req, res) => {
+  res.render("login", { title: "Login" })
+})
 
 // Novas rotas
 router.get("/sobre", (req, res) => {
