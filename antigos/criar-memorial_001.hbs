@@ -1,0 +1,38 @@
+<main class="container my-5">
+  <div class="bg-white p-4">
+    <h2 class="text-center mb-4">Criar Memorial</h2>
+
+    <form
+      action="/criar-memorial"
+      method="POST"
+      class="mx-auto"
+      style="max-width: 80%;"
+    >
+      <div class="mb-3">
+        <label for="nome" class="form-label">Nome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="nome"
+          name="nome"
+          required
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="sobrenome" class="form-label">Sobrenome:</label>
+        <input
+          type="text"
+          class="form-control"
+          id="sobrenome"
+          name="sobrenome"
+          required
+        />
+      </div>
+
+      <div class="d-flex justify-content-end">
+        <button type="submit" class="btn btn-primary">Criar Memorial</button>
+      </div>
+    </form>
+  </div>
+</main>

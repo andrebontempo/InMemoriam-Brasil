@@ -8,33 +8,33 @@
       class="mx-auto"
       style="max-width: 80%;"
     >
-      <!-- Nome e Sobrenome (Obrigatórios) -->
+      <!-- Nome e Sobrenome -->
       <div class="mb-3">
-        <label for="firstName" class="form-label">Primeiro Nome:</label>
+        <label for="nome" class="form-label">Nome:</label>
         <input
           type="text"
           class="form-control"
-          id="firstName"
-          name="firstName"
+          id="nome"
+          name="nome"
           required
         />
       </div>
 
       <div class="mb-3">
-        <label for="lastName" class="form-label">Sobrenome:</label>
+        <label for="sobrenome" class="form-label">Sobrenome:</label>
         <input
           type="text"
           class="form-control"
-          id="lastName"
-          name="lastName"
+          id="sobrenome"
+          name="sobrenome"
           required
         />
       </div>
 
       <!-- Sexo -->
       <div class="mb-3">
-        <label for="gender" class="form-label">Sexo:</label>
-        <select class="form-control" id="gender" name="gender">
+        <label for="sexo" class="form-label">Sexo:</label>
+        <select class="form-control" id="sexo" name="sexo" required>
           <option value="">Selecione</option>
           <option value="masculino">Masculino</option>
           <option value="feminino">Feminino</option>
@@ -44,12 +44,13 @@
 
       <!-- Parentesco -->
       <div class="mb-3">
-        <label for="relationship" class="form-label">Parentesco:</label>
+        <label for="parentesco" class="form-label">Parentesco:</label>
         <input
           type="text"
           class="form-control"
-          id="relationship"
-          name="relationship"
+          id="parentesco"
+          name="parentesco"
+          required
         />
       </div>
 
@@ -61,7 +62,8 @@
           type="date"
           class="form-control"
           id="dataNascimento"
-          name="birth[date]"
+          name="nascimento[data]"
+          required
         />
       </div>
 
@@ -71,7 +73,8 @@
           type="text"
           class="form-control"
           id="cidadeNascimento"
-          name="birth[city]"
+          name="nascimento[cidade]"
+          required
         />
       </div>
 
@@ -81,7 +84,8 @@
           type="text"
           class="form-control"
           id="estadoNascimento"
-          name="birth[state]"
+          name="nascimento[estado]"
+          required
         />
       </div>
 
@@ -91,7 +95,8 @@
           type="text"
           class="form-control"
           id="paisNascimento"
-          name="birth[country]"
+          name="nascimento[pais]"
+          required
         />
       </div>
 
@@ -103,7 +108,8 @@
           type="date"
           class="form-control"
           id="dataFalecimento"
-          name="death[date]"
+          name="falecimento[data]"
+          required
         />
       </div>
 
@@ -113,7 +119,8 @@
           type="text"
           class="form-control"
           id="cidadeFalecimento"
-          name="death[city]"
+          name="falecimento[cidade]"
+          required
         />
       </div>
 
@@ -123,7 +130,8 @@
           type="text"
           class="form-control"
           id="estadoFalecimento"
-          name="death[state]"
+          name="falecimento[estado]"
+          required
         />
       </div>
 
@@ -133,40 +141,42 @@
           type="text"
           class="form-control"
           id="paisFalecimento"
-          name="death[country]"
+          name="falecimento[pais]"
+          required
         />
       </div>
 
       <!-- Sobre (Epitáfio) -->
       <div class="mb-3">
-        <label for="about" class="form-label">Sobre (Epitáfio):</label>
+        <label for="sobre" class="form-label">Sobre (Epitáfio):</label>
         <textarea
           class="form-control"
-          id="about"
-          name="about"
+          id="sobre"
+          name="sobre"
           rows="3"
+          required
         ></textarea>
       </div>
 
       <!-- Tributo -->
       <div class="mb-3">
-        <label for="tribute" class="form-label">Tributo (Mensagens de
+        <label for="tributo" class="form-label">Tributo (Mensagens de
           visitantes):</label>
         <textarea
           class="form-control"
-          id="tribute"
-          name="tribute"
+          id="tributo"
+          name="tributo"
           rows="3"
         ></textarea>
       </div>
 
       <!-- História de Vida -->
       <div class="mb-3">
-        <label for="lifeStory" class="form-label">História de Vida:</label>
+        <label for="lifestory" class="form-label">História de Vida:</label>
         <textarea
           class="form-control"
-          id="lifeStory"
-          name="lifeStory"
+          id="lifestory"
+          name="lifestory"
           rows="3"
         ></textarea>
       </div>
@@ -184,11 +194,12 @@
 
       <!-- Escolha de Tema -->
       <div class="mb-3">
-        <label for="theme" class="form-label">Escolha um tema:</label>
-        <select class="form-control" id="theme" name="theme">
-          <option value="blue-theme">Tema Azul</option>
-          <option value="green-theme">Tema Verde</option>
-          <option value="pink-theme">Tema Rosa</option>
+        <label for="tema" class="form-label">Escolha um tema:</label>
+        <select class="form-control" id="tema" name="tema">
+          <option value="padrão">Padrão</option>
+          <option value="tema-azul">Tema Azul</option>
+          <option value="tema-verde">Tema Verde</option>
+          <option value="tema-rosa">Tema Rosa</option>
         </select>
       </div>
 

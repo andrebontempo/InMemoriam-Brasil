@@ -1,0 +1,108 @@
+const Memorial = require("../models/Memorial")
+
+const MemorialController = {
+  criarMemorial: async (req, res) => {
+    const {
+      firstName,
+      lastName,
+      gender,
+      relationship,
+      birth,
+      death,
+      about,
+      lifeStory,
+      theme,
+    } = req.body
+
+    if (!firstName || !lastName) {
+      return res
+        .status(400)
+        .render("400", { message: "Nome e sobrenome são obrigatórios!" })
+    }
+
+    // Gera o slug
+    const slug = `${firstName}-${lastName}`.toLowerCase().replace(/\s+/g, "-")
+
+    // Conteúdo do memorial (pode ser ajustado conforme necessário)
+    const memorialContent = `
+      <main class="container my-5">
+          <div class="bg-white p-4 text-center">
+              <h1>Memorial de ${firstName} ${lastName}</h1>
+              <p>Homenagem a ${firstName} ${lastName}.</p>
+          </div>
+      </main>
+    `
+
+    try {
+      // Verifica se já existe um memorial com o mesmo slug
+      const memorialExistente = await Memorial.findOne({ slug })
+      if (memorialExistente) {
+        return res
+          .status(400)
+          .render("400", { message: "Já existe um memorial com esse nome." })
+      }
+
+      // Cria o objeto memorial com todos os campos
+      const memorial = new Memorial({
+        firstName,
+        lastName,
+        slug,
+        gender,
+        relationship,
+        birth: {
+          date: birth?.date || null,
+          city: birth?.city || "",
+          state: birth?.state || "",
+          country: birth?.country || "",
+        },
+        death: {
+          date: death?.date || null,
+          city: death?.city || "",
+          state: death?.state || "",
+          country: death?.country || "",
+        },
+        about,
+        lifeStory,
+        theme: theme || "blue-theme", // Valor padrão
+        conteudo: memorialContent,
+      })
+
+      // Salva o memorial no banco de dados
+      await memorial.save()
+
+      // Redireciona para a página do memorial
+      return res.redirect(`/memorial/${slug}`)
+    } catch (error) {
+      console.error("Erro ao criar memorial:", error)
+      return res
+        .status(500)
+        .render("500", { message: "Erro ao criar memorial." })
+    }
+  },
+
+  exibirMemorial: async (req, res) => {
+    const { nomeSobrenome } = req.params
+
+    try {
+      // Busca o memorial pelo slug
+      const memorial = await Memorial.findOne({ slug: nomeSobrenome })
+
+      if (!memorial) {
+        return res.status(404).render("404")
+      }
+
+      // Renderiza a página do memorial
+      return res.render("memorial", {
+        layout: "user-layout",
+        conteudo: memorial.conteudo,
+      })
+    } catch (error) {
+      console.error("Erro ao exibir memorial:", error)
+      return res
+        .status(500)
+        .render("500", { message: "Erro ao exibir memorial." })
+    }
+  },
+}
+
+module.exports = MemorialController

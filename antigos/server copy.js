@@ -2,7 +2,7 @@ const express = require("express")
 const path = require("path")
 const exphbs = require("express-handlebars")
 const app = express()
-const routes = require("./app/routes")
+const routes = require("../app/routes")
 
 // Configurações do Handlebars
 const hbs = exphbs.create({
