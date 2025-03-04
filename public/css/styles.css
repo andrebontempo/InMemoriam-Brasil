@@ -60,7 +60,7 @@ iframe {
 /* Sobrescreve a classe btn-primary do Bootstrap */
 .btn-primary {
   background-color: #aa2345; /* Nova cor de fundo (laranja) */
-  border-color: #e64a19; /* Cor da borda (opcional) */
+  border-color: #dbca65; /* Cor da borda (opcional) */
   color: #ffffff; /* Cor do texto */
 }
 

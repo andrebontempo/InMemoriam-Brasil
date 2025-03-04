@@ -26,7 +26,8 @@ const HomeController = {
     try {
       const memorialExistente = await Memorial.findOne({ slug })
       if (memorialExistente) {
-        return res.status(400).send("Já existe um memorial com esse nome.")
+        //return res.status(400).send("Já existe um memorial com esse nome.")
+        return res.status(400).render("400")
       }
 
       const memorial = new Memorial({
@@ -40,7 +41,8 @@ const HomeController = {
       return res.redirect(`/memorial/${slug}`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)
-      return res.status(500).send("Erro ao criar memorial.")
+      //return res.status(500).send("Erro ao criar memorial.")
+      return res.status(500).render("500")
     }
   },
 
@@ -60,7 +62,8 @@ const HomeController = {
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
-      return res.status(500).send("Erro ao exibir memorial.")
+      //return res.status(500).send("Erro ao exibir memorial.")
+      return res.status(500).render("500")
     }
   },
 }

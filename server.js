@@ -2,6 +2,7 @@ const express = require("express")
 const exphbs = require("express-handlebars")
 const path = require("path")
 const conectarDB = require("./config/db")
+require("dotenv").config()
 
 const app = express()
 conectarDB() // Conectar ao banco de dados
@@ -13,6 +14,19 @@ app.use(express.json()) // Para processar JSON
 const routes = require("./app/routes")
 
 // Configurações do Handlebars
+
+const hbs = exphbs.create({
+  defaultLayout: "main", // Define o layout principal
+  extname: "hbs", // Extensão padrão para os templates Handlebars
+  layoutsDir: path.join(__dirname, "app/views/layouts"), // Diretório de layouts
+  partialsDir: [
+    path.join(__dirname, "app/views/partials"), // Partials globais
+    path.join(__dirname, "app/views/user-partials"), // Partials específicas de usuários
+  ],
+  cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
+})
+
+/*
 const hbs = exphbs.create({
   defaultLayout: "main",
   extname: "hbs",
@@ -24,7 +38,7 @@ const hbs = exphbs.create({
   cache: false, // Desativa o cache para evitar erros de carregamento
 })
 
-/*
+
 const hbs = exphbs.create({
   defaultLayout: "main", // Layout padrão do site principal
   extname: ".hbs", // Extensão dos arquivos Handlebars

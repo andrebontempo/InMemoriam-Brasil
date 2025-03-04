@@ -1,43 +1,89 @@
-/* Header do usuário */
-.user-header {
-  height: 300px;
-  background-image: url("/images/background1.jpg"); /* Caminho para a imagem */
-  background-color: #e595ab;
-  background-size: cover;
-  background-position: center;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  color: green;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+:root {
+  --bs-primary: #4f0e21; /*#ad536a; /* Nova cor primária */
+  --bs-primary-rgb: 173, 83, 106; /* RGB da nova cor */
 }
 
 body {
-  background-image: "/public/images/background1.jpg"; /* Caminho para a imagem */
-}
-
-/* Navbar do usuário */
-.user-navbar {
-  background-color: rgba(0, 0, 0, 0.5);
-}
-
-/* Sidebar do usuário */
-.user-sidebar {
-  width: 25%;
-}
-
-.user-sidebar .sidebar-item {
-  margin-bottom: 10px;
-  padding: 10px;
+  color: #4f0e21 !important; /* Define a cor padrão do texto */
+  font-family: Arial, sans-serif;
   background-color: #f8f9fa;
-  border: 1px solid #ddd;
-  border-radius: 5px;
+  background-image: url("/images/background1.jpg"); /* Caminho para a imagem */
+  background-size: cover; /* Faz a imagem cobrir toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-attachment: fixed; /* Faz a imagem ficar fixa enquanto o usuário rola a página */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  height: 100vh; /* Faz a altura da seção ser igual à altura da tela */
+  width: 100%; /* Faz a largura da seção ocupar 100% da tela */
 }
 
-/* Rodapé do usuário */
-.user-footer {
-  background-color: #333;
-  color: white;
+header {
+  background-color: rgba(79, 14, 33, 0.5);
+  color: #fff;
+  padding: 10px 0;
+}
+
+.navbar {
+  background-color: #4a1170; /*rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+}
+
+footer {
+  background-color: rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+  color: #fff;
   padding: 20px 0;
+}
+
+.hero {
+  padding: 100px 0;
   text-align: center;
+  color: #fff;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+iframe {
+  border: none;
+  border-radius: 8px;
+}
+
+.d-flex {
+  font-size: 12px; /* Ajuste o tamanho da fonte */
+  white-space: nowrap; /* Impede que o conteúdo quebre para a linha seguinte */
+}
+
+.d-flex a {
+  margin-right: 10px; /* Ajuste o espaçamento entre os links */
+}
+
+/* Sobrescreve a classe btn-primary do Bootstrap */
+.btn-primary {
+  background-color: #aa2345; /* Nova cor de fundo (laranja) */
+  border-color: #dbca65; /* Cor da borda (opcional) */
+  color: #ffffff; /* Cor do texto */
+}
+
+/* Efeito hover */
+.btn-primary:hover {
+  background-color: #aa2345; /* Cor de fundo ao passar o mouse */
+  border-color: #dbca65; /* Cor da borda ao passar o mouse */
+}
+
+/* Efeito active (quando o botão é clicado) */
+.btn-primary:active {
+  background-color: #aa2345; /* Cor de fundo ao clicar */
+  border-color: #dbca65; /* Cor da borda ao clicar */
+}
+
+.card-img-top {
+  width: 100%; /* Para ocupar toda a largura do card */
+  height: 300px; /* Defina uma altura fixa */
+  object-fit: cover; /* Garante que a imagem cubra toda a área sem distorcer */
+}
+
+.form-control::placeholder {
+  color: #555; /* Cor do texto do placeholder */
+  font-style: italic; /* Texto em itálico */
+  font-size: 14px; /* Tamanho da fonte */
+  opacity: 0.8; /* Transparência do texto */
 }

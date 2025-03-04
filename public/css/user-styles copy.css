@@ -1,0 +1,57 @@
+:root {
+  --bs-primary: #4f0e21; /*#ad536a; /* Nova cor primária */
+  --bs-primary-rgb: 173, 83, 106; /* RGB da nova cor */
+}
+
+/* Header do usuário */
+header {
+  /*background-image: url("/images/background1.jpg");  Caminho para a imagem */
+  background-color: rgba(79, 14, 33, 0.5);
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
+
+body {
+  background-image: "/public/images/background1.jpg"; /* Caminho para a imagem */
+}
+
+/* Navbar do usuário */
+.navbar {
+  background-color: rgba(0, 0, 0, 0.5);
+}
+
+/* Sidebar do usuário */
+.sidebar {
+  width: 25%;
+}
+
+.sidebar .sidebar-item {
+  margin-bottom: 10px;
+  padding: 10px;
+  background-color: #f8f9fa;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+}
+
+/* Rodapé do usuário */
+footer {
+  background-color: #333;
+  color: white;
+  padding: 20px 0;
+  text-align: center;
+}
+
+.image-background {
+  background-image: url("/public/images/background1.jpg"); /* Caminho para a imagem */
+  background-size: cover;
+  background-position: center;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: green;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+}
