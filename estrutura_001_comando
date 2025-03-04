@@ -1,0 +1,7 @@
+Comando para listar a estrutura de pastas e arquivos:
+
+tree -L 5 -I "node_modules" > estrutura_002
+
+Resultado do comando ficará no arquivo estrutura_002.txt.
+
+

@@ -1,32 +1,32 @@
-Comando para listar a estrutura de pastas e arquivos:
-
-tree -L 5 -I "node_modules"
-
-Resultado do comando:
-
-
+.
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
+│   │   ├── HomeController_001.js
+│   │   ├── HomeController_002.js
 │   │   └── HomeController.js
 │   ├── models
+│   │   └── Memorial.js
 │   ├── routes
 │   │   ├── index copy.js
 │   │   └── index.js
 │   └── views
+│       ├── 400.hbs
 │       ├── 404.hbs
 │       ├── 500.hbs
 │       ├── condicoes-utilizacao.hbs
 │       ├── contato.hbs
 │       ├── criar-memorial.hbs
 │       ├── home.hbs
-│       ├── jose-silva.hbs
 │       ├── layouts
 │       │   ├── main.hbs
 │       │   └── user-layout.hbs
 │       ├── login.hbs
 │       ├── mapa-site.hbs
+│       ├── memoriais
+│       │   └── agora-vai.hbs
 │       ├── memoriais-virtuais.hbs
+│       ├── memorial.hbs
 │       ├── partials
 │       │   ├── footer.hbs
 │       │   ├── header.hbs
@@ -37,20 +37,24 @@ Resultado do comando:
 │       ├── testemunhos.hbs
 │       ├── user.hbs
 │       └── user-partials
+│           ├── user.body.hbs
 │           ├── user-footer.hbs
 │           ├── user-header.hbs
-│           ├── user-navbar.hbs
-│           └── user-sidebar.hbs
+│           └── user-navbar.hbs
 ├── config
-│   └── db.js
-├── estrutura
-├── estrutura_1
+│   ├── db copy_1.js
+│   ├── db copy.js
+│   ├── db.js
+│   └── playground-1.mongodb.js
+├── estrutura_001_comando
+├── estrutura_002_conteudo
 ├── LICENSE
 ├── package.json
 ├── package-lock.json
 ├── public
 │   ├── css
 │   │   ├── styles.css
+│   │   ├── user-styles copy.css
 │   │   └── user-styles.css
 │   ├── images
 │   │   ├── background1.jpg
@@ -60,8 +64,8 @@ Resultado do comando:
 │   │   ├── homenageado3.png
 │   │   ├── homenageado4.png
 │   │   ├── logo_1.png
-│   │   ├── logo_3.png
 │   │   ├── logo.png
+│   │   ├── logo.svg
 │   │   └── time.jpg
 │   ├── js
 │   │   └── scripts.js
@@ -70,3 +74,5 @@ Resultado do comando:
 ├── README.md
 ├── server copy.js
 └── server.js
+
+16 directories, 62 files
