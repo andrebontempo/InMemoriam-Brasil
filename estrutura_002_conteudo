@@ -20,7 +20,7 @@
 │       ├── home.hbs
 │       ├── layouts
 │       │   ├── main.hbs
-│       │   └── user-layout.hbs
+│       │   └── memorial-layout.hbs
 │       ├── login.hbs
 │       ├── mapa-site.hbs
 │       ├── memoriais

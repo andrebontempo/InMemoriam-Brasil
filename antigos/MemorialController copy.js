@@ -59,7 +59,7 @@ const MemorialController = {
       }
 
       return res.render("memorial", {
-        layout: "user-layout",
+        layout: "memorial-layout",
         conteudo: memorial.conteudo,
       })
     } catch (error) {

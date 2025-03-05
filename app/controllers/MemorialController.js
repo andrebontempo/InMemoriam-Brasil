@@ -93,7 +93,7 @@ const MemorialController = {
 
       // Renderiza a página do memorial
       return res.render("memorial", {
-        layout: "user-layout",
+        layout: "memorial-layout",
         conteudo: memorial.conteudo,
       })
     } catch (error) {

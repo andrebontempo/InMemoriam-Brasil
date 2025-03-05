@@ -55,7 +55,9 @@ const HomeController = {
 
     // Verifica se o arquivo do memorial existe
     if (fs.existsSync(memorialPath)) {
-      return res.render(`memoriais/${nomeSobrenome}`, { layout: "user-layout" })
+      return res.render(`memoriais/${nomeSobrenome}`, {
+        layout: "memorial-layout",
+      })
     } else {
       return res.status(404).render("404")
     }

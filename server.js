@@ -21,7 +21,7 @@ const hbs = exphbs.create({
   layoutsDir: path.join(__dirname, "app/views/layouts"), // Diretório de layouts
   partialsDir: [
     path.join(__dirname, "app/views/partials"), // Partials globais
-    path.join(__dirname, "app/views/user-partials"), // Partials específicas de usuários
+    path.join(__dirname, "app/views/memorial-partials"), // Partials específicas de usuários
   ],
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })
@@ -33,7 +33,7 @@ const hbs = exphbs.create({
   layoutsDir: path.join(__dirname, "app/views/layouts"),
   partialsDir: [
     path.join(__dirname, "app/views/partials"),
-    path.join(__dirname, "app/views/user-partials"),
+    path.join(__dirname, "app/views/memorial-partials"),
   ],
   cache: false, // Desativa o cache para evitar erros de carregamento
 })
@@ -44,7 +44,7 @@ const hbs = exphbs.create({
   extname: ".hbs", // Extensão dos arquivos Handlebars
   partialsDir: [
     path.join(__dirname, "app/views/partials"), // Partials do site principal
-    path.join(__dirname, "app/views/user-partials") // Partials dos sites dos usuários
+    path.join(__dirname, "app/views/memorial-partials") // Partials dos sites dos usuários
   ],
   layoutsDir: path.join(__dirname, "app/views/layouts"), // Pasta de layouts
 })

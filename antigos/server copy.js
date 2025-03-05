@@ -30,7 +30,7 @@ app.get("/:nome", (req, res) => {
     title: `Página de ${nome}`,
     nome: nome,
     background: background,
-    layout: "user-layout", // Usa o layout específico para os sites dos usuários
+    layout: "memorial-layout", // Usa o layout específico para os sites dos usuários
   })
 })
 
