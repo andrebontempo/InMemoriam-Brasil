@@ -1,0 +1,98 @@
+.
+├── antigos
+│   ├── AuthController copy.js
+│   ├── criar-memorial_001.hbs
+│   ├── criar-memorial_002.hbs
+│   ├── criar-memorial_004.hbs
+│   ├── db copy_1.js
+│   ├── db copy.js
+│   ├── estrutura_002_conteudo
+│   ├── HomeController_001.js
+│   ├── HomeController_002.js
+│   ├── HomeController copy.js
+│   ├── index_001.js
+│   ├── index_002.js
+│   ├── Memorial_001.js
+│   ├── Memorial_002.js
+│   ├── MemorialController_003.js
+│   ├── MemorialController copy.js
+│   ├── seed.js
+│   ├── server copy.js
+│   ├── user-styles copy.css
+│   └── zMemorial copy.js
+├── app
+│   ├── controllers
+│   │   ├── AuthController.js
+│   │   ├── HomeController.js
+│   │   └── MemorialController.js
+│   ├── models
+│   │   ├── Gallery
+│   │   ├── Memorial.js
+│   │   └── User.js
+│   ├── routes
+│   │   └── index.js
+│   └── views
+│       ├── 400.hbs
+│       ├── 404.hbs
+│       ├── 500.hbs
+│       ├── condicoes-utilizacao.hbs
+│       ├── contato.hbs
+│       ├── criar-memorial.hbs
+│       ├── home.hbs
+│       ├── layouts
+│       │   ├── main.hbs
+│       │   └── memorial-layout.hbs
+│       ├── login.hbs
+│       ├── mapa-site.hbs
+│       ├── memoriais
+│       │   └── agora-vai.hbs
+│       ├── memoriais-virtuais.hbs
+│       ├── memorial.hbs
+│       ├── memorial-partials
+│       │   ├── memorial.body.hbs
+│       │   ├── memorial-footer.hbs
+│       │   ├── memorial-header.hbs
+│       │   └── memorial-navbar.hbs
+│       ├── partials
+│       │   ├── footer.hbs
+│       │   ├── header.hbs
+│       │   └── navbar.hbs
+│       ├── plano-opcoes.hbs
+│       ├── politica-privacidade.hbs
+│       ├── sobre.hbs
+│       ├── testemunhos.hbs
+│       └── user.hbs
+├── config
+│   ├── db.js
+│   └── playground-1.mongodb.js
+├── estrutura_001_comando
+├── estrutura_002
+├── estrutura_003_conteudo
+├── LICENSE
+├── package.json
+├── package-lock.json
+├── public
+│   ├── css
+│   │   ├── memorial-styles.css
+│   │   └── styles.css
+│   ├── images
+│   │   ├── background1.jpg
+│   │   ├── background.jpg
+│   │   ├── homenageado1.png
+│   │   ├── homenageado2.png
+│   │   ├── homenageado3.png
+│   │   ├── homenageado4.png
+│   │   ├── logo_1.png
+│   │   ├── logo.png
+│   │   ├── logo.svg
+│   │   ├── pescaria.png
+│   │   └── time.jpg
+│   ├── js
+│   │   └── scripts.js
+│   └── videos
+│       └── tutorial.mp4
+├── README.md
+├── seed_000.js
+└── server.js
+
+17 directories, 79 files
