@@ -12,6 +12,7 @@ const MemorialController = require("../controllers/MemorialController")
 
 // Rotas do site principal
 router.get("/", HomeController.index)
+
 //router.get("/login", AuthController.login)
 // Rota do botão login
 router.get("/login", (req, res) => {

@@ -21,7 +21,13 @@ const MemorialController = {
     }
 
     // Gera o slug
-    const slug = `${firstName}-${lastName}`.toLowerCase().replace(/\s+/g, "-")
+    //const slug = `${firstName}-${lastName}`.toLowerCase().replace(/\s+/g, "-")
+    const slug = `${firstName}-${lastName}` // Junta o primeiro e o último nome com um hífen
+      .toLowerCase() // Converte todos os caracteres para minúsculas
+      .normalize("NFD") // Separa os caracteres acentuados dos seus diacríticos
+      .replace(/[\u0300-\u036f]/g, "") // Remove os diacríticos (acentos, til, etc.)
+      .replace(/ç/g, "c") // Substitui a letra "ç" por "c"
+      .replace(/\s+/g, "-") // Substitui espaços em branco por hífen ("-")
 
     // Conteúdo do memorial (pode ser ajustado conforme necessário)
     const memorialContent = `
@@ -94,7 +100,13 @@ const MemorialController = {
       // Renderiza a página do memorial
       return res.render("memorial", {
         layout: "memorial-layout",
-        conteudo: memorial.conteudo,
+        firstName: memorial.firstName, // Passa o primeiro nome
+        lastName: memorial.lastName, // Passa o sobrenome
+        birth: memorial.birth || {}, // Evita erro se birth for undefined
+        death: memorial.death || {}, // Evita erro se death for undefined
+        about: memorial.about || "Informação não disponível.",
+        lifeStory: memorial.lifeStory || "História não fornecida.",
+        conteudo: memorial.conteudo || "<p>Sem conteúdo adicional.</p>",
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
