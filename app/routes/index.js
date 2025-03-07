@@ -68,6 +68,8 @@ router.get("/memorial/:nomeSobrenome", (req, res) => {
 })
 router.get("/memorial/:nomeSobrenome/about", MemorialController.exibirMemorial)
 router.get("/memorial/:slug/lifestory", MemorialController.exibirLifeStory)
+// Rota de pesquisa
+router.get("/pesquisa", MemorialController.pesquisarMemorial)
 
 // Rota para páginas não encontradas (404)
 router.use((req, res) => {

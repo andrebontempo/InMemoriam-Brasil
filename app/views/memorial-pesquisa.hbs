@@ -1,0 +1,27 @@
+<div class="container my-5">
+  <h2 class="text-center">Resultados da Pesquisa</h2>
+
+  {{#if termo}}
+    <p class="text-center">Resultados para: <strong>{{termo}}</strong></p>
+  {{/if}}
+
+  {{#if resultados.length}}
+    <div class="list-group">
+      {{#each resultados}}
+        <!-- Mantendo a estrutura de link, mas com classe diferente para não mostrar o estilo azul -->
+        <a href="/memorial/{{this.slug}}" class="list-group-item">
+          <h5 class="mb-1">{{this.firstName}} {{this.lastName}}</h5>
+          <p class="mb-1">
+            <strong>Nascimento:</strong>
+            {{formatDate this.birth.date}}
+            <br />
+            <strong>Falecimento:</strong>
+            {{formatDate this.death.date}}
+          </p>
+        </a>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class="text-center text-muted">Nenhum memorial encontrado.</p>
+  {{/if}}
+</div>

@@ -144,6 +144,27 @@ const MemorialController = {
         .render("500", { message: "Erro ao exibir percurso." })
     }
   },
+  pesquisarMemorial: async (req, res) => {
+    const termo = req.query.q // Obtém o termo digitado na pesquisa
+
+    if (!termo) {
+      return res.render("memorial-pesquisa", { resultados: [], termo })
+    }
+
+    try {
+      const resultados = await Memorial.find({
+        $or: [
+          { firstName: { $regex: termo, $options: "i" } }, // Busca pelo primeiro nome (case-insensitive)
+          { lastName: { $regex: termo, $options: "i" } }, // Busca pelo sobrenome (case-insensitive)
+        ],
+      }).lean() // Adiciona o .lean() para garantir que os resultados sejam objetos simples
+
+      res.render("memorial-pesquisa", { resultados, termo })
+    } catch (error) {
+      console.error("Erro na pesquisa:", error)
+      res.status(500).render("500", { message: "Erro ao realizar a pesquisa." })
+    }
+  },
 }
 
 module.exports = MemorialController

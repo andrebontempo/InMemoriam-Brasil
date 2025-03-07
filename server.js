@@ -23,6 +23,12 @@ const hbs = exphbs.create({
     path.join(__dirname, "app/views/partials"), // Partials globais
     path.join(__dirname, "app/views/memorial-partials"), // Partials específicas de usuários
   ],
+  helpers: {
+    formatDate: function (date) {
+      const options = { year: "numeric", month: "long", day: "numeric" }
+      return new Date(date).toLocaleDateString("pt-BR", options)
+    },
+  },
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })
 
