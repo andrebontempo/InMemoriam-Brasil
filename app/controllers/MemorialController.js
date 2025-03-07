@@ -102,6 +102,7 @@ const MemorialController = {
         layout: "memorial-layout",
         firstName: memorial.firstName, // Passa o primeiro nome
         lastName: memorial.lastName, // Passa o sobrenome
+        slug: memorial.slug, // Adiciona o slug para ser usado na navbar
         birth: memorial.birth || {}, // Evita erro se birth for undefined
         death: memorial.death || {}, // Evita erro se death for undefined
         about: memorial.about || "Informação não disponível.",
@@ -113,6 +114,34 @@ const MemorialController = {
       return res
         .status(500)
         .render("500", { message: "Erro ao exibir memorial." })
+    }
+  },
+
+  exibirLifeStory: async (req, res) => {
+    const { slug } = req.params
+
+    try {
+      // Busca o memorial pelo slug
+      const memorial = await Memorial.findOne({ slug })
+
+      if (!memorial) {
+        return res.status(404).render("404")
+      }
+
+      // Renderiza a página de percurso (Life Story)
+      return res.render("memorial-lifestory", {
+        layout: "memorial-layout", // Usa o mesmo layout do memorial
+        slug: memorial.slug, // Passa o slug para a navbar
+        firstName: memorial.firstName, // Nome da pessoa homenageada
+        lastName: memorial.lastName,
+        lifeStory:
+          memorial.lifeStory || "História de vida ainda não foi cadastrada.",
+      })
+    } catch (error) {
+      console.error("Erro ao exibir percurso:", error)
+      return res
+        .status(500)
+        .render("500", { message: "Erro ao exibir percurso." })
     }
   },
 }
