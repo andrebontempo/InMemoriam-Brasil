@@ -1,25 +1,48 @@
 <header class="bs-primary text-white py-3">
   <div class="container">
     <div class="d-flex justify-content-between align-items-center">
-      <div class="d-flex align-items-center">
-        <a href="/">
-          <!-- Link para a página inicial -->
-          <img
-            src="/images/logo.svg"
-            alt="Logo In Memoriam Brasil"
-            class="me-2"
-            style="height: 40px;"
+
+      <!-- Logo à esquerda -->
+      <a href="/">
+        <img
+          src="/images/logo.svg"
+          alt="Logo In Memoriam Brasil"
+          style="height: 60px;"
+        />
+      </a>
+
+      <!-- Barra de pesquisa centralizada -->
+      <form
+        action="/pesquisa"
+        method="GET"
+        class="d-flex flex-grow-1 justify-content-center"
+      >
+        <div class="input-group w-50">
+          <input
+            type="text"
+            name="q"
+            class="form-control"
+            placeholder="Pesquisar por Memorial..."
+            aria-label="Pesquisar por Memorial"
           />
+          <button class="btn btn-light" type="submit">
+            <i class="bi bi-search text-white"></i>
+          </button>
+        </div>
+      </form>
+
+      <!-- Links de autenticação à direita -->
+      <div class="d-flex gap-3">
+        <a href="/register" class="text-white text-decoration-none fs-6">
+          <i class="bi bi-person-plus text-white"></i>
+          Criar uma conta
+        </a>
+        <a href="/login" class="text-white text-decoration-none fw-bold fs-6">
+          <i class="bi bi-box-arrow-in-right text-white"></i>
+          Entre
         </a>
       </div>
-      <div class="d-flex align-items-center">
-        <input
-          type="text"
-          class="form-control me-2"
-          placeholder="Pesquisar por Memorial..."
-        />
-        <a href="/login" class="btn btn-light">Inicie a Sessão</a>
-      </div>
+
     </div>
   </div>
 </header>
