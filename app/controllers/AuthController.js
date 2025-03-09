@@ -1,22 +1,101 @@
+const bcrypt = require("bcrypt") // Use a biblioteca bcrypt original
 const User = require("../models/User")
-const bcrypt = require("bcryptjs")
 const jwt = require("jsonwebtoken")
+const saltRounds = 10 // Use um valor maior para maior segurança
 
-//exports.register = async (req, res) => {
-exports.login = async (req, res) => {
-  try {
-    const { firstName, lastName, email, password } = req.body
+const AuthController = {
+  // Exibir o formulário de cadastro
+  showRegisterForm: (req, res) => {
+    res.render("register")
+  },
 
-    let user = await User.findOne({ email })
-    if (user) return res.status(400).json({ message: "E-mail já registrado" })
+  // Exibir o formulário de login
+  showLoginForm: (req, res) => {
+    res.render("login")
+  },
 
-    const hashedPassword = await bcrypt.hash(password, 10)
+  // Processar o login do usuário
+  loginUser: async (req, res) => {
+    try {
+      const { email, password } = req.body
 
-    user = new User({ firstName, lastName, email, password: hashedPassword })
-    await user.save()
+      // Verifica se o usuário existe
+      console.log("Email enviado:", email) // Verifique o valor do e-mail
+      const user = await User.findOne({ email: email }) // Busca direta
 
-    res.status(201).json({ message: "Usuário registrado com sucesso" })
-  } catch (err) {
-    res.status(500).json({ message: "Erro no servidor" })
-  }
+      if (!user) {
+        return res
+          .status(400)
+          .render("login", { error: "E-mail ou senha inválidos USER." })
+      }
+
+      console.log("Usuário encontrado:", user) // Verifique o retorno do MongoDB
+
+      // Verifica se a senha está correta
+      const isMatch = await bcrypt.compare(password.trim(), user.password)
+      console.log(password, user.password)
+      console.log("Senha válida?", isMatch) // Verifica se a senha foi validada corretamente
+
+      if (!isMatch) {
+        return res
+          .status(400)
+          .render("login", { error: "E-mail ou senha inválidos." })
+      }
+
+      // Armazena dados do usuário na sessão
+      req.session.user = {
+        id: user._id,
+        firstName: user.firstName,
+        lastName: user.lastName,
+        email: user.email,
+      }
+
+      res.redirect("/dashboard") // Redireciona para o painel do usuário
+    } catch (error) {
+      console.error("Erro ao processar login:", error)
+      res.status(500).render("login", { error: "Erro ao fazer login." })
+    }
+  },
+
+  // Processar o logout do usuário
+  logout: (req, res) => {
+    req.session.destroy(() => {
+      res.redirect("/login")
+    })
+  },
+
+  // Processar o cadastro do usuário
+  registerUser: async (req, res) => {
+    try {
+      const { firstName, lastName, email, password } = req.body
+
+      // Verifica se o e-mail já está cadastrado
+      const existingUser = await User.findOne({ email })
+      if (existingUser) {
+        return res.render("register", { error: "E-mail já cadastrado!" })
+      }
+
+      // Hash da senha
+      //const hashedPassword = await bcrypt.hash(password, saltRounds)
+
+      // Criar um novo usuário
+      const newUser = new User({
+        firstName,
+        lastName,
+        email,
+        password: password, // Senha sem hash
+        //password: hashedPassword, // Senha criptografada
+        authProvider: "local",
+      })
+
+      await newUser.save()
+
+      res.redirect("/login") // Redireciona para a página de login
+    } catch (error) {
+      console.error("Erro ao cadastrar usuário:", error)
+      res.status(500).render("register", { error: "Erro ao cadastrar usuário" })
+    }
+  },
 }
+
+module.exports = AuthController

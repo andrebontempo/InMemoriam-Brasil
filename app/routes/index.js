@@ -3,6 +3,7 @@ const router = express.Router()
 const HomeController = require("../controllers/HomeController")
 const AuthController = require("../controllers/AuthController")
 const MemorialController = require("../controllers/MemorialController")
+const authMiddleware = require("../middlewares/authMiddleware")
 
 // Rotas de Autenticação
 //router.post("/login", AuthController.login)
@@ -15,9 +16,23 @@ router.get("/", HomeController.index)
 
 //router.get("/login", AuthController.login)
 // Rota do botão login
-router.get("/login", (req, res) => {
-  res.render("login", { title: "Login" })
+//router.get("/login", (req, res) => {
+//  res.render("login", { title: "Login" })
+//})
+
+// Rota para exibir o formulário de cadastro
+router.get("/register", AuthController.showRegisterForm)
+// Rota para processar o cadastro
+router.post("/register", AuthController.registerUser)
+// Rota para exibir o formulário de login
+router.get("/login", AuthController.showLoginForm)
+// Rota para processar o login
+router.post("/login", AuthController.loginUser)
+
+router.get("/dashboard", authMiddleware, (req, res) => {
+  res.render("dashboard", { user: req.session.user })
 })
+router.get("/logout", AuthController.logout)
 
 // Novas rotas
 router.get("/sobre", (req, res) => {
