@@ -12,8 +12,6 @@ const MemorialController = {
       about,
       lifeStory,
       theme,
-      epitaph,
-      gallery,
     } = req.body
 
     if (!firstName || !lastName) {
@@ -22,14 +20,26 @@ const MemorialController = {
         .render("400", { message: "Nome e sobrenome são obrigatórios!" })
     }
 
+    // Gera o slug a partir do primeiro e último nome
     const slug = `${firstName}-${lastName}`
-      .toLowerCase()
-      .normalize("NFD")
-      .replace(/[̀-ͯ]/g, "")
-      .replace(/ç/g, "c")
-      .replace(/\s+/g, "-")
+      .toLowerCase() // Converte todos os caracteres para minúsculas
+      .normalize("NFD") // Separa os caracteres acentuados dos seus diacríticos
+      .replace(/[\u0300-\u036f]/g, "") // Remove os diacríticos (acentos, til, etc.)
+      .replace(/ç/g, "c") // Substitui a letra "ç" por "c"
+      .replace(/\s+/g, "-") // Substitui espaços em branco por hífen ("-")
+
+    // Conteúdo do memorial (pode ser ajustado conforme necessário)
+    const memorialContent = `
+      <main class="container my-5">
+          <div class="bg-white p-4 text-center">
+              <h1>Memorial de ${firstName} ${lastName}</h1>
+              <p>Homenagem a ${firstName} ${lastName}.</p>
+          </div>
+      </main>
+    `
 
     try {
+      // Verifica se já existe um memorial com o mesmo slug
       const memorialExistente = await Memorial.findOne({ slug })
       if (memorialExistente) {
         return res
@@ -37,22 +47,35 @@ const MemorialController = {
           .render("400", { message: "Já existe um memorial com esse nome." })
       }
 
+      // Cria o objeto memorial com todos os campos
       const memorial = new Memorial({
         firstName,
         lastName,
         slug,
         gender,
         relationship,
-        birth: birth || {},
-        death: death || {},
+        birth: {
+          date: birth?.date || null,
+          city: birth?.city || "",
+          state: birth?.state || "",
+          country: birth?.country || "",
+        },
+        death: {
+          date: death?.date || null,
+          city: death?.city || "",
+          state: death?.state || "",
+          country: death?.country || "",
+        },
         about,
         lifeStory,
-        theme: theme || "blue-theme",
-        epitaph,
-        gallery: gallery || [],
+        theme: theme || "blue-theme", // Valor padrão
+        conteudo: memorialContent,
       })
 
+      // Salva o memorial no banco de dados
       await memorial.save()
+
+      // Redireciona para a página do memorial
       return res.redirect(`/memoriais/${slug}`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)
@@ -66,21 +89,24 @@ const MemorialController = {
     const { nomeSobrenome } = req.params
 
     try {
+      // Busca o memorial pelo slug
       const memorial = await Memorial.findOne({ slug: nomeSobrenome })
 
       if (!memorial) {
         return res.status(404).render("404")
       }
 
+      // Renderiza a página do memorial
       return res.render("memoriais", {
         layout: "memorial-layout",
-        ...memorial.toObject(),
-        birth: memorial.birth || {},
-        death: memorial.death || {},
+        firstName: memorial.firstName, // Passa o primeiro nome
+        lastName: memorial.lastName, // Passa o sobrenome
+        slug: memorial.slug, // Adiciona o slug para ser usado na navbar
+        birth: memorial.birth || {}, // Evita erro se birth for undefined
+        death: memorial.death || {}, // Evita erro se death for undefined
         about: memorial.about || "Informação não disponível.",
         lifeStory: memorial.lifeStory || "História não fornecida.",
-        epitaph: memorial.epitaph || "",
-        gallery: memorial.gallery || [],
+        conteudo: memorial.conteudo || "<p>Sem conteúdo adicional.</p>",
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)

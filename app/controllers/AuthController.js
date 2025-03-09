@@ -1,7 +1,6 @@
 const bcrypt = require("bcrypt") // Use a biblioteca bcrypt original
 const User = require("../models/User")
-const jwt = require("jsonwebtoken")
-const saltRounds = 10 // Use um valor maior para maior segurança
+//const jwt = require("jsonwebtoken")
 
 const AuthController = {
   // Exibir o formulário de cadastro
@@ -20,21 +19,21 @@ const AuthController = {
       const { email, password } = req.body
 
       // Verifica se o usuário existe
-      console.log("Email enviado:", email) // Verifique o valor do e-mail
+      //console.log("Email enviado:", email) // Verifique o valor do e-mail
       const user = await User.findOne({ email: email }) // Busca direta
 
       if (!user) {
         return res
           .status(400)
-          .render("login", { error: "E-mail ou senha inválidos USER." })
+          .render("login", { error: "Usuário não cadastrado." })
       }
 
-      console.log("Usuário encontrado:", user) // Verifique o retorno do MongoDB
+      //console.log("Usuário encontrado:", user) //Retorno da consulta no banco de dados
 
       // Verifica se a senha está correta
       const isMatch = await bcrypt.compare(password.trim(), user.password)
-      console.log(password, user.password)
-      console.log("Senha válida?", isMatch) // Verifica se a senha foi validada corretamente
+      //console.log(password, user.password)
+      //console.log("Senha válida?", isMatch)
 
       if (!isMatch) {
         return res
@@ -72,10 +71,11 @@ const AuthController = {
       // Verifica se o e-mail já está cadastrado
       const existingUser = await User.findOne({ email })
       if (existingUser) {
-        return res.render("register", { error: "E-mail já cadastrado!" })
+        return res.render("register", { error: "Usuário já cadastrado!" })
       }
 
-      // Hash da senha
+      // Hash da senha está comentado pois está sendo realizado no model
+      //const saltRounds = 10
       //const hashedPassword = await bcrypt.hash(password, saltRounds)
 
       // Criar um novo usuário
@@ -83,8 +83,8 @@ const AuthController = {
         firstName,
         lastName,
         email,
-        password: password, // Senha sem hash
-        //password: hashedPassword, // Senha criptografada
+        password: password, // Senha sem hash (será criptografada no model)
+        //password: hashedPassword, //adicionei a linh acima e comentei essa linha
         authProvider: "local",
       })
 

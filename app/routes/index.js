@@ -78,11 +78,11 @@ router.get("/mapa-site", (req, res) => {
 router.post("/criar-memorial", MemorialController.criarMemorial)
 
 //router.get("/memorial/:nomeSobrenome", MemorialController.exibirMemorial)
-router.get("/memorial/:nomeSobrenome", (req, res) => {
-  res.redirect(`/memorial/${req.params.nomeSobrenome}/about`)
+router.get("/memoriais/:nomeSobrenome", (req, res) => {
+  res.redirect(`/memoriais/${req.params.nomeSobrenome}/about`)
 })
-router.get("/memorial/:nomeSobrenome/about", MemorialController.exibirMemorial)
-router.get("/memorial/:slug/lifestory", MemorialController.exibirLifeStory)
+router.get("/memoriais/:nomeSobrenome/about", MemorialController.exibirMemorial)
+router.get("/memoriais/:slug/lifestory", MemorialController.exibirLifeStory)
 // Rota de pesquisa
 router.get("/pesquisa", MemorialController.pesquisarMemorial)
 
