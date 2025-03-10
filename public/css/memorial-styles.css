@@ -87,3 +87,13 @@ iframe {
   font-size: 14px; /* Tamanho da fonte */
   opacity: 0.8; /* Transparência do texto */
 }
+
+/* Altera e fixa a cor do menu ativo*/
+.nav-item.active {
+  background-color: #de668a; /* Cor de fundo do item ativo */
+  border-radius: 5px; /* Borda arredondada */
+}
+
+.nav-item.active .nav-link {
+  color: #ffffff; /* Cor do texto do item ativo */
+}

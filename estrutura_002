@@ -1,114 +1,126 @@
 .
 ├── antigos
-│   ├── AuthController copy 2.js
-│   ├── AuthController copy 3.js
-│   ├── AuthController copy.js
-│   ├── criar-memorial_001.hbs
-│   ├── criar-memorial_002.hbs
-│   ├── criar-memorial_004.hbs
-│   ├── db copy_1.js
-│   ├── db copy.js
-│   ├── estrutura_002_conteudo
-│   ├── HomeController_001.js
-│   ├── HomeController_002.js
-│   ├── HomeController copy.js
-│   ├── index_001.js
-│   ├── index_002.js
-│   ├── Memorial_001.js
-│   ├── Memorial_002.js
-│   ├── MemorialController_003.js
-│   ├── MemorialController copy.js
-│   ├── seed.js
-│   ├── server copy.js
-│   ├── teste.js
-│   ├── User copy 2.js
-│   ├── User copy.js
-│   ├── user-styles copy.css
-│   └── zMemorial copy.js
+│   ├── AuthController copy 2.js
+│   ├── AuthController copy 2s.js
+│   ├── AuthController copy 3.js
+│   ├── AuthController copy 3s.js
+│   ├── AuthController copy.js
+│   ├── criar-memorial_001.hbs
+│   ├── criar-memorial_002.hbs
+│   ├── criar-memorial_004.hbs
+│   ├── db copy_1.js
+│   ├── db copy.js
+│   ├── estrutura_002_conteudo
+│   ├── header copy 2.hbs
+│   ├── header copy.hbs
+│   ├── HomeController_001.js
+│   ├── HomeController_002.js
+│   ├── HomeController copy.js
+│   ├── index_001.js
+│   ├── index_002.js
+│   ├── memoriais
+│   │   └── agora-vai.hbs
+│   ├── Memorial_001.js
+│   ├── Memorial_002.js
+│   ├── MemorialController_003.js
+│   ├── MemorialController copy.js
+│   ├── memorial-header copy.hbs
+│   ├── memorial-navbar copy.hbs
+│   ├── plano-opcoes copy.hbs
+│   ├── seed.js
+│   ├── server copy.js
+│   ├── teste.js
+│   ├── User copy 2.js
+│   ├── User copy.js
+│   ├── user-styles copy.css
+│   └── zMemorial copy.js
 ├── app
-│   ├── controllers
-│   │   ├── AuthController.js
-│   │   ├── HomeController.js
-│   │   ├── MemorialController copy.js
-│   │   └── MemorialController.js
-│   ├── middlewares
-│   │   └── authMiddleware.js
-│   ├── models
-│   │   ├── Gallery
-│   │   ├── Memorial copy.js
-│   │   ├── Memorial.js
-│   │   └── User.js
-│   ├── routes
-│   │   └── index.js
-│   └── views
-│       ├── 400.hbs
-│       ├── 404.hbs
-│       ├── 500.hbs
-│       ├── condicoes-utilizacao.hbs
-│       ├── contato.hbs
-│       ├── criar-memorial.hbs
-│       ├── dashboard.hbs
-│       ├── home.hbs
-│       ├── layouts
-│       │   ├── main.hbs
-│       │   └── memorial-layout.hbs
-│       ├── login copy.hbs
-│       ├── login.hbs
-│       ├── mapa-site.hbs
-│       ├── memoriais
-│       │   └── agora-vai.hbs
-│       ├── memoriais.hbs
-│       ├── memoriais-virtuais.hbs
-│       ├── memorial-about.hbs
-│       ├── memorial.hbs
-│       ├── memorial-lifestory.hbs
-│       ├── memorial-partials
-│       │   ├── memorial.body.hbs
-│       │   ├── memorial-footer.hbs
-│       │   ├── memorial-header.hbs
-│       │   ├── memorial-navbar copy.hbs
-│       │   └── memorial-navbar.hbs
-│       ├── memorial-pesquisa.hbs
-│       ├── partials
-│       │   ├── footer.hbs
-│       │   ├── header.hbs
-│       │   └── navbar.hbs
-│       ├── plano-opcoes.hbs
-│       ├── politica-privacidade.hbs
-│       ├── register.hbs
-│       ├── sobre.hbs
-│       ├── testemunhos.hbs
-│       └── user.hbs
+│   ├── controllers
+│   │   ├── AuthController.js
+│   │   ├── HomeController.js
+│   │   ├── MemorialController copy.js
+│   │   └── MemorialController.js
+│   ├── middlewares
+│   │   └── authMiddleware.js
+│   ├── models
+│   │   ├── Gallery
+│   │   ├── Memorial copy.js
+│   │   ├── Memorial.js
+│   │   └── User.js
+│   ├── routes
+│   │   └── index.js
+│   └── views
+│       ├── 400.hbs
+│       ├── 404.hbs
+│       ├── 500.hbs
+│       ├── condicoes-utilizacao.hbs
+│       ├── contato.hbs
+│       ├── criar-memorial.hbs
+│       ├── dashboard.hbs
+│       ├── home.hbs
+│       ├── layouts
+│       │   ├── main.hbs
+│       │   └── memorial-layout.hbs
+│       ├── login copy.hbs
+│       ├── login.hbs
+│       ├── mapa-site.hbs
+│       ├── memoriais.hbs
+│       ├── memoriais-virtuais.hbs
+│       ├── memorial-about.hbs
+│       ├── memorial.hbs
+│       ├── memorial-lifestory.hbs
+│       ├── memorial-partials
+│       │   ├── memorial.body.hbs
+│       │   ├── memorial-footer.hbs
+│       │   ├── memorial-header.hbs
+│       │   ├── memorial-navbar copy 2.hbs
+│       │   ├── memorial-navbar copy.hbs
+│       │   └── memorial-navbar.hbs
+│       ├── memorial-pesquisa.hbs
+│       ├── partials
+│       │   ├── footer.hbs
+│       │   ├── header.hbs
+│       │   ├── navbar copy.hbs
+│       │   └── navbar.hbs
+│       ├── plano-opcoes.hbs
+│       ├── politica-privacidade.hbs
+│       ├── register.hbs
+│       ├── sobre.hbs
+│       ├── testemunhos.hbs
+│       └── user.hbs
 ├── config
-│   ├── db.js
-│   └── playground-1.mongodb.js
+│   ├── db.js
+│   └── playground-1.mongodb.js
 ├── estrutura_001
 ├── estrutura_002
 ├── LICENSE
 ├── package.json
 ├── package-lock.json
 ├── public
-│   ├── css
-│   │   ├── memorial-styles.css
-│   │   └── styles.css
-│   ├── images
-│   │   ├── background1.jpg
-│   │   ├── background.jpg
-│   │   ├── homenageado1.png
-│   │   ├── homenageado2.png
-│   │   ├── homenageado3.png
-│   │   ├── homenageado4.png
-│   │   ├── logo_1.png
-│   │   ├── logo.png
-│   │   ├── logo.svg
-│   │   ├── pescaria.png
-│   │   └── time.jpg
-│   ├── js
-│   │   └── scripts.js
-│   └── videos
-│       └── tutorial.mp4
+│   ├── css
+│   │   ├── memorial-styles.css
+│   │   └── styles.css
+│   ├── images
+│   │   ├── background1.jpg
+│   │   ├── background.jpg
+│   │   ├── favicon-32x32.png
+│   │   ├── favicon-32x32.svg
+│   │   ├── homenageado1.png
+│   │   ├── homenageado2.png
+│   │   ├── homenageado3.png
+│   │   ├── homenageado4.png
+│   │   ├── logo_1.png
+│   │   ├── logo.png
+│   │   ├── logo.svg
+│   │   ├── pescaria.png
+│   │   └── time.jpg
+│   ├── js
+│   │   ├── navbar.js
+│   │   └── scripts.js
+│   └── videos
+│       └── tutorial.mp4
 ├── README.md
 ├── seed.js
 └── server.js
 
-18 directories, 94 files
+18 directories, 106 files
