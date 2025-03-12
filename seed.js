@@ -3,225 +3,179 @@ const bcrypt = require("bcrypt")
 const User = require("./app/models/User")
 const Memorial = require("./app/models/Memorial")
 
-const seedDatabase = async () => {
+// Substitua pela string de conexão com seu MongoDB
+const DB_URI =
+  "mongodb+srv://andrelnx:A2345678@cluster000.h5t9m.mongodb.net/inmemoriambrasilBD" // Exemplo
+
+// Função para popular o banco
+async function seedDatabase() {
   try {
-    await mongoose.connect(
-      "mongodb+srv://andrelnx:A2345678@cluster000.h5t9m.mongodb.net/inmemoriambrasilBD",
-      {
-        useNewUrlParser: true,
-        useUnifiedTopology: true,
-      }
-    )
+    // Conectar ao banco de dados MongoDB
+    await mongoose.connect(DB_URI, {
+      useNewUrlParser: true,
+      useUnifiedTopology: true,
+    })
+    console.log("Conectado ao MongoDB")
 
-    console.log("📌 Conectado ao MongoDB.")
-
-    // 🔥 Apaga dados antigos antes de inserir os novos
+    // Limpando coleções antes de adicionar dados
     await User.deleteMany({})
     await Memorial.deleteMany({})
-    console.log("🗑️ Dados antigos removidos.")
+    console.log("Coleções limpas")
 
-    // 📌 Criando usuários de teste
-    const users = [
-      {
-        firstName: "Alice",
-        lastName: "Silva",
-        email: "alice@example.com",
-        password: await bcrypt.hash("123456", 10),
-        authProvider: "local",
-      },
-      {
-        firstName: "Bruno",
-        lastName: "Pereira",
-        email: "bruno@example.com",
-        password: await bcrypt.hash("654321", 10),
-        authProvider: "local",
-      },
+    // Criando usuários
+    const users = await User.create([
       {
         firstName: "Carlos",
-        lastName: "Oliveira",
-        email: "carlos@example.com",
-        googleId: "1234567890abcdef",
-        authProvider: "google",
-      },
-      {
-        firstName: "Daniela",
-        lastName: "Santos",
-        email: "daniela@example.com",
-        password: await bcrypt.hash("daniela123", 10),
+        lastName: "Silva",
+        email: "carlos.silva@example.com",
+        password: "senha123",
         authProvider: "local",
       },
       {
-        firstName: "Eduardo",
-        lastName: "Fernandes",
-        email: "eduardo@example.com",
-        googleId: "abcdef1234567890",
-        authProvider: "google",
+        firstName: "Maria",
+        lastName: "Oliveira",
+        email: "maria.oliveira@example.com",
+        password: "senha123",
+        authProvider: "local",
       },
-    ]
-
-    const insertedUsers = await User.insertMany(users)
-    console.log("✅ Usuários inseridos com sucesso!")
-
-    // 📌 Criando memoriais de teste
-    const memorials = [
       {
-        user: insertedUsers[0]._id,
         firstName: "João",
+        lastName: "Pereira",
+        email: "joao.pereira@example.com",
+        password: "senha123",
+        authProvider: "local",
+      },
+      {
+        firstName: "Ana",
+        lastName: "Costa",
+        email: "ana.costa@example.com",
+        password: "senha123",
+        authProvider: "local",
+      },
+      {
+        firstName: "Lucas",
+        lastName: "Mendes",
+        email: "lucas.mendes@example.com",
+        password: "senha123",
+        authProvider: "local",
+      },
+    ])
+    console.log("Usuários criados")
+
+    // Criando memoriais
+    const memoriais = await Memorial.create([
+      {
+        firstName: "Carlos",
         lastName: "Silva",
-        slug: "joao-silva",
-        gender: "male",
-        relationship: "Pai",
+        slug: "carlos-silva",
+        gender: "Masculino",
         birth: {
-          date: "1950-05-20",
+          date: new Date("1980-05-20"),
           city: "São Paulo",
           state: "SP",
           country: "Brasil",
         },
         death: {
-          date: "2020-08-15",
+          date: new Date("2020-03-10"),
+          city: "São Paulo",
+          state: "SP",
+          country: "Brasil",
+        },
+        epitaph: "Sempre será lembrado.",
+        about: "Carlos era um homem de família e amigo leal.",
+        tribute: [
+          { name: "Maria", message: "Saudades, meu querido Carlos." },
+          { name: "João", message: "Você fará muita falta." },
+        ],
+        lifeStory: [
+          {
+            title: "Infância",
+            content: "Carlos teve uma infância feliz em São Paulo.",
+          },
+          {
+            title: "Carreira",
+            content:
+              "Carlos se dedicou à engenharia durante toda sua carreira.",
+          },
+        ],
+        stories: [
+          {
+            title: "Viagem para a Europa",
+            content:
+              "Carlos viajou para a Europa em 2015 e se apaixonou por Paris.",
+          },
+        ],
+        gallery: {
+          photos: ["photo1.jpg", "photo2.jpg"],
+          audios: ["audio1.mp3", "audio2.mp3"],
+          videos: ["video1.mp4", "video2.mp4"],
+        },
+        theme: "blue-theme",
+        user: users[0]._id,
+      },
+      {
+        firstName: "Maria",
+        lastName: "Oliveira",
+        slug: "maria-oliveira",
+        gender: "Feminino",
+        birth: {
+          date: new Date("1975-07-14"),
           city: "Rio de Janeiro",
           state: "RJ",
           country: "Brasil",
         },
-        epitaph: "Sempre em nossos corações.",
-        about: "João foi um grande amigo e pai amoroso.",
-        gallery: [
-          {
-            type: "image",
-            url: "/uploads/joao-foto.jpg",
-            description: "Foto de João",
-          },
-        ],
-      },
-      {
-        user: insertedUsers[1]._id,
-        firstName: "Ana",
-        lastName: "Pereira",
-        slug: "ana-pereira",
-        gender: "female",
-        relationship: "Mãe",
-        birth: {
-          date: "1960-02-10",
-          city: "Curitiba",
-          state: "PR",
-          country: "Brasil",
-        },
         death: {
-          date: "2018-11-22",
-          city: "Porto Alegre",
-          state: "RS",
+          date: new Date("2021-09-05"),
+          city: "Rio de Janeiro",
+          state: "RJ",
           country: "Brasil",
         },
-        epitaph: "Sua luz brilhará para sempre.",
-        about: "Ana sempre ajudou quem precisava.",
-        gallery: [
+        epitaph: "Viveu com amor e alegria.",
+        about: "Maria era uma pessoa doce e cheia de energia.",
+        tribute: [
           {
-            type: "video",
-            url: "/uploads/ana-video.mp4",
-            description: "Homenagem",
+            name: "Carlos",
+            message: "Você fez a diferença na minha vida, Maria.",
+          },
+          { name: "Ana", message: "Descanse em paz, amiga querida." },
+        ],
+        lifeStory: [
+          {
+            title: "Juventude",
+            content: "Maria foi uma jovem muito ativa na comunidade.",
+          },
+          {
+            title: "Família",
+            content: "Ela sempre colocou sua família em primeiro lugar.",
           },
         ],
-      },
-      {
-        user: insertedUsers[2]._id,
-        firstName: "Marcos",
-        lastName: "Oliveira",
-        slug: "marcos-oliveira",
-        gender: "male",
-        relationship: "Avô",
-        birth: {
-          date: "1945-07-10",
-          city: "Belo Horizonte",
-          state: "MG",
-          country: "Brasil",
-        },
-        death: {
-          date: "2015-03-05",
-          city: "São Paulo",
-          state: "SP",
-          country: "Brasil",
-        },
-        epitaph: "Seu legado nunca será esquecido.",
-        about: "Marcos foi um grande professor e escritor.",
-        gallery: [
+        stories: [
           {
-            type: "audio",
-            url: "/uploads/marcos-voz.mp3",
-            description: "Mensagem",
+            title: "Casamento",
+            content:
+              "Maria e seu marido tiveram uma história de amor incrível.",
           },
         ],
+        gallery: {
+          photos: ["maria1.jpg", "maria2.jpg"],
+          audios: ["maria1.mp3", "maria2.mp3"],
+          videos: ["maria1.mp4", "maria2.mp4"],
+        },
+        theme: "blue-theme",
+        user: users[1]._id,
       },
-      {
-        user: insertedUsers[3]._id,
-        firstName: "Beatriz",
-        lastName: "Santos",
-        slug: "beatriz-santos",
-        gender: "female",
-        relationship: "Avó",
-        birth: {
-          date: "1938-09-25",
-          city: "Recife",
-          state: "PE",
-          country: "Brasil",
-        },
-        death: {
-          date: "2019-12-31",
-          city: "Fortaleza",
-          state: "CE",
-          country: "Brasil",
-        },
-        epitaph: "O amor é eterno.",
-        about: "Beatriz sempre trouxe alegria para todos ao seu redor.",
-        gallery: [
-          {
-            type: "image",
-            url: "/uploads/beatriz.jpg",
-            description: "Beatriz sorrindo",
-          },
-        ],
-      },
-      {
-        user: insertedUsers[4]._id,
-        firstName: "Ricardo",
-        lastName: "Fernandes",
-        slug: "ricardo-fernandes",
-        gender: "male",
-        relationship: "Tio",
-        birth: {
-          date: "1975-12-15",
-          city: "Salvador",
-          state: "BA",
-          country: "Brasil",
-        },
-        death: {
-          date: "2022-06-18",
-          city: "Brasília",
-          state: "DF",
-          country: "Brasil",
-        },
-        epitaph: "Descanse em paz, guerreiro.",
-        about: "Ricardo foi um grande amigo e irmão.",
-        gallery: [
-          {
-            type: "video",
-            url: "/uploads/ricardo-homenagem.mp4",
-            description: "Última homenagem",
-          },
-        ],
-      },
-    ]
+      // Adicione mais memoriais conforme necessário
+    ])
 
-    await Memorial.insertMany(memorials)
-    console.log("✅ Memoriais inseridos com sucesso!")
+    console.log("Memoriais criados")
 
-    // 🚀 Finaliza a conexão
-    mongoose.connection.close()
-    console.log("🔌 Conexão com o banco fechada.")
+    // Fechar a conexão com o MongoDB
+    await mongoose.disconnect()
+    console.log("Banco de dados desconectado")
   } catch (error) {
-    console.error("❌ Erro ao popular o banco:", error)
-    mongoose.connection.close()
+    console.error("Erro ao popular o banco de dados:", error)
   }
 }
 
-// Executa a função para popular o banco
+// Rodar o script de seed
 seedDatabase()

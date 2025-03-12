@@ -2,10 +2,10 @@
   <div class="bg-white p-4">
     <h2 class="text-center mb-4">Criar Memorial</h2>
 
-    <!-- enctype="multipart/form-data" -->
     <form
       action="/criar-memorial"
       method="POST"
+      enctype="multipart/form-data"
       class="mx-auto"
       style="max-width: 80%;"
     >
@@ -54,7 +54,7 @@
         />
       </div>
 
-      <!-- Nascimento -->
+      <!-- Data e Local de Nascimento -->
       <h4 class="mt-4">Nascimento</h4>
       <div class="mb-3">
         <label for="birthDate" class="form-label">Data:</label>
@@ -62,7 +62,7 @@
           type="date"
           class="form-control"
           id="birthDate"
-          name="birth.date"
+          name="birth[date]"
         />
       </div>
 
@@ -72,7 +72,7 @@
           type="text"
           class="form-control"
           id="birthCity"
-          name="birth.city"
+          name="birth[city]"
         />
       </div>
 
@@ -82,7 +82,7 @@
           type="text"
           class="form-control"
           id="birthState"
-          name="birth.state"
+          name="birth[state]"
         />
       </div>
 
@@ -92,11 +92,11 @@
           type="text"
           class="form-control"
           id="birthCountry"
-          name="birth.country"
+          name="birth[country]"
         />
       </div>
 
-      <!-- Falecimento -->
+      <!-- Data e Local de Falecimento -->
       <h4 class="mt-4">Falecimento</h4>
       <div class="mb-3">
         <label for="deathDate" class="form-label">Data:</label>
@@ -104,7 +104,7 @@
           type="date"
           class="form-control"
           id="deathDate"
-          name="death.date"
+          name="death[date]"
         />
       </div>
 
@@ -114,7 +114,7 @@
           type="text"
           class="form-control"
           id="deathCity"
-          name="death.city"
+          name="death[city]"
         />
       </div>
 
@@ -124,7 +124,7 @@
           type="text"
           class="form-control"
           id="deathState"
-          name="death.state"
+          name="death[state]"
         />
       </div>
 
@@ -134,7 +134,7 @@
           type="text"
           class="form-control"
           id="deathCountry"
-          name="death.country"
+          name="death[country]"
         />
       </div>
 
@@ -146,7 +146,6 @@
           id="epitaph"
           name="epitaph"
           rows="2"
-          maxlength="255"
         ></textarea>
       </div>
 
@@ -161,6 +160,50 @@
         ></textarea>
       </div>
 
+      <!-- História de Vida -->
+      <h4 class="mt-4">História de Vida</h4>
+      <div class="mb-3">
+        <label for="lifeStoryTitle" class="form-label">Título (Opcional):</label>
+        <input
+          type="text"
+          class="form-control"
+          id="lifeStoryTitle"
+          name="lifeStory[title]"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="lifeStoryContent" class="form-label">Conteúdo:</label>
+        <textarea
+          class="form-control"
+          id="lifeStoryContent"
+          name="lifeStory[content]"
+          rows="3"
+        ></textarea>
+      </div>
+
+      <!-- Histórias e Casos -->
+      <h4 class="mt-4">Histórias e Casos</h4>
+      <div class="mb-3">
+        <label for="storiesTitle" class="form-label">Título (Opcional):</label>
+        <input
+          type="text"
+          class="form-control"
+          id="storiesTitle"
+          name="stories[title]"
+        />
+      </div>
+
+      <div class="mb-3">
+        <label for="storiesContent" class="form-label">Conteúdo (Opcional):</label>
+        <textarea
+          class="form-control"
+          id="storiesContent"
+          name="stories[content]"
+          rows="3"
+        ></textarea>
+      </div>
+
       <!-- Galeria -->
       <h4 class="mt-4">Galeria</h4>
       <div class="mb-3">
@@ -169,7 +212,7 @@
           type="file"
           class="form-control"
           id="galleryPhotos"
-          name="gallery.photos"
+          name="gallery[photos]"
           multiple
           accept="image/*"
         />
@@ -181,7 +224,7 @@
           type="file"
           class="form-control"
           id="galleryAudios"
-          name="gallery.audios"
+          name="gallery[audios]"
           multiple
           accept="audio/*"
         />
@@ -193,7 +236,7 @@
           type="file"
           class="form-control"
           id="galleryVideos"
-          name="gallery.videos"
+          name="gallery[videos]"
           multiple
           accept="video/*"
         />

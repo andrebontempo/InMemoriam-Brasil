@@ -1,16 +1,22 @@
 const Memorial = require("../models/Memorial")
+const path = require("path")
+const fs = require("fs")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
+    console.log("Corpo da requisição recebido:", req.body) // <-- VERIFICAR O CONTEÚDO
     const {
       firstName,
       lastName,
       gender,
       relationship,
-      birth,
-      death,
+      birth = {}, // Garante um objeto vazio se não vier no req.body
+      death = {}, // Garante um objeto vazio se não vier no req.body
+      epitaph,
       about,
-      lifeStory,
+      lifeStory = [], // Garante um array vazio se não vier no req.body
+      stories = [], // Garante um array vazio se não vier no req.body
+      gallery = {}, // Garante um objeto vazio se não vier no req.body
       theme,
     } = req.body
 
@@ -19,27 +25,13 @@ const MemorialController = {
         .status(400)
         .render("400", { message: "Nome e sobrenome são obrigatórios!" })
     }
-
-    // Gera o slug a partir do primeiro e último nome
     const slug = `${firstName}-${lastName}`
-      .toLowerCase() // Converte todos os caracteres para minúsculas
-      .normalize("NFD") // Separa os caracteres acentuados dos seus diacríticos
-      .replace(/[\u0300-\u036f]/g, "") // Remove os diacríticos (acentos, til, etc.)
-      .replace(/ç/g, "c") // Substitui a letra "ç" por "c"
-      .replace(/\s+/g, "-") // Substitui espaços em branco por hífen ("-")
-
-    // Conteúdo do memorial (pode ser ajustado conforme necessário)
-    const memorialContent = `
-      <main class="container my-5">
-          <div class="bg-white p-4 text-center">
-              <h1>Memorial de ${firstName} ${lastName}</h1>
-              <p>Homenagem a ${firstName} ${lastName}.</p>
-          </div>
-      </main>
-    `
-
+      .toLowerCase()
+      .normalize("NFD")
+      .replace(/[̀-ͯ]/g, "")
+      .replace(/ç/g, "c")
+      .replace(/\s+/g, "-")
     try {
-      // Verifica se já existe um memorial com o mesmo slug
       const memorialExistente = await Memorial.findOne({ slug })
       if (memorialExistente) {
         return res
@@ -47,35 +39,57 @@ const MemorialController = {
           .render("400", { message: "Já existe um memorial com esse nome." })
       }
 
-      // Cria o objeto memorial com todos os campos
       const memorial = new Memorial({
         firstName,
         lastName,
         slug,
-        gender,
-        relationship,
+        gender: gender || "Não informado",
+        relationship: relationship || "Não informado",
         birth: {
-          date: birth?.date || null,
-          city: birth?.city || "",
-          state: birth?.state || "",
-          country: birth?.country || "",
+          date: birth.date || null,
+          city: birth.city || "Local desconhecido",
+          state: birth.state || "Estado não informado",
+          country: birth.country || "País não informadoA",
         },
         death: {
-          date: death?.date || null,
-          city: death?.city || "",
-          state: death?.state || "",
-          country: death?.country || "",
+          date: death.date || null,
+          city: death.city || "Local desconhecido",
+          state: death.state || "Estado não informado",
+          country: death.country || "País não informadoA",
         },
-        about,
-        lifeStory,
-        theme: theme || "blue-theme", // Valor padrão
-        conteudo: memorialContent,
+        epitaph: epitaph || "Nenhum epitáfio foi cadastrado.",
+        about: about || "Nenhuma biografia disponível.",
+        lifeStory:
+          Array.isArray(lifeStory) && lifeStory.length > 0
+            ? lifeStory
+            : [
+                {
+                  title: "História não fornecida",
+                  content: "Ainda não há história cadastrada.",
+                },
+              ],
+        stories:
+          Array.isArray(stories) && stories.length > 0
+            ? stories
+            : [
+                {
+                  title: "Sem histórias",
+                  content: "Nenhuma história foi adicionada ainda.",
+                },
+              ],
+        gallery: {
+          photos:
+            Array.isArray(gallery.photos) && gallery.photos.length > 0
+              ? gallery.photos
+              : ["https://via.placeholder.com/300?text=Sem+imagens"],
+          audios: Array.isArray(gallery.audios) ? gallery.audios : [],
+          videos: Array.isArray(gallery.videos) ? gallery.videos : [],
+        },
+        theme: theme || "blue-theme",
       })
 
-      // Salva o memorial no banco de dados
+      console.log(memorial)
       await memorial.save()
-
-      // Redireciona para a página do memorial
       return res.redirect(`/memoriais/${slug}`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)
@@ -86,27 +100,46 @@ const MemorialController = {
   },
 
   exibirMemorial: async (req, res) => {
-    const { nomeSobrenome } = req.params
+    const { slug } = req.params
 
     try {
-      // Busca o memorial pelo slug
-      const memorial = await Memorial.findOne({ slug: nomeSobrenome })
+      const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404")
+        return res
+          .status(404)
+          .render("404", { message: "Memorial não encontrado." })
       }
 
-      // Renderiza a página do memorial
+      // Função auxiliar para formatar datas
+      const formatarData = (data) => {
+        if (!data) return "Não informada"
+        return new Date(data).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+      }
+
       return res.render("memoriais", {
         layout: "memorial-layout",
-        firstName: memorial.firstName, // Passa o primeiro nome
-        lastName: memorial.lastName, // Passa o sobrenome
-        slug: memorial.slug, // Adiciona o slug para ser usado na navbar
-        birth: memorial.birth || {}, // Evita erro se birth for undefined
-        death: memorial.death || {}, // Evita erro se death for undefined
+        ...memorial.toObject(),
+        birth: {
+          date: formatarData(memorial.birth?.date),
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: formatarData(memorial.death?.date),
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
         about: memorial.about || "Informação não disponível.",
-        lifeStory: memorial.lifeStory || "História não fornecida.",
-        conteudo: memorial.conteudo || "<p>Sem conteúdo adicional.</p>",
+        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
+        epitaph: memorial.epitaph || "",
+        gallery: memorial.gallery || { photos: [], audios: [], videos: [] },
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
@@ -141,6 +174,58 @@ const MemorialController = {
       return res
         .status(500)
         .render("500", { message: "Erro ao exibir percurso." })
+    }
+  },
+
+  exibirGallery: async (req, res) => {
+    const { slug } = req.params
+    try {
+      // Busca o memorial pelo slug
+      const memorial = await Memorial.findOne({ slug })
+      if (!memorial) {
+        return res.status(404).render("404")
+      }
+
+      // Renderiza a página de Galeria)
+      return res.render("memorial-gallery", {
+        layout: "memorial-layout", // Usa o mesmo layout do memorial
+        slug: memorial.slug, // Passa o slug para a navbar
+        firstName: memorial.firstName, // Nome da pessoa homenageada
+        lastName: memorial.lastName,
+        //gallery: memorial.gallery || [],
+      })
+    } catch (error) {
+      console.error("Erro ao exibir galeria:", error)
+      return res
+        .status(500)
+        .render("500", { message: "Erro ao exibir galeria." })
+    }
+  },
+  exibirStories: async (req, res) => {
+    const { slug } = req.params
+    try {
+      // Busca o memorial pelo slug
+      const memorial = await Memorial.findOne({ slug })
+
+      if (!memorial) {
+        return res.status(404).render("404")
+      }
+
+      // Renderiza a página Histórias
+      return res.render("memorial-stories", {
+        layout: "memorial-layout", // Usa o mesmo layout do memorial
+        slug: memorial.slug, // Passa o slug para a navbar
+        firstName: memorial.firstName, // Nome da pessoa homenageada
+        lastName: memorial.lastName,
+        stories:
+          memorial.stories ||
+          "Exibindo Stories - História de vida ainda não foi cadastrada.",
+      })
+    } catch (error) {
+      console.error("Erro ao exibir Histórias:", error)
+      return res
+        .status(500)
+        .render("500", { message: "Erro ao exibir Histórias." })
     }
   },
   // Método para exibir a página de pesquisa de memoriais

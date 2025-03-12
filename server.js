@@ -3,6 +3,7 @@ const exphbs = require("express-handlebars")
 const path = require("path")
 const conectarDB = require("./config/db")
 const session = require("express-session")
+const formData = require("express-form-data")
 require("dotenv").config()
 
 const app = express()
@@ -10,6 +11,7 @@ conectarDB() // Conectar ao banco de dados
 
 app.use(express.urlencoded({ extended: true })) // Para processar POST forms
 app.use(express.json()) // Para processar JSON
+app.use(formData.parse()) // Para lidar com uploads corretamente
 
 // Configurar sessões
 app.use(

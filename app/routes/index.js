@@ -75,17 +75,26 @@ router.get("/mapa-site", (req, res) => {
   res.render("mapa-site", { title: "Mapa do Site - In Memoriam Brasil" })
 })
 
-router.post("/criar-memorial", MemorialController.criarMemorial)
+//router.post("/criar-memorial", MemorialController.criarMemorial)
+router.post(
+  "/criar-memorial",
+  (req, res, next) => {
+    console.log("Requisição recebida para criar memorial.")
+    next() // Passa para o controlador
+  },
+  MemorialController.criarMemorial
+)
 
 //router.get("/memorial/:nomeSobrenome", MemorialController.exibirMemorial)
-router.get("/memoriais/:nomeSobrenome", (req, res) => {
-  res.redirect(`/memoriais/${req.params.nomeSobrenome}/about`)
+router.get("/memoriais/:slug", (req, res) => {
+  res.redirect(`/memoriais/${req.params.slug}/about`)
 })
-router.get("/memoriais/:nomeSobrenome/about", MemorialController.exibirMemorial)
+router.get("/memoriais/:slug/about", MemorialController.exibirMemorial)
 router.get("/memoriais/:slug/lifestory", MemorialController.exibirLifeStory)
+router.get("/memoriais/:slug/gallery", MemorialController.exibirGallery)
+router.get("/memoriais/:slug/stories", MemorialController.exibirStories)
 // Rota de pesquisa
 router.get("/pesquisa", MemorialController.pesquisarMemorial)
-
 // Rota para páginas não encontradas (404)
 router.use((req, res) => {
   res
