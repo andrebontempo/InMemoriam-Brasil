@@ -1,7 +1,6 @@
 const Memorial = require("../models/Memorial")
 const path = require("path")
 const fs = require("fs")
-const { exibirLifeStory } = require("./MemorialController copy 3")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
