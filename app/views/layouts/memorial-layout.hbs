@@ -7,11 +7,12 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
     <link rel="icon" type="image/png" sizes="32x32" href="/images/favicon-32x32.svg">
     <link rel="stylesheet" href="/css/memorial-styles.css">
-    <!-- Adicione o link para os ícones do Bootstrap, se ainda não estiver incluído -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css">
 </head>
 <body>
     {{> memorial-header}}
+    
+    <!-- Div com a imagem de fundo e texto sobreposto -->
     <div
         style="
             width: 100%;
@@ -19,12 +20,21 @@
             background-image: url('/images/pescaria.png');
             background-size: cover;
             background-position: center;
-          "
+            position: relative;
+        "
     >
+        <!-- Conteúdo sobreposto à imagem -->
+        <div class="d-flex justify-content-center align-items-center h-100 text-center text-white" style="position: absolute; top: 0; left: 0; right: 0; bottom: 0;">
+            <div>
+                <h1>Memorial de {{firstName}} {{lastName}}</h1>
+                <p>Homenagem a {{firstName}} {{lastName}}.</p>
+            </div>
+        </div>
     </div>
+
     {{> memorial-navbar}}
        
-     <!-- Conteúdo da página será injetado aqui -->
+    <!-- Conteúdo da página será injetado aqui -->
     {{{body}}}
     
     {{> memorial-footer}}

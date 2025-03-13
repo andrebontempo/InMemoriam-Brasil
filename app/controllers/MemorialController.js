@@ -1,6 +1,7 @@
 const Memorial = require("../models/Memorial")
 const path = require("path")
 const fs = require("fs")
+const { exibirLifeStory } = require("./MemorialController copy 3")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
@@ -158,81 +159,177 @@ const MemorialController = {
     const { slug } = req.params
 
     try {
-      // Busca o memorial pelo slug
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404")
+        return res.status(404).render("404", {
+          message: "Memorial não encontrado.",
+        })
       }
 
-      // Renderiza a página de percurso (Life Story)
+      const formatarData = (data) => {
+        if (!data || isNaN(new Date(data))) return "Não informada"
+        return new Date(data).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+      }
+
       return res.render("memorial-lifestory", {
-        layout: "memorial-layout", // Usa o mesmo layout do memorial
-        slug: memorial.slug, // Passa o slug para a navbar
-        firstName: memorial.firstName, // Nome da pessoa homenageada
+        layout: "memorial-layout",
+        firstName: memorial.firstName,
         lastName: memorial.lastName,
-        lifeStory:
-          memorial.lifeStory || "História de vida ainda não foi cadastrada.",
+        slug: memorial.slug,
+        gender: memorial.gender,
+        relationship: memorial.relationship,
+        birth: {
+          date: formatarData(memorial.birth?.date),
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: formatarData(memorial.death?.date),
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
+        about: memorial.about || "Informação não disponível.",
+        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
+        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
+        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        gallery: memorial.gallery || {
+          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          audios: [],
+          videos: [],
+        },
+        theme: memorial.theme || "blue-theme",
       })
     } catch (error) {
-      console.error("Erro ao exibir percurso:", error)
-      return res
-        .status(500)
-        .render("500", { message: "Erro ao exibir percurso." })
+      console.error("Erro ao exibir memorial:", error)
+      return res.status(500).render("500", {
+        message: "Erro ao exibir memorial.",
+      })
     }
   },
 
   exibirGallery: async (req, res) => {
     const { slug } = req.params
     try {
-      // Busca o memorial pelo slug
       const memorial = await Memorial.findOne({ slug })
+
       if (!memorial) {
-        return res.status(404).render("404")
+        return res.status(404).render("404", {
+          message: "Memorial não encontrado.",
+        })
       }
 
-      // Renderiza a página de Galeria)
+      const formatarData = (data) => {
+        if (!data || isNaN(new Date(data))) return "Não informada"
+        return new Date(data).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+      }
+
       return res.render("memorial-gallery", {
-        layout: "memorial-layout", // Usa o mesmo layout do memorial
-        slug: memorial.slug, // Passa o slug para a navbar
-        firstName: memorial.firstName, // Nome da pessoa homenageada
+        layout: "memorial-layout",
+        firstName: memorial.firstName,
         lastName: memorial.lastName,
-        //gallery: memorial.gallery || [],
+        slug: memorial.slug,
+        gender: memorial.gender,
+        relationship: memorial.relationship,
+        birth: {
+          date: formatarData(memorial.birth?.date),
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: formatarData(memorial.death?.date),
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
+        about: memorial.about || "Informação não disponível.",
+        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
+        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
+        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        gallery: memorial.gallery || {
+          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          audios: [],
+          videos: [],
+        },
+        theme: memorial.theme || "blue-theme",
       })
     } catch (error) {
-      console.error("Erro ao exibir galeria:", error)
-      return res
-        .status(500)
-        .render("500", { message: "Erro ao exibir galeria." })
+      console.error("Erro ao exibir memorial:", error)
+      return res.status(500).render("500", {
+        message: "Erro ao exibir memorial.",
+      })
     }
   },
+
   exibirStories: async (req, res) => {
     const { slug } = req.params
     try {
-      // Busca o memorial pelo slug
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404")
+        return res.status(404).render("404", {
+          message: "Memorial não encontrado.",
+        })
       }
 
-      // Renderiza a página Histórias
+      const formatarData = (data) => {
+        if (!data || isNaN(new Date(data))) return "Não informada"
+        return new Date(data).toLocaleDateString("pt-BR", {
+          day: "2-digit",
+          month: "long",
+          year: "numeric",
+        })
+      }
+
       return res.render("memorial-stories", {
-        layout: "memorial-layout", // Usa o mesmo layout do memorial
-        slug: memorial.slug, // Passa o slug para a navbar
-        firstName: memorial.firstName, // Nome da pessoa homenageada
+        layout: "memorial-layout",
+        firstName: memorial.firstName,
         lastName: memorial.lastName,
-        stories:
-          memorial.stories ||
-          "Exibindo Stories - História de vida ainda não foi cadastrada.",
+        slug: memorial.slug,
+        gender: memorial.gender,
+        relationship: memorial.relationship,
+        birth: {
+          date: formatarData(memorial.birth?.date),
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: formatarData(memorial.death?.date),
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
+        about: memorial.about || "Informação não disponível.",
+        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
+        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
+        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        gallery: memorial.gallery || {
+          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          audios: [],
+          videos: [],
+        },
+        theme: memorial.theme || "blue-theme",
       })
     } catch (error) {
-      console.error("Erro ao exibir Histórias:", error)
-      return res
-        .status(500)
-        .render("500", { message: "Erro ao exibir Histórias." })
+      console.error("Erro ao exibir memorial:", error)
+      return res.status(500).render("500", {
+        message: "Erro ao exibir memorial.",
+      })
     }
   },
+
   // Método para exibir a página de pesquisa por memorial
   pesquisarMemorial: async (req, res) => {
     const termo = req.query.q // Obtém o termo digitado na pesquisa

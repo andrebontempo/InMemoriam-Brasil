@@ -1,23 +1,50 @@
 <main class="container my-0">
-  <div class="bg-white p-4 text-center">
-    <h1>Memorial de {{firstName}} {{lastName}}</h1>
-    <p>Homenagem a {{firstName}} {{lastName}}.</p>
-    <p><strong>Data de Nascimento:</strong> {{birth.date}}</p>
-    <p><strong>Local de Nascimento:</strong>
-      {{birth.city}},
-      {{birth.state}},
-      {{birth.country}}</p>
-    <p><strong>Data de Falecimento:</strong> {{death.date}}</p>
-    <p><strong>Local de Falecimento:</strong>
-      {{death.city}},
-      {{death.state}},
-      {{death.country}}</p>
-    <p><strong>Sobre:</strong> {{about}}</p>
-    <p><strong>História de Vida:</strong> {{lifeStory}}</p>
+  <div class="custom-container my-0 p-2">
+    <div class="row">
+      <!-- Coluna Principal (3/4) -->
+      <div class="col-md-9">
+        
+        <!-- Seção de Life Story em uma caixa separada -->
+        <div class="custom-box p-4 mt-4">
+          <h3><strong>Pequena Biografia</strong></h3>
+          <p>
+            {{#if lifeStory}}
+              {{lifeStory.title}}
+              {{lifeStory.title}}
+            {{else}}
+              Nenhuma biografia disponível.
+            {{/if}}
+          </p>
+        </div>
+      </div>
+
+      <!-- Coluna Lateral (1/4) -->
+      <div class="col-md-3">
+        <div class="custom-box p-3">
+          <h4>Informações Gerais</h4>
+          <ul class="list-unstyled">
+            <li><strong>Gênero:</strong> {{#if gender}}{{gender}}{{else}}Não informado{{/if}}</li>
+            <li><strong>Relacionamento:</strong> {{#if relationship}}{{relationship}}{{else}}Não informado{{/if}}</li>
+          </ul>
+        </div>
+
+        <div class="custom-box p-3 mt-3">
+          <h4>Estatísticas</h4>
+          <p><strong>Visitas:</strong> 1234</p> <!-- Pode ser dinâmico no futuro -->
+          <p><strong>Tributos:</strong> {{tribute.length}}</p>
+        </div>
+
+        <div class="custom-box p-3 mt-3">
+          <h4>Galeria</h4>
+          {{#if gallery.photos.length}}
+            {{#each gallery.photos}}
+              <img src="{{this}}" class="img-fluid rounded mb-2" alt="Foto de {{../firstName}}">
+            {{/each}}
+          {{else}}
+            <p>Nenhuma foto disponível.</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
   </div>
 </main>
-
-<!-- Renderiza o conteúdo salvo no memorial 
-<div class="container">
-  {{{conteudo}}}
-</div> -->

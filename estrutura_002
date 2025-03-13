@@ -8,6 +8,9 @@
 │   ├── criar-memorial_001.hbs
 │   ├── criar-memorial_002.hbs
 │   ├── criar-memorial_004.hbs
+│   ├── criar-memorial copy 2.hbs
+│   ├── criar-memorial copy.hbs
+│   ├── criar-memorial_Old.hbs
 │   ├── db copy_1.js
 │   ├── db copy.js
 │   ├── estrutura_002_conteudo
@@ -22,10 +25,24 @@
 │   │   └── agora-vai.hbs
 │   ├── Memorial_001.js
 │   ├── Memorial_002.js
+│   ├── memorial-about copy 2.hbs
+│   ├── memorial-about copy 3.hbs
+│   ├── memorial-about copy 4.hbs
+│   ├── memorial-about copy 5.hbs
+│   ├── memorial-about copy 6.hbs
+│   ├── memorial-about copy 7.hbs
+│   ├── memorial-about copy 8.hbs
+│   ├── memorial-about copy.hbs
 │   ├── MemorialController_003.js
+│   ├── MemorialController copy 2.js
+│   ├── MemorialController copy 3.js
 │   ├── MemorialController copy.js
 │   ├── memorial-header copy.hbs
+│   ├── memorial-layout copy.hbs
+│   ├── memorial-lifestory copy.hbs
+│   ├── memorial-navbar copy 2.hbs
 │   ├── memorial-navbar copy.hbs
+│   ├── memorial-stories copy.hbs
 │   ├── plano-opcoes copy.hbs
 │   ├── seed.js
 │   ├── server copy.js
@@ -38,14 +55,14 @@
 │   ├── controllers
 │   │   ├── AuthController.js
 │   │   ├── HomeController.js
-│   │   ├── MemorialController copy.js
 │   │   └── MemorialController.js
 │   ├── middlewares
 │   │   └── authMiddleware.js
 │   ├── models
 │   │   ├── Gallery
-│   │   ├── Memorial copy.js
+│   │   ├── Memorial copy 2.js
 │   │   ├── Memorial.js
+│   │   ├── Memorial_OLD.js
 │   │   └── User.js
 │   ├── routes
 │   │   └── index.js
@@ -57,6 +74,7 @@
 │       ├── contato.hbs
 │       ├── criar-memorial.hbs
 │       ├── dashboard.hbs
+│       ├── home copy.hbs
 │       ├── home.hbs
 │       ├── layouts
 │       │   ├── main.hbs
@@ -64,19 +82,19 @@
 │       ├── login copy.hbs
 │       ├── login.hbs
 │       ├── mapa-site.hbs
-│       ├── memoriais.hbs
+│       ├── memoriais99.hbs
 │       ├── memoriais-virtuais.hbs
 │       ├── memorial-about.hbs
+│       ├── memorial-gallery.hbs
 │       ├── memorial.hbs
 │       ├── memorial-lifestory.hbs
 │       ├── memorial-partials
 │       │   ├── memorial.body.hbs
 │       │   ├── memorial-footer.hbs
 │       │   ├── memorial-header.hbs
-│       │   ├── memorial-navbar copy 2.hbs
-│       │   ├── memorial-navbar copy.hbs
 │       │   └── memorial-navbar.hbs
 │       ├── memorial-pesquisa.hbs
+│       ├── memorial-stories.hbs
 │       ├── partials
 │       │   ├── footer.hbs
 │       │   ├── header.hbs
@@ -103,6 +121,8 @@
 │   ├── images
 │   │   ├── background1.jpg
 │   │   ├── background.jpg
+│   │   ├── favicon-32x32_1.svg
+│   │   ├── favicon-32x32_old.svg
 │   │   ├── favicon-32x32.png
 │   │   ├── favicon-32x32.svg
 │   │   ├── homenageado1.png
@@ -123,4 +143,4 @@
 ├── seed.js
 └── server.js
 
-18 directories, 106 files
+18 directories, 126 files
