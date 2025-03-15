@@ -1,19 +1,18 @@
 :root {
-  --bs-primary: #144417; /* Verde escuro */
-  --bs-primary-rgb: 27, 94, 32;
-  --bs-secondary: #388e3c; /* Verde médio */
-  --bs-secondary-rgb: 56, 142, 60;
-  --bs-light: #c8e6c9; /* Verde claro */
-  --bs-light-rgb: 200, 230, 201;
-  --bs-dark: #142b13; /* Verde muito escuro */
-  --bs-dark-rgb: 13, 60, 11;
+  --bs-primary: #4b0082; /* Roxo escuro */
+  --bs-primary-rgb: 75, 0, 130;
+  --bs-secondary: #800080; /* Roxo médio */
+  --bs-secondary-rgb: 128, 0, 128;
+  --bs-light: #e6e6fa; /* Lavanda (roxo claro) */
+  --bs-light-rgb: 230, 230, 250;
+  --bs-dark: #2c003e; /* Roxo muito escuro */
+  --bs-dark-rgb: 44, 0, 62;
   --bs-body-bg: #f8f9fa; /* Cor de fundo padrão */
 }
 
 body {
   color: var(--bs-dark);
   font-family: Arial, sans-serif;
-  /*background: linear-gradient(to bottom, var(--bs-light), var(--bs-body-bg));8*/
   background-image: url("/images/background.jpg"); /* Caminho para a imagem */
   background-size: cover; /* Faz a imagem cobrir toda a área */
   background-position: center; /* Centraliza a imagem */

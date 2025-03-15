@@ -2,9 +2,9 @@
   <section class="row">
     <!-- Coluna para o botão -->
     <div class="col-md-6">
-      <div class="card p-4 h-100">
-        <h2 class="card-title" style="color: #4f0e21;">In Memoriam Brasil</h2>
-        <p style="text-align: justify;">
+      <div class="card p-4 h-100 bg-primary text-white rounded-4 shadow-lg">
+        <h2 class="card-title fw-bold">In Memoriam Brasil</h2>
+        <p class="text-justify">
           Preserve para sempre a memória de quem foi especial em sua vida. Crie
           um
           <strong>Memorial Virtual</strong>
@@ -19,13 +19,14 @@
         </p>
 
         <div class="text-end">
-          <a href="/criar-memorial" class="btn btn-primary">Criar Memorial</a>
+          <a href="/criar-memorial" class="btn btn-light btn-custom">Criar
+            Memorial</a>
         </div>
       </div>
     </div>
 
     <div class="col-md-6">
-      <div class="ratio ratio-16x9 h-100">
+      <div class="ratio ratio-16x9 h-100 rounded-4 overflow-hidden shadow-lg">
         <video controls width="100%">
           <source src="/videos/tutorial.mp4" type="video/mp4" />
           Seu navegador não suporta a reprodução deste vídeo.
@@ -38,60 +39,69 @@
     <h2 class="text-center mb-4">Páginas de Memoriais Existentes</h2>
     <div class="row">
       <div class="col-md-3">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img
             src="/images/homenageado1.png"
-            class="card-img-top"
+            class="card-img-top rounded-top"
             alt="Homenageado 1"
           />
-          <div class="card-body">
-            <p class="card-text text-center">Pateta Pereira da Silva</p>
+          <div class="card-body bg-light">
+            <p class="card-text text-center fw-bold">Pateta Pereira da Silva</p>
           </div>
         </div>
       </div>
 
       <div class="col-md-3">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img
             src="/images/homenageado2.png"
-            class="card-img-top"
-            alt="Homenageado 1"
+            class="card-img-top rounded-top"
+            alt="Homenageado 2"
           />
-          <div class="card-body">
-            <p class="card-text text-center">Mickey Alves Oliveira</p>
+          <div class="card-body bg-light">
+            <p class="card-text text-center fw-bold">Mickey Alves Oliveira</p>
           </div>
         </div>
       </div>
 
       <div class="col-md-3">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img
             src="/images/homenageado3.png"
-            class="card-img-top"
-            alt="Homenageado 1"
+            class="card-img-top rounded-top"
+            alt="Homenageado 3"
           />
-          <div class="card-body">
-            <p class="card-text text-center">Obelix Bontempo Rabello</p>
+          <div class="card-body bg-light">
+            <p class="card-text text-center fw-bold">Obelix Bontempo Rabello</p>
           </div>
         </div>
       </div>
+
       <div class="col-md-3">
-        <div class="card">
+        <div class="card border-0 shadow">
           <img
             src="/images/homenageado4.png"
-            class="card-img-top"
-            alt="Homenageado 1"
+            class="card-img-top rounded-top"
+            alt="Homenageado 4"
           />
-          <div class="card-body">
-            <p class="card-text text-center">Ogro José de Souza</p>
+          <div class="card-body bg-light">
+            <p class="card-text text-center fw-bold">Ogro José de Souza</p>
           </div>
         </div>
       </div>
-      <!-- Repetir para outros cards -->
     </div>
-    <div class="text-center mt-4">
-      <p>Memoriais Cadastrados: 1.234</p>
-      <p>Visitantes: 12.345</p>
+    <div class="text-center mt-4 text-secondary">
+      <p>Memoriais Cadastrados: <strong>1.234</strong></p>
+      <p>Visitantes: <strong>12.345</strong></p>
     </div>
   </section>
 </main>
+
+<style>
+  /* Definição das cores principais */ :root { --bs-primary: #1b5e20; /* Verde
+  escuro */ --bs-secondary: #388e3c; /* Verde médio */ --bs-light: #c8e6c9; /*
+  Verde claro */ --bs-dark: #0d3c0b; /* Verde muito escuro */ } /* Estilizando
+  os botões */ .btn-custom { background-color: var(--bs-light); color:
+  var(--bs-dark); border: none; font-weight: bold; } .btn-custom:hover {
+  background-color: var(--bs-secondary); color: white; }
+</style>

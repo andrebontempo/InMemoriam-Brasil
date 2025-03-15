@@ -1,0 +1,101 @@
+:root {
+  --bs-primary: #4f0e21; /*#ad536a; /* Nova cor primária */
+  --bs-primary-rgb: 173, 83, 106; /* RGB da nova cor */
+}
+
+body {
+  color: #4f0e21 !important; /* Define a cor padrão do texto */
+  font-family: Arial, sans-serif;
+  background-color: #f8f9fa;
+  background-image: url("/images/background.jpg"); /* Caminho para a imagem */
+  background-size: cover; /* Faz a imagem cobrir toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-attachment: fixed; /* Faz a imagem ficar fixa enquanto o usuário rola a página */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  height: 100vh; /* Faz a altura da seção ser igual à altura da tela */
+  width: 100%; /* Faz a largura da seção ocupar 100% da tela */
+}
+
+header {
+  background-color: #4f0e21; /*#a84fe7; /* rgba(0, 51, 102, 0.9);  Azul escuro com transparência */
+  /*background-color: rgba(0, 51, 102, 0.9);  Azul escuro com transparência */
+  color: #fff;
+  padding: 10px 0;
+}
+
+.navbar {
+  background-color: #4a1170; /*rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+}
+
+footer {
+  background-color: rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+  color: #fff;
+  padding: 20px 0;
+}
+
+.hero {
+  padding: 100px 0;
+  text-align: center;
+  color: #fff;
+}
+
+.card {
+  margin-bottom: 20px;
+}
+
+iframe {
+  border: none;
+  border-radius: 8px;
+}
+
+.d-flex {
+  font-size: 12px; /* Ajuste o tamanho da fonte */
+  white-space: nowrap; /* Impede que o conteúdo quebre para a linha seguinte */
+}
+
+.d-flex a {
+  margin-right: 10px; /* Ajuste o espaçamento entre os links */
+}
+
+/* Sobrescreve a classe btn-primary do Bootstrap */
+.btn-primary {
+  background-color: #aa2345; /* Nova cor de fundo (laranja) */
+  border-color: #dbca65; /* Cor da borda (opcional) */
+  color: #ffffff; /* Cor do texto */
+}
+
+/* Efeito hover */
+.btn-primary:hover {
+  background-color: #aa2345; /* Cor de fundo ao passar o mouse */
+  border-color: #dbca65; /* Cor da borda ao passar o mouse */
+}
+
+/* Efeito active (quando o botão é clicado) */
+.btn-primary:active {
+  background-color: #aa2345; /* Cor de fundo ao clicar */
+  border-color: #dbca65; /* Cor da borda ao clicar */
+}
+
+.card-img-top {
+  width: 100%; /* Para ocupar toda a largura do card */
+  height: 300px; /* Defina uma altura fixa */
+  object-fit: cover; /* Garante que a imagem cubra toda a área sem distorcer */
+}
+
+.form-control::placeholder {
+  color: #555; /* Cor do texto do placeholder */
+  font-style: italic; /* Texto em itálico */
+  font-size: 14px; /* Tamanho da fonte */
+  opacity: 0.8; /* Transparência do texto */
+}
+
+/* Altera e fixa a cor do menu ativo*/
+
+.nav-item.active {
+  background-color: #de668a; /* Cor de fundo do item ativo */
+  border-radius: 5px; /* Borda arredondada */
+}
+
+.nav-item.active .nav-link {
+  color: #ffffff; /* Cor do texto do item ativo */
+}
