@@ -30,7 +30,7 @@ router.get("/login", AuthController.showLoginForm)
 router.post("/login", AuthController.loginUser)
 
 router.get("/dashboard", authMiddleware, (req, res) => {
-  res.render("dashboard", { user: req.session.user })
+  res.render("auth/dashboard", { user: req.session.user })
 })
 router.get("/logout", AuthController.logout)
 
