@@ -109,7 +109,12 @@ iframe {
 }
 
 .custom-container {
-  background-color: var(--bs-light); /* Vermelho claro */
+  /*background-color: var(--bs-dark); /* Vermelho claro */
+  background: radial-gradient(
+    circle,
+    #9e6565,
+    var(--bs-dark)
+  ); /* Degradê escuro para o centro */
   padding: 5px;
 }
 
@@ -147,4 +152,7 @@ iframe {
   font-size: 2.3rem;
   font-weight: bold;
   font-style: italic;
+  word-wrap: break-word;
+  overflow-wrap: break-word;
+  white-space: normal;
 }
