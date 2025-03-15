@@ -5,7 +5,7 @@
       <div class="col-md-9">
         
         <!-- Bloco estrutural transparente para centralizar epitáfio -->
-        <div class="custom-box-transparent p-4 mb-4 ms-4 d-flex justify-content-center">
+        <div class="custom-box-transparent p-4 mb-4 d-flex justify-content-center">
           {{#if epitaph}}
             <div class="epitaph-box text-center p-3">
               <p class="epitaph-title">Epitáfio</p>
@@ -18,7 +18,8 @@
           {{/if}}
         </div>
 
-        <div class="custom-box p-4 ms-4"> <!-- Aumentei a margem esquerda -->
+        <div class="custom-box p-4">
+          <!-- Nascimento e falecimento (agora alinhados à esquerda) -->
           <div class="birth-death-info mt-4 text-start">
             <p>
               <i class="bi bi-star-fill"></i>
@@ -29,6 +30,7 @@
               {{#if birth.state}}{{birth.state}}{{else}}Estado não informado{{/if}},
               {{#if birth.country}}{{birth.country}}{{else}}País não informado{{/if}}
             </p>
+
             <p>
               <i class="bi bi-star-fill"></i>
               <strong>Falecido(a): </strong>
@@ -41,7 +43,8 @@
           </div>
         </div>
 
-        <div class="custom-box p-4 mt-4 text-start ms-4"> <!-- Aumentei a margem esquerda -->
+        <!-- Seção de Sobre em uma caixa separada -->
+        <div class="custom-box p-4 mt-4 text-start">
           <h3><strong>Sobre este Memorial</strong></h3>
           <p>
             {{#if about}}
@@ -52,7 +55,8 @@
           </p>
         </div>
 
-        <div class="custom-box p-4 mt-4 text-start ms-4"> <!-- Aumentei a margem esquerda -->
+        <!-- Sessão de Tributos em uma nova seção -->
+        <div class="custom-box p-4 mt-4 text-start">
           <h3 class="text-start">Tributos</h3>
           {{#if tribute.length}}
             {{#each tribute}}
@@ -71,7 +75,7 @@
 
       <!-- Coluna Lateral (1/4) -->
       <div class="col-md-3">
-        <div class="custom-box p-3 me-4"> <!-- Aumentei a margem direita -->
+        <div class="custom-box p-3">
           <h4>Informações Gerais</h4>
           <ul class="list-unstyled">
             <li><strong>Gênero:</strong> {{#if gender}}{{gender}}{{else}}Não informado{{/if}}</li>
@@ -79,13 +83,13 @@
           </ul>
         </div>
 
-        <div class="custom-box p-3 mt-3 me-4"> <!-- Aumentei a margem direita -->
+        <div class="custom-box p-3 mt-3">
           <h4>Estatísticas</h4>
           <p><strong>Visitas:</strong> 1234</p> <!-- Pode ser dinâmico no futuro -->
           <p><strong>Tributos:</strong> {{tribute.length}}</p>
         </div>
 
-        <div class="custom-box p-3 mt-3 me-4"> <!-- Aumentei a margem direita -->
+        <div class="custom-box p-3 mt-3">
           <h4>Galeria</h4>
           {{#if gallery.photos.length}}
             {{#each gallery.photos}}

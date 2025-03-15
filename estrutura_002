@@ -25,11 +25,11 @@
 │   │   └── logger.js
 │   └── views
 │       ├── auth
+│       │   ├── dashboard.hbs
 │       │   ├── login.hbs
 │       │   └── register.hbs
 │       ├── criar-memorial copy.hbs
 │       ├── criar-memorial.hbs
-│       ├── dashboard.hbs
 │       ├── errors
 │       │   ├── 400.hbs
 │       │   ├── 404.hbs
@@ -42,6 +42,7 @@
 │       │   └── memorial-layout.hbs
 │       ├── login copy.hbs
 │       ├── memoriais99.hbs
+│       ├── memorial-about copy.hbs
 │       ├── memorial-about.hbs
 │       ├── memorial-gallery.hbs
 │       ├── memorial.hbs
@@ -102,8 +103,8 @@
 │   │   ├── navbar.js
 │   │   └── scripts.js
 │   └── videos
-│       ├── tutorial_arara.mp4
-│       └── tutorial.mp4
+│       ├── tutorial.mp4
+│       └── tutorial_SOL.mp4
 ├── README.md
 ├── seed.js
 ├── server.js
@@ -112,4 +113,4 @@
     ├── models
     └── routes
 
-24 directories, 89 files
+24 directories, 90 files
