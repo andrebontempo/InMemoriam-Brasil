@@ -4,8 +4,8 @@ const fs = require("fs")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
-    console.log("Requisição recebida para criar memorial.")
-    console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
+    //console.log("Requisição recebida para criar memorial.")
+    //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
 
     const { firstName, lastName, gender, relationship, epitaph, about, theme } =
       req.body
@@ -84,7 +84,7 @@ const MemorialController = {
         theme: theme || "blue-theme",
       })
 
-      console.log(memorial)
+      //console.log(memorial)
       await memorial.save()
       return res.redirect(`/memoriais/${slug}`)
     } catch (error) {

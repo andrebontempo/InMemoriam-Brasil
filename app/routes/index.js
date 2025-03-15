@@ -79,7 +79,7 @@ router.get("/mapa-site", (req, res) => {
 router.post(
   "/criar-memorial",
   (req, res, next) => {
-    console.log("Requisição recebida para criar memorial.")
+    //console.log("Requisição recebida para criar memorial.")
     next() // Passa para o controlador
   },
   MemorialController.criarMemorial
