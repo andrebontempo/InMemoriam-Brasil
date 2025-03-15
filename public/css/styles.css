@@ -1,19 +1,19 @@
 :root {
-  --bs-primary: #144417; /* Verde escuro */
-  --bs-primary-rgb: 27, 94, 32;
-  --bs-secondary: #388e3c; /* Verde médio */
-  --bs-secondary-rgb: 56, 142, 60;
-  --bs-light: #c8e6c9; /* Verde claro */
-  --bs-light-rgb: 200, 230, 201;
-  --bs-dark: #142b13; /* Verde muito escuro */
-  --bs-dark-rgb: 13, 60, 11;
-  --bs-body-bg: #f8f9fa; /* Cor de fundo padrão */
+  --bs-primary: #4f0e21; /* Vermelho muito escuro */
+  --bs-primary-rgb: 79, 14, 33;
+  --bs-secondary: #7a142f; /* Vermelho escuro */
+  --bs-secondary-rgb: 122, 20, 47;
+  --bs-light: #f8d7da; /* Vermelho claro */
+  --bs-light-rgb: 248, 215, 218;
+  --bs-dark: #2a0a13; /* Vermelho muito escuro (mais escuro que o primary) */
+  --bs-dark-rgb: 42, 10, 19;
+  --bs-body-bg: #f8f9fa; /* Cor de fundo padrão (mantido) */
 }
 
 body {
   color: var(--bs-dark);
   font-family: Arial, sans-serif;
-  /*background: linear-gradient(to bottom, var(--bs-light), var(--bs-body-bg));8*/
+  /*background: linear-gradient(to bottom, var(--bs-light), var(--bs-body-bg));*/
   background-image: url("/images/background.jpg"); /* Caminho para a imagem */
   background-size: cover; /* Faz a imagem cobrir toda a área */
   background-position: center; /* Centraliza a imagem */

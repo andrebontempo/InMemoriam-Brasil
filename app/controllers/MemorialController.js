@@ -37,9 +37,9 @@ const MemorialController = {
 
     // Verifica se nome e sobrenome foram informados
     if (!firstName || !lastName) {
-      return res
-        .status(400)
-        .render("400", { message: "Nome e sobrenome são obrigatórios!" })
+      return res.status(400).render("errors/400", {
+        message: "Nome e sobrenome são obrigatórios!",
+      })
     }
 
     // Gera o slug baseado no nome
@@ -53,9 +53,9 @@ const MemorialController = {
     try {
       const memorialExistente = await Memorial.findOne({ slug })
       if (memorialExistente) {
-        return res
-          .status(400)
-          .render("400", { message: "Já existe um memorial com esse nome." })
+        return res.status(400).render("errors/400", {
+          message: "Já existe um memorial com esse nome.",
+        })
       }
 
       const memorial = new Memorial({
@@ -91,7 +91,7 @@ const MemorialController = {
       console.error("Erro ao criar memorial:", error)
       return res
         .status(500)
-        .render("500", { message: "Erro ao criar memorial." })
+        .render("errors/500", { message: "Erro ao criar memorial." })
     }
   },
 
@@ -102,7 +102,7 @@ const MemorialController = {
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404", {
+        return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
@@ -148,7 +148,7 @@ const MemorialController = {
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("500", {
+      return res.status(500).render("errors/500", {
         message: "Erro ao exibir memorial.",
       })
     }
@@ -161,7 +161,7 @@ const MemorialController = {
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404", {
+        return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
@@ -207,7 +207,7 @@ const MemorialController = {
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("500", {
+      return res.status(500).render("/errors/500", {
         message: "Erro ao exibir memorial.",
       })
     }
@@ -219,7 +219,7 @@ const MemorialController = {
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404", {
+        return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
@@ -265,7 +265,7 @@ const MemorialController = {
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("500", {
+      return res.status(500).render("errors/500", {
         message: "Erro ao exibir memorial.",
       })
     }
@@ -277,7 +277,7 @@ const MemorialController = {
       const memorial = await Memorial.findOne({ slug })
 
       if (!memorial) {
-        return res.status(404).render("404", {
+        return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
@@ -323,7 +323,7 @@ const MemorialController = {
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("500", {
+      return res.status(500).render("errors/00", {
         message: "Erro ao exibir memorial.",
       })
     }
@@ -347,7 +347,9 @@ const MemorialController = {
       res.render("memorial-pesquisa", { resultados, termo })
     } catch (error) {
       console.error("Erro na pesquisa:", error)
-      res.status(500).render("500", { message: "Erro ao realizar a pesquisa." })
+      res
+        .status(500)
+        .render("errors/500", { message: "Erro ao realizar a pesquisa." })
     }
   },
 }

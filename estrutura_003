@@ -1,0 +1,71 @@
+.
+├── app/
+│   ├── controllers/
+│   │   ├── AuthController.js
+│   │   ├── HomeController.js
+│   │   └── MemorialController.js
+│   ├── middlewares/
+│   │   ├── authenticationMiddleware.js
+│   │   └── errorHandlerMiddleware.js
+│   ├── models/
+│   │   ├── Gallery.js
+│   │   ├── Memorial.js
+│   │   └── User.js
+│   ├── routes/
+│   │   ├── authRoutes.js
+│   │   ├── memorialRoutes.js
+│   │   ├── homeRoutes.js
+│   │   └── index.js
+│   ├── services/
+│   │   ├── authService.js
+│   │   ├── memorialService.js
+│   │   └── userService.js
+│   ├── utils/
+│   │   ├── logger.js
+│   │   └── helpers.js
+│   └── views/
+│       ├── auth/
+│       │   ├── login.hbs
+│       │   └── register.hbs
+│       ├── memorial/
+│       │   ├── create.hbs
+│       │   ├── edit.hbs
+│       │   └── show.hbs
+│       ├── partials/
+│       │   ├── header.hbs
+│       │   ├── footer.hbs
+│       │   └── navbar.hbs
+│       ├── layouts/
+│       │   ├── main.hbs
+│       │   └── memorial-layout.hbs
+│       └── errors/
+│           ├── 400.hbs
+│           ├── 404.hbs
+│           └── 500.hbs
+├── config/
+│   ├── db.js
+│   ├── auth.js
+│   └── env.js
+├── public/
+│   ├── css/
+│   │   ├── styles.css
+│   │   └── memorial.css
+│   ├── js/
+│   │   ├── auth.js
+│   │   └── memorial.js
+│   ├── images/
+│   │   ├── backgrounds/
+│   │   ├── icons/
+│   │   └── logos/
+│   └── videos/
+│       └── tutorial.mp4
+├── tests/
+│   ├── controllers/
+│   ├── models/
+│   └── routes/
+├── seed.js
+├── server.js
+├── README.md
+├── LICENSE
+├── package.json
+└── package-lock.json

@@ -33,7 +33,7 @@ const hbs = exphbs.create({
   layoutsDir: path.join(__dirname, "app/views/layouts"), // Diretório de layouts
   partialsDir: [
     path.join(__dirname, "app/views/partials"), // Partials globais
-    path.join(__dirname, "app/views/memorial-partials"), // Partials específicas de usuários
+    //path.join(__dirname, "app/views/memorial-partials"), // Partials específicas de usuários
   ],
   helpers: {
     formatDate: function (date) {

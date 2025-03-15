@@ -1,12 +1,19 @@
 :root {
-  --bs-primary: #4f0e21; /*#ad536a; /* Nova cor primária */
-  --bs-primary-rgb: 173, 83, 106; /* RGB da nova cor */
+  --bs-primary: #4f0e21; /* Vermelho muito escuro */
+  --bs-primary-rgb: 79, 14, 33; /* RGB da cor primária */
+  --bs-secondary: #7a142f; /* Vermelho escuro */
+  --bs-secondary-rgb: 122, 20, 47; /* RGB da cor secundária */
+  --bs-light: #f8d7da; /* Vermelho claro */
+  --bs-light-rgb: 248, 215, 218; /* RGB da cor clara */
+  --bs-dark: #2a0a13; /* Vermelho muito escuro (mais escuro que o primary) */
+  --bs-dark-rgb: 42, 10, 19; /* RGB da cor escura */
+  --bs-body-bg: #f8f9fa; /* Cor de fundo padrão */
 }
 
 body {
-  color: #4f0e21 !important; /* Define a cor padrão do texto */
+  color: var(--bs-dark) !important; /* Define a cor padrão do texto */
   font-family: Arial, sans-serif;
-  background-color: #f8f9fa;
+  background-color: var(--bs-body-bg);
   background-image: url("/images/background.jpg"); /* Caminho para a imagem */
   background-size: cover; /* Faz a imagem cobrir toda a área */
   background-position: center; /* Centraliza a imagem */
@@ -17,17 +24,20 @@ body {
 }
 
 header {
-  background-color: rgba(79, 14, 33, 0.5);
+  background-color: rgba(
+    var(--bs-primary-rgb),
+    0.5
+  ); /* Cor primária com transparência */
   color: #fff;
   padding: 10px 0;
 }
 
 .navbar {
-  background-color: #4a1170; /*rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+  background-color: var(--bs-primary); /* Cor primária */
 }
 
 footer {
-  background-color: rgba(0, 80, 158, 0.9); /* Azul médio com transparência */
+  background-color: var(--bs-primary); /* Cor primária */
   color: #fff;
   padding: 20px 0;
 }
@@ -58,21 +68,21 @@ iframe {
 
 /* Sobrescreve a classe btn-primary do Bootstrap */
 .btn-primary {
-  background-color: #aa2345; /* Nova cor de fundo (laranja) */
-  border-color: #dbca65; /* Cor da borda (opcional) */
+  background-color: var(--bs-primary); /* Cor primária */
+  border-color: var(--bs-secondary); /* Cor secundária */
   color: #ffffff; /* Cor do texto */
 }
 
 /* Efeito hover */
 .btn-primary:hover {
-  background-color: #aa2345; /* Cor de fundo ao passar o mouse */
-  border-color: #dbca65; /* Cor da borda ao passar o mouse */
+  background-color: var(--bs-secondary); /* Cor secundária ao passar o mouse */
+  border-color: var(--bs-dark); /* Cor escura ao passar o mouse */
 }
 
 /* Efeito active (quando o botão é clicado) */
 .btn-primary:active {
-  background-color: #aa2345; /* Cor de fundo ao clicar */
-  border-color: #dbca65; /* Cor da borda ao clicar */
+  background-color: var(--bs-dark); /* Cor escura ao clicar */
+  border-color: var(--bs-dark); /* Cor escura ao clicar */
 }
 
 .card-img-top {
@@ -88,9 +98,9 @@ iframe {
   opacity: 0.8; /* Transparência do texto */
 }
 
-/* Altera e fixa a cor do menu ativo*/
+/* Altera e fixa a cor do menu ativo */
 .nav-item.active {
-  background-color: #de668a; /* Cor de fundo do item ativo */
+  background-color: var(--bs-secondary); /* Cor secundária */
   border-radius: 5px; /* Borda arredondada */
 }
 
@@ -99,7 +109,7 @@ iframe {
 }
 
 .custom-container {
-  background-color: #e69aa3; /* Rosa mais escuro */
+  background-color: var(--bs-light); /* Vermelho claro */
   padding: 5px;
 }
 
@@ -111,13 +121,13 @@ iframe {
 }
 
 .tribute-section {
-  background-color: #f8f9fa; /* Fundo suave para destacar tributos */
+  background-color: var(--bs-body-bg); /* Fundo suave para destacar tributos */
   border-radius: 12px;
   box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
 }
 
 .epitaph-box {
-  background-color: #aa2345; /* Rosa bem escuro puxado para vinho */
+  background-color: var(--bs-primary); /* Cor primária */
   color: white;
   font-family: "Dancing Script", cursive; /* Fonte manuscrita */
   padding: 15px;

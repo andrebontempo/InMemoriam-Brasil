@@ -5,12 +5,12 @@ const User = require("../models/User")
 const AuthController = {
   // Exibir o formulário de cadastro
   showRegisterForm: (req, res) => {
-    res.render("register")
+    res.render("auth/register")
   },
 
   // Exibir o formulário de login
   showLoginForm: (req, res) => {
-    res.render("login")
+    res.render("auth/login")
   },
 
   // Processar o login do usuário
@@ -25,7 +25,7 @@ const AuthController = {
       if (!user) {
         return res
           .status(400)
-          .render("login", { error: "Usuário não cadastrado." })
+          .render("auth/login", { error: "Usuário não cadastrado." })
       }
 
       //console.log("Usuário encontrado:", user) //Retorno da consulta no banco de dados
@@ -38,7 +38,7 @@ const AuthController = {
       if (!isMatch) {
         return res
           .status(400)
-          .render("login", { error: "E-mail ou senha inválidos." })
+          .render("auth/login", { error: "E-mail ou senha inválidos." })
       }
 
       // Armazena dados do usuário na sessão
@@ -52,7 +52,7 @@ const AuthController = {
       res.redirect("/dashboard") // Redireciona para o painel do usuário
     } catch (error) {
       console.error("Erro ao processar login:", error)
-      res.status(500).render("login", { error: "Erro ao fazer login." })
+      res.status(500).render("auth/login", { error: "Erro ao fazer login." })
     }
   },
 
@@ -71,7 +71,7 @@ const AuthController = {
       // Verifica se o e-mail já está cadastrado
       const existingUser = await User.findOne({ email })
       if (existingUser) {
-        return res.render("register", { error: "Usuário já cadastrado!" })
+        return res.render("auth/register", { error: "Usuário já cadastrado!" })
       }
 
       // Hash da senha está comentado pois está sendo realizado no model
