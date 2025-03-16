@@ -27,22 +27,16 @@
 │       ├── auth
 │       │   ├── dashboard.hbs
 │       │   ├── login.hbs
-│       │   └── register.hbs
-│       ├── criar-memorial copy.hbs
+│       │   ├── register.hbs
+│       │   └── user.hbs
 │       ├── criar-memorial.hbs
 │       ├── errors
 │       │   ├── 400.hbs
 │       │   ├── 404.hbs
 │       │   └── 500.hbs
-│       ├── home copy 2.hbs
-│       ├── home copy.hbs
-│       ├── home.hbs
 │       ├── layouts
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
-│       ├── login copy.hbs
-│       ├── memoriais99.hbs
-│       ├── memorial-about copy.hbs
 │       ├── memorial-about.hbs
 │       ├── memorial-gallery.hbs
 │       ├── memorial.hbs
@@ -57,16 +51,16 @@
 │       │   ├── memorial-header.hbs
 │       │   ├── memorial-navbar.hbs
 │       │   └── navbar.hbs
-│       ├── statics
-│       │   ├── condicoes-utilizacao.hbs
-│       │   ├── contato.hbs
-│       │   ├── mapa-site.hbs
-│       │   ├── memoriais-virtuais.hbs
-│       │   ├── plano-opcoes.hbs
-│       │   ├── politica-privacidade.hbs
-│       │   └── sobre.hbs
-│       ├── testemunhos.hbs
-│       └── user.hbs
+│       └── statics
+│           ├── condicoes-utilizacao.hbs
+│           ├── contato.hbs
+│           ├── home.hbs
+│           ├── mapa-site.hbs
+│           ├── memoriais-virtuais.hbs
+│           ├── plano-opcoes.hbs
+│           ├── politica-privacidade.hbs
+│           ├── sobre.hbs
+│           └── testemunhos.hbs
 ├── config
 │   ├── db.js
 │   └── playground-1.mongodb.js
@@ -113,4 +107,4 @@
     ├── models
     └── routes
 
-24 directories, 90 files
+24 directories, 84 files
