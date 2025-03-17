@@ -4,6 +4,7 @@ const path = require("path")
 const conectarDB = require("./config/db")
 const session = require("express-session")
 const formData = require("express-form-data")
+const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
 
 const app = express()
@@ -74,6 +75,8 @@ app.set("views", path.join(__dirname, "app/views"))
 // Middlewares
 app.use(express.static(path.join(__dirname, "public"))) // Arquivos estáticos (CSS, JS, imagens)
 
+// Aplicar o middleware global para disponibilizar `user` em todas as views
+app.use(setUserMiddleware)
 // Usar rotas
 app.use("/", routes)
 

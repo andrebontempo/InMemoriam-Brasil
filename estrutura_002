@@ -5,8 +5,9 @@
 │   │   ├── HomeController.js
 │   │   └── MemorialController.js
 │   ├── middlewares
-│   │   ├── authenticationMiddleware.js
-│   │   └── errorHandlerMiddleware.js
+│   │   ├── authMiddleware.js
+│   │   ├── errorHandlerMiddleware.js
+│   │   └── setUserMiddleware.js
 │   ├── models
 │   │   ├── Gallery.js
 │   │   ├── Memorial.js
@@ -107,4 +108,4 @@
     ├── models
     └── routes
 
-24 directories, 84 files
+24 directories, 85 files

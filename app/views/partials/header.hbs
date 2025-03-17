@@ -34,7 +34,7 @@
       <!-- Links de autenticação à direita -->
       <div class="d-flex gap-3">
         <!-- Verificar se o usuário está logado na sessão -->
-        {{#if user}} 
+        {{#if user}}
           <!-- Se estiver logado, exibe o nome do usuário com o dropdown -->
           <div class="dropdown">
             <a
@@ -43,9 +43,11 @@
               id="dropdownMenuButton"
               data-bs-toggle="dropdown"
               aria-expanded="false"
-              style="text-decoration: none;" <!-- Adicionando estilo para remover o sublinhado -->
+              style="text-decoration: none;"
             >
-              Bem-vindo(a), {{user.firstName}}
+              <!-- Adicionando estilo para remover o sublinhado -->
+              Bem-vindo(a),
+              {{user.firstName}}
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="/dashboard">A Minha Conta</a></li>

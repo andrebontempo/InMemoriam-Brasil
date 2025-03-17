@@ -3,7 +3,7 @@ const router = express.Router()
 const HomeController = require("../controllers/HomeController")
 const AuthController = require("../controllers/AuthController")
 const MemorialController = require("../controllers/MemorialController")
-const authMiddleware = require("../middlewares/authenticationMiddleware")
+const authMiddleware = require("../middlewares/authMiddleware")
 
 // Rota raiz do site
 router.get("/", HomeController.index)
