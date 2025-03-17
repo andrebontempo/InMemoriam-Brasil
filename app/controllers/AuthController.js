@@ -1,6 +1,5 @@
 const bcrypt = require("bcrypt") // Use a biblioteca bcrypt original
 const User = require("../models/User")
-//const jwt = require("jsonwebtoken")
 
 const AuthController = {
   // Exibir o formulário de cadastro
@@ -19,7 +18,6 @@ const AuthController = {
       const { email, password } = req.body
 
       // Verifica se o usuário existe
-      //console.log("Email enviado:", email) // Verifique o valor do e-mail
       const user = await User.findOne({ email: email }) // Busca direta
 
       if (!user) {
@@ -28,12 +26,8 @@ const AuthController = {
           .render("auth/login", { error: "Usuário não cadastrado." })
       }
 
-      //console.log("Usuário encontrado:", user) //Retorno da consulta no banco de dados
-
       // Verifica se a senha está correta
       const isMatch = await bcrypt.compare(password.trim(), user.password)
-      //console.log(password, user.password)
-      //console.log("Senha válida?", isMatch)
 
       if (!isMatch) {
         return res
@@ -56,45 +50,67 @@ const AuthController = {
     }
   },
 
-  // Processar o logout do usuário
-  logout: (req, res) => {
-    req.session.destroy(() => {
-      res.redirect("/login")
-    })
-  },
-
   // Processar o cadastro do usuário
   registerUser: async (req, res) => {
     try {
-      const { firstName, lastName, email, password } = req.body
+      const { firstName, lastName, email, password, confirmPassword } = req.body
 
+      //console.log("Dados do formulário:", req.body)
+      // Verifica se as senhas coincidem
+      if (password !== confirmPassword) {
+        return res.render("auth/register", {
+          error: "As senhas não coincidem!",
+          firstName,
+          lastName,
+          email,
+        })
+      }
       // Verifica se o e-mail já está cadastrado
       const existingUser = await User.findOne({ email })
       if (existingUser) {
         return res.render("auth/register", { error: "Usuário já cadastrado!" })
       }
 
-      // Hash da senha está comentado pois está sendo realizado no model
-      //const saltRounds = 10
-      //const hashedPassword = await bcrypt.hash(password, saltRounds)
-
       // Criar um novo usuário
       const newUser = new User({
         firstName,
         lastName,
         email,
-        password: password, // Senha sem hash (será criptografada no model)
-        //password: hashedPassword, //adicionei a linh acima e comentei essa linha
+        password, // A senha será criptografada no model com o middleware
         authProvider: "local",
       })
 
+      // Salvar o usuário no banco de dados
       await newUser.save()
 
-      res.redirect("/login") // Redireciona para a página de login
+      //console.log("Usuário cadastrado com sucesso:", newUser)
+
+      // Agora que o usuário foi registrado, vamos logá-lo automaticamente:
+      // A autenticação será o mesmo processo que ocorre no login
+      req.session.user = {
+        id: newUser._id,
+        firstName: newUser.firstName,
+        lastName: newUser.lastName,
+        email: newUser.email,
+      }
+
+      //console.log("Usuário autenticado e logado automaticamente")
+
+      // Redireciona para o painel do usuário (dashboard)
+      res.redirect("/dashboard")
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error)
-      res.status(500).render("register", { error: "Erro ao cadastrar usuário" })
+      res
+        .status(500)
+        .render("auth/register", { error: "Erro ao cadastrar usuário" })
     }
+  },
+
+  // Processar o logout do usuário
+  logout: (req, res) => {
+    req.session.destroy(() => {
+      res.redirect("/login")
+    })
   },
 }
 
