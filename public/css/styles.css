@@ -51,8 +51,8 @@ footer {
 }
 
 .btn-primary:active {
-  background-color: var(--bs-dark);
-  border-color: var(--bs-dark);
+  background-color: var(--bs-dark) !important;
+  border-color: var(--bs-dark) !important;
 }
 
 .card-img-top {
