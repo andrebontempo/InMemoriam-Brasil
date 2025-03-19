@@ -73,8 +73,8 @@
 ├── package-lock.json
 ├── public
 │   ├── css
-│   │   ├── memorial-styles.css
-│   │   └── styles.css
+│   │   ├── main-styles.css
+│   │   └── memorial-styles.css
 │   ├── images
 │   │   ├── background_11.jpg
 │   │   ├── background_12.jpg
@@ -89,7 +89,6 @@
 │   │   ├── homenageado2.png
 │   │   ├── homenageado3.png
 │   │   ├── homenageado4.png
-│   │   ├── logo_1.png
 │   │   ├── logo.png
 │   │   ├── logo.svg
 │   │   ├── pescaria.png
@@ -108,4 +107,4 @@
     ├── models
     └── routes
 
-24 directories, 85 files
+24 directories, 84 files
