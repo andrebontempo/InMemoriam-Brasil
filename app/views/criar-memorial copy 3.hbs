@@ -1,8 +1,5 @@
 <main class="container my-5">
-  <div
-    class="p-5 rounded-4 shadow-lg text-white"
-    style="background-color: #4f0e21;"
-  >
+  <div class="p-5 rounded-4 shadow-lg text-white bg-primary">
     <h2 class="text-center mb-4 fw-bold">Criar Memorial</h2>
 
     <form
@@ -13,12 +10,8 @@
     >
 
       <!-- Dados Pessoais -->
-      <h3 class="mt-4 fw-bold">Dados do Homenageado</h3>
-      <div
-        class="border rounded p-4 mb-4"
-        style="background-color: #7a142f; color: white;"
-      >
-
+      <h3 class="mt-4 fw-bold">Dados Pessoais</h3>
+      <div class="border rounded p-4 mb-4 bg-light text-dark">
         <!-- Nome e Sobrenome -->
         <div class="row mb-3">
           <div class="col-md-6">
@@ -119,7 +112,6 @@
               class="form-control"
               id="birthDate"
               name="birth.date"
-              required
             />
           </div>
           <div class="col-md-3">
@@ -150,69 +142,11 @@
             />
           </div>
         </div>
-
-        <!-- Falecimento -->
-        <h4 class="mt-4 fw-bold">Falecimento</h4>
-        <div class="row mb-3">
-          <div class="col-md-3">
-            <label for="deathDate" class="form-label">Data:</label>
-            <input
-              type="date"
-              class="form-control"
-              id="deathDate"
-              name="death.date"
-              required
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathCity" class="form-label">Cidade:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathCity"
-              name="death.city"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathState" class="form-label">Estado:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathState"
-              name="death.state"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathCountry" class="form-label">País:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathCountry"
-              name="death.country"
-            />
-          </div>
-        </div>
       </div>
 
       <!-- Dados do Memorial -->
       <h3 class="mt-4 fw-bold">Dados do Memorial</h3>
-      <div
-        class="border rounded p-4 mb-4"
-        style="background-color: #7a142f; color: white;"
-      >
-
-        <!-- Foto Principal -->
-        <div class="mb-3">
-          <label for="mainPhoto" class="form-label">Foto Principal:</label>
-          <input
-            type="file"
-            class="form-control"
-            id="mainPhoto"
-            name="mainPhoto"
-            accept="image/*"
-          />
-        </div>
-
+      <div class="border rounded p-4 mb-4 bg-light text-dark">
         <!-- Epitáfio -->
         <div class="mb-3">
           <label for="epitaph" class="form-label">Epitáfio:</label>
@@ -225,13 +159,26 @@
           ></textarea>
         </div>
 
-        <!-- Tema -->
+        <!-- Galeria -->
+        <h4 class="mt-4 fw-bold">Galeria</h4>
         <div class="mb-3">
-          <label for="theme" class="form-label">Tema:</label>
+          <label for="galleryImage" class="form-label">Foto ou Imagem Principal:</label>
+          <input
+            type="file"
+            class="form-control"
+            id="galleryImage"
+            name="gallery.image"
+            accept="image/*"
+          />
+        </div>
+
+        <!-- Escolha de Tema -->
+        <div class="mb-3">
+          <label for="theme" class="form-label">Escolha um tema:</label>
           <select class="form-control" id="theme" name="theme">
-            <option value="classico">Clássico</option>
-            <option value="moderno">Moderno</option>
-            <option value="religioso">Religioso</option>
+            <option value="blue-theme">Tema Azul</option>
+            <option value="green-theme">Tema Verde</option>
+            <option value="pink-theme">Tema Rosa</option>
           </select>
         </div>
       </div>

@@ -119,7 +119,6 @@
               class="form-control"
               id="birthDate"
               name="birth.date"
-              required
             />
           </div>
           <div class="col-md-3">
@@ -161,7 +160,6 @@
               class="form-control"
               id="deathDate"
               name="death.date"
-              required
             />
           </div>
           <div class="col-md-3">
@@ -210,6 +208,7 @@
             id="mainPhoto"
             name="mainPhoto"
             accept="image/*"
+            required
           />
         </div>
 
@@ -228,7 +227,7 @@
         <!-- Tema -->
         <div class="mb-3">
           <label for="theme" class="form-label">Tema:</label>
-          <select class="form-control" id="theme" name="theme">
+          <select class="form-control" id="theme" name="theme" required>
             <option value="classico">Clássico</option>
             <option value="moderno">Moderno</option>
             <option value="religioso">Religioso</option>
