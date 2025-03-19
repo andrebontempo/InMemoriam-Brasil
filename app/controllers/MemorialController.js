@@ -116,7 +116,7 @@ const MemorialController = {
         })
       }
 
-      return res.render("memorial-about", {
+      return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
@@ -175,7 +175,7 @@ const MemorialController = {
         })
       }
 
-      return res.render("memorial-lifestory", {
+      return res.render("memorial/memorial-lifestory", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
@@ -233,7 +233,7 @@ const MemorialController = {
         })
       }
 
-      return res.render("memorial-gallery", {
+      return res.render("memorial/memorial-gallery", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
@@ -291,7 +291,7 @@ const MemorialController = {
         })
       }
 
-      return res.render("memorial-stories", {
+      return res.render("memorial/memorial-stories", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
@@ -333,7 +333,7 @@ const MemorialController = {
   pesquisarMemorial: async (req, res) => {
     const termo = req.query.q // Obtém o termo digitado na pesquisa
     if (!termo) {
-      return res.render("memorial-pesquisa", { resultados: [], termo })
+      return res.render("memorial/memorial-pesquisa", { resultados: [], termo })
     }
 
     try {
@@ -344,7 +344,7 @@ const MemorialController = {
         ],
       }).lean() // Exibição da data. Adiciona o .lean() para garantir que os resultados sejam objetos simples
 
-      res.render("memorial-pesquisa", { resultados, termo })
+      res.render("memorial/memorial-pesquisa", { resultados, termo })
     } catch (error) {
       console.error("Erro na pesquisa:", error)
       res

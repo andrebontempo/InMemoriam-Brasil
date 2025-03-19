@@ -30,7 +30,6 @@
 │       │   ├── login.hbs
 │       │   ├── register.hbs
 │       │   └── user.hbs
-│       ├── criar-memorial.hbs
 │       ├── errors
 │       │   ├── 400.hbs
 │       │   ├── 404.hbs
@@ -38,23 +37,25 @@
 │       ├── layouts
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
-│       ├── memorial-about.hbs
-│       ├── memorial-gallery.hbs
-│       ├── memorial.hbs
-│       ├── memorial-lifestory.hbs
-│       ├── memorial-pesquisa.hbs
-│       ├── memorial-stories.hbs
+│       ├── memorial
+│       │   ├── memorial-about.hbs
+│       │   ├── memorial-gallery.hbs
+│       │   ├── memorial-lifestory.hbs
+│       │   ├── memorial-pesquisa.hbs
+│       │   └── memorial-stories.hbs
 │       ├── partials
-│       │   ├── footer.hbs
-│       │   ├── header.hbs
-│       │   ├── memorial.body.hbs
-│       │   ├── memorial-footer.hbs
-│       │   ├── memorial-header.hbs
-│       │   ├── memorial-navbar.hbs
-│       │   └── navbar.hbs
+│       │   ├── main
+│       │   │   ├── footer.hbs
+│       │   │   ├── header.hbs
+│       │   │   └── navbar.hbs
+│       │   └── memorial
+│       │       ├── memorial-footer.hbs
+│       │       ├── memorial-header.hbs
+│       │       └── memorial-navbar.hbs
 │       └── statics
 │           ├── condicoes-utilizacao.hbs
 │           ├── contato.hbs
+│           ├── criar-memorial.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
 │           ├── memoriais-virtuais.hbs
@@ -107,4 +108,4 @@
     ├── models
     └── routes
 
-24 directories, 84 files
+27 directories, 82 files

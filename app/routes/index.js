@@ -23,7 +23,9 @@ router.get("/sobre", (req, res) => {
   res.render("statics/sobre", { title: "Sobre Nós - In Memoriam Brasil" })
 })
 router.get("/criar-memorial", (req, res) => {
-  res.render("criar-memorial", { title: "Criar Memorial - In Memoriam Brasil" })
+  res.render("statics/criar-memorial", {
+    title: "Criar Memorial - In Memoriam Brasil",
+  })
 })
 router.get("/plano-opcoes", (req, res) => {
   res.render("statics/plano-opcoes", {
