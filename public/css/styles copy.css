@@ -1,0 +1,75 @@
+:root {
+  --bs-primary: #4f0e21; /* Vermelho muito escuro */
+  --bs-primary-rgb-op5: rgba(var(--bs-primary), 0.5);
+  --bs-secondary: #7a142f; /* Vermelho escuro */
+  --bs-light: #f8d7da; /* Vermelho claro */
+  --bs-dark: #2a0a13; /* Vermelho muito escuro (mais escuro que o primary) */
+  --bs-body-bg: #f8f9fa; /* Cor de fundo padrão do corpo (mantido do Bootstrap) */
+}
+
+body {
+  color: var(--bs-dark);
+  font-family: Arial, sans-serif;
+  /*background: linear-gradient(to bottom, var(--bs-light), var(--bs-body-bg));*/
+  background-image: url("/images/background.jpg"); /* Caminho para a imagem */
+  background-size: cover; /* Faz a imagem cobrir toda a área */
+  background-position: center; /* Centraliza a imagem */
+  background-attachment: fixed; /* Faz a imagem ficar fixa enquanto o usuário rola a página */
+  background-repeat: no-repeat; /* Impede a repetição da imagem */
+  height: 100vh; /* Faz a altura da seção ser igual à altura da tela */
+  width: 100%; /* Faz a largura da seção ocupar 100% da tela */
+}
+
+header {
+  background-color: var(--bs-dark);
+  color: #fff;
+  padding: 10px 0;
+}
+
+.navbar {
+  background-color: var(--bs-primary);
+}
+
+footer {
+  background-color: var(--bs-primary);
+  color: #fff;
+  padding: 20px 0;
+}
+
+.btn-primary {
+  background-color: var(--bs-primary);
+  border-color: var(--bs-secondary);
+  color: #ffffff;
+}
+
+.btn-primary:hover {
+  background-color: var(--bs-secondary);
+  border-color: var(--bs-dark);
+}
+
+.btn-primary:active {
+  background-color: var(--bs-dark) !important;
+  border-color: var(--bs-dark) !important;
+}
+
+.card-img-top {
+  width: 100%;
+  height: 300px;
+  object-fit: cover;
+}
+
+.form-control::placeholder {
+  color: #555;
+  font-style: italic;
+  font-size: 14px;
+  opacity: 0.8;
+}
+
+.nav-item.active {
+  background-color: var(--bs-secondary);
+  border-radius: 5px;
+}
+
+.nav-item.active .nav-link {
+  color: #ffffff;
+}
