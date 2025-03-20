@@ -86,7 +86,7 @@ const MemorialController = {
 
       //console.log(memorial)
       await memorial.save()
-      return res.redirect(`/memoriais/${slug}`)
+      return res.redirect(`/memorial/${slug}`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)
       return res
@@ -97,7 +97,7 @@ const MemorialController = {
 
   exibirMemorial: async (req, res) => {
     const { slug } = req.params
-
+    //console.log(slug)
     try {
       const memorial = await Memorial.findOne({ slug })
 

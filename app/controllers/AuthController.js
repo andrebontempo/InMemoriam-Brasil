@@ -43,10 +43,10 @@ const AuthController = {
         email: user.email,
       }
 
-      res.redirect("/dashboard") // Redireciona para o painel do usuário
+      res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
     } catch (error) {
       console.error("Erro ao processar login:", error)
-      res.status(500).render("auth/login", { error: "Erro ao fazer login." })
+      res.status(500).render("/auth/login", { error: "Erro ao fazer login." })
     }
   },
 
@@ -97,12 +97,12 @@ const AuthController = {
       //console.log("Usuário autenticado e logado automaticamente")
 
       // Redireciona para o painel do usuário (dashboard)
-      res.redirect("/dashboard")
+      res.redirect("/auth/dashboard")
     } catch (error) {
       console.error("Erro ao cadastrar usuário:", error)
       res
         .status(500)
-        .render("auth/register", { error: "Erro ao cadastrar usuário" })
+        .render("/auth/register", { error: "Erro ao cadastrar usuário" })
     }
   },
 

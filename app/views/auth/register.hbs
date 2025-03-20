@@ -8,7 +8,7 @@
           <div class="alert alert-danger">{{error}}</div>
         {{/if}}
 
-        <form action="/register" method="POST" id="registerForm">
+        <form action="/auth/register" method="POST" id="registerForm">
           <div class="mb-3">
             <input
               type="text"
@@ -69,7 +69,7 @@
 
         <p class="text-center mt-3">
           Já tem uma conta?
-          <a href="/login">Entrar</a>
+          <a href="/auth/login">Entrar</a>
         </p>
       </div>
     </div>

@@ -8,7 +8,7 @@
           <div class="alert alert-danger">{{error}}</div>
         {{/if}}
 
-        <form action="/login" method="POST">
+        <form action="/auth/login" method="POST">
           <div class="mb-3">
             <input
               type="email"
@@ -32,7 +32,7 @@
 
         <p class="text-center mt-3">
           Ainda não tem uma conta?
-          <a href="/register">Cadastre-se</a>
+          <a href="/auth/register">Cadastre-se</a>
         </p>
       </div>
     </div>
