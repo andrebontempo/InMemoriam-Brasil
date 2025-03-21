@@ -90,7 +90,9 @@
     >
       <div>
         <h1><strong>{{firstName}} {{lastName}}</strong></h1>
-        <h4>{{birth.date}}<br />{{death.date}}.</h4>
+        <h4>{{formatDate birth.date "year"}}
+          -
+          {{formatDate death.date "year"}}</h4>
       </div>
     </div>
   </div>

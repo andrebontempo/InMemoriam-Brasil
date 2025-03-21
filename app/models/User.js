@@ -6,12 +6,35 @@ const UserSchema = new mongoose.Schema(
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     email: { type: String, required: true, unique: true },
-    password: { type: String }, // Apenas usuários do formulário terão senha
-    googleId: { type: String, unique: true, sparse: true }, // Apenas usuários do Google terão Google ID
-    avatar: { type: String, default: "/images/default-avatar.png" }, // Foto do perfil (padrão caso não tenha)
-    authProvider: { type: String, enum: ["local", "google"], required: true }, // Define o tipo de autenticação
+
+    // Senha apenas para usuários que se cadastrarem manualmente
+    password: { type: String },
+
+    // Login social via Google
+    googleId: { type: String, unique: true, sparse: true },
+
+    // Avatar do usuário
+    avatar: { type: String, default: "/images/default-avatar.png" },
+
+    // Define o método de autenticação usado
+    authProvider: { type: String, enum: ["local", "google"], required: true },
+
+    // Permissões (padrão: "user")
+    role: { type: String, enum: ["user", "admin"], default: "user" },
+
+    // Biografia e localização (opcionais)
+    bio: { type: String, maxlength: 500 },
+    location: { type: String, maxlength: 100 },
+
+    // Lista de memoriais que este usuário criou
+    memorialsCreated: [
+      { type: mongoose.Schema.Types.ObjectId, ref: "Memorial" },
+    ],
+
+    // Tributos feitos pelo usuário
+    tributesMade: [{ type: mongoose.Schema.Types.ObjectId, ref: "Memorial" }],
   },
-  { timestamps: true } // Adiciona automaticamente createdAt e updatedAt
+  { timestamps: true } // Adiciona createdAt e updatedAt
 )
 
 // 🔒 Hash da senha antes de salvar no banco

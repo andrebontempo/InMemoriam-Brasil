@@ -1,6 +1,7 @@
 const Memorial = require("../models/Memorial")
 const path = require("path")
 const fs = require("fs")
+const { Console } = require("console")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
@@ -99,21 +100,29 @@ const MemorialController = {
     const { slug } = req.params
     //console.log(slug)
     try {
-      const memorial = await Memorial.findOne({ slug })
-
+      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
+      //console.log(memorial)
       if (!memorial) {
         return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
 
-      const formatarData = (data) => {
-        if (!data || isNaN(new Date(data))) return "Não informada"
-        return new Date(data).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        })
+      const calcularIdade = (dataNascimento) => {
+        if (!dataNascimento || isNaN(new Date(dataNascimento))) return null
+
+        const nascimento = new Date(dataNascimento)
+        const hoje = new Date()
+
+        let idade = hoje.getFullYear() - nascimento.getFullYear()
+        const m = hoje.getMonth() - nascimento.getMonth()
+
+        // Ajusta a idade se o aniversário ainda não ocorreu este ano
+        if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
+          idade--
+        }
+
+        return idade
       }
 
       return res.render("memorial/memorial-about", {
@@ -123,20 +132,25 @@ const MemorialController = {
         slug: memorial.slug,
         gender: memorial.gender,
         relationship: memorial.relationship,
+        // Calcula a idade com base na data de nascimento
+        idade: calcularIdade(memorial.birth?.date),
         birth: {
-          date: formatarData(memorial.birth?.date),
+          //date: formatarData(memorial.birth?.date),
+          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          date: formatarData(memorial.death?.date),
+          //date: formatarData(memorial.death?.date),
+          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",
         },
         about: memorial.about || "Informação não disponível.",
         epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
+        tribute: memorial.tribute || [], // Passando os tributos para o template
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
         stories: Array.isArray(memorial.stories) ? memorial.stories : [],
         gallery: memorial.gallery || {
@@ -166,15 +180,6 @@ const MemorialController = {
         })
       }
 
-      const formatarData = (data) => {
-        if (!data || isNaN(new Date(data))) return "Não informada"
-        return new Date(data).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        })
-      }
-
       return res.render("memorial/memorial-lifestory", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
@@ -183,13 +188,13 @@ const MemorialController = {
         gender: memorial.gender,
         relationship: memorial.relationship,
         birth: {
-          date: formatarData(memorial.birth?.date),
+          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          date: formatarData(memorial.death?.date),
+          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",
@@ -224,15 +229,6 @@ const MemorialController = {
         })
       }
 
-      const formatarData = (data) => {
-        if (!data || isNaN(new Date(data))) return "Não informada"
-        return new Date(data).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        })
-      }
-
       return res.render("memorial/memorial-gallery", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
@@ -241,13 +237,13 @@ const MemorialController = {
         gender: memorial.gender,
         relationship: memorial.relationship,
         birth: {
-          date: formatarData(memorial.birth?.date),
+          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          date: formatarData(memorial.death?.date),
+          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",
@@ -282,15 +278,6 @@ const MemorialController = {
         })
       }
 
-      const formatarData = (data) => {
-        if (!data || isNaN(new Date(data))) return "Não informada"
-        return new Date(data).toLocaleDateString("pt-BR", {
-          day: "2-digit",
-          month: "long",
-          year: "numeric",
-        })
-      }
-
       return res.render("memorial/memorial-stories", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
@@ -299,13 +286,13 @@ const MemorialController = {
         gender: memorial.gender,
         relationship: memorial.relationship,
         birth: {
-          date: formatarData(memorial.birth?.date),
+          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          date: formatarData(memorial.death?.date),
+          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",

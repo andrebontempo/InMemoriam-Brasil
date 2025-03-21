@@ -4,10 +4,11 @@ const path = require("path")
 const conectarDB = require("./config/db")
 const session = require("express-session")
 const formData = require("express-form-data")
-const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
+const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 
 const app = express()
+
 conectarDB() // Conectar ao banco de dados
 
 app.use(express.urlencoded({ extended: true })) // Para processar POST forms
@@ -33,41 +34,33 @@ const hbs = exphbs.create({
   extname: "hbs", // Extensão padrão para os templates Handlebars
   layoutsDir: path.join(__dirname, "app/views/layouts"), // Diretório de layouts
   partialsDir: [
-    path.join(__dirname, "app/views/partials/main"), // Partials globais
-    path.join(__dirname, "app/views/partials/memorial"), // Partials específicas de usuários
+    path.join(__dirname, "app/views/partials/main"), // Partials para home e páginas que não são de memoriais
+    path.join(__dirname, "app/views/partials/memorial"), // Partials específicas de memoriais
   ],
   helpers: {
-    formatDate: function (date) {
+    formatDate: function (date, format) {
+      if (!date || isNaN(new Date(date))) return "Data inválida"
+
+      const data = new Date(date)
+
+      if (format === "year") {
+        return data.getFullYear()
+      }
+
       const options = { year: "numeric", month: "long", day: "numeric" }
-      return new Date(date).toLocaleDateString("pt-BR", options)
+      return data.toLocaleDateString("pt-BR", options)
     },
   },
+
+  //helpers: {
+  //  formatDate: function (date) {
+  //    const options = { year: "numeric", month: "long", day: "numeric" }
+  //    return new Date(date).toLocaleDateString("pt-BR", options)
+  //  },
+  //},
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })
 
-/*
-const hbs = exphbs.create({
-  defaultLayout: "main",
-  extname: "hbs",
-  layoutsDir: path.join(__dirname, "app/views/layouts"),
-  partialsDir: [
-    path.join(__dirname, "app/views/partials"),
-    path.join(__dirname, "app/views/memorial-partials"),
-  ],
-  cache: false, // Desativa o cache para evitar erros de carregamento
-})
-
-
-const hbs = exphbs.create({
-  defaultLayout: "main", // Layout padrão do site principal
-  extname: ".hbs", // Extensão dos arquivos Handlebars
-  partialsDir: [
-    path.join(__dirname, "app/views/partials"), // Partials do site principal
-    path.join(__dirname, "app/views/memorial-partials") // Partials dos sites dos usuários
-  ],
-  layoutsDir: path.join(__dirname, "app/views/layouts"), // Pasta de layouts
-})
-*/
 app.engine(".hbs", hbs.engine)
 app.set("view engine", ".hbs")
 app.set("views", path.join(__dirname, "app/views"))
@@ -77,6 +70,7 @@ app.use(express.static(path.join(__dirname, "public"))) // Arquivos estáticos (
 
 // Aplicar o middleware global para disponibilizar `user` em todas as views
 app.use(setUserMiddleware)
+
 // Usar rotas
 app.use("/", routes)
 
