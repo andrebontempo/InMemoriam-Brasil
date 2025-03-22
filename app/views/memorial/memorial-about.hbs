@@ -55,21 +55,40 @@
         </div>
 
         <div class="custom-box p-4 mt-4 text-start ms-4">
-          <h3 class="text-start">Tributos</h3>
-          {{#if tribute.length}}
-            {{#each tribute}}
-              <div class="card my-2 custom-box">
-                <div class="card-body">
-                  <h5 class="card-title">{{this.name}}</h5>
-                  <p class="card-text">{{this.message}}</p>
-                  <small class="text-muted">Publicado por {{this.name}} em {{formatDate this.createdAt}}</small>
+            <h3 class="text-start">Tributos</h3>
+            {{#if tribute.length}}
+              {{#each tribute}}
+                <div class="card my-2 custom-box p-2"> <!-- Reduzi o padding aqui -->
+                  <div class="card-body d-flex p-2"> <!-- Reduzi o padding aqui também -->
+                    <!-- Área da Imagem - Largura fixa -->
+                    <div class="me-3" style="width: 100px;">
+                      {{#if this.image}}
+                        <img src="/images/tribute/{{this.image}}" alt="Símbolo do tributo" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                      {{else}}
+                        <img src="/images/tribute/tribute_caneta.png" alt="Imagem padrão" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                      {{/if}}
+                    </div>
+                    <!-- Área do Conteúdo -->
+                    <div class="flex-grow-1 d-flex flex-column">
+                      <!-- Data e Autor -->
+                      <small class="text-secondary mb-2">Publicado por {{this.name}} em {{formatDate this.createdAt}}.</small>
+                      
+                      <!-- Mensagem do tributo com texto maior -->
+                      <p class="card-text fs-5 flex-grow-1">{{this.message}}</p>
+                      
+                      <!-- Botões de ação no rodapé -->
+                      <div class="d-flex justify-content-end mt-2">
+                        <a href="/tribute/edit-tribute/{{this._id}}" class="me-3 text-warning" style="text-decoration: none;">Editar</a>
+                        <a href="/delete/{{this._id}}" class="text-danger" style="text-decoration: none;">Apagar</a>
+                      </div>
+                    </div>
+                  </div>
                 </div>
-              </div>
-            {{/each}}
-          {{else}}
-            <p>Nenhum tributo adicionado ainda.</p>
-          {{/if}}
-        </div>
+              {{/each}}
+            {{else}}
+              <p>Nenhum tributo adicionado ainda.</p>
+            {{/if}}
+          </div>
 
 
         
