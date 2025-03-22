@@ -21,6 +21,7 @@
 │   ├── memorial.body.hbs
 │   ├── MemorialController copy.js
 │   ├── Memorial copy.js
+│   ├── memorial-header copy 2.hbs
 │   ├── memorial-header copy.hbs
 │   ├── memorial-partials999
 │   │   ├── memorial.body.hbs
@@ -139,10 +140,16 @@
 │   │   ├── logo.svg
 │   │   ├── pescaria.png
 │   │   ├── time.jpg
-│   │   └── tribute
-│   │       ├── tribute_caneta.png
-│   │       ├── tribute_flor.png
-│   │       └── tribute_vela.png
+│   │   ├── tribute
+│   │   │   ├── tribute_caneta.png
+│   │   │   ├── tribute_flor.png
+│   │   │   └── tribute_vela.png
+│   │   └── uploads
+│   │       ├── generosidade.png
+│   │       ├── pateta0.jpg
+│   │       ├── pateta1.jpg
+│   │       ├── pateta2.jpg
+│   │       └── pateta3.jpg
 │   ├── js
 │   │   ├── calcula_idade.js
 │   │   ├── navbar.js
@@ -157,4 +164,4 @@
     ├── models
     └── routes
 
-31 directories, 127 files
+32 directories, 133 files
