@@ -85,7 +85,10 @@
 │       │   └── memorial-layout.hbs
 │       ├── memorial
 │       │   ├── memorial-about.hbs
+│       │   ├── memorial-gallery copy 2.hbs
+│       │   ├── memorial-gallery copy.hbs
 │       │   ├── memorial-gallery.hbs
+│       │   ├── memorial-lifestory copy.hbs
 │       │   ├── memorial-lifestory.hbs
 │       │   ├── memorial-pesquisa.hbs
 │       │   └── memorial-stories.hbs
@@ -164,4 +167,4 @@
     ├── models
     └── routes
 
-32 directories, 133 files
+32 directories, 136 files

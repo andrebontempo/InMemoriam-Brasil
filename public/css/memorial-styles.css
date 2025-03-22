@@ -261,3 +261,10 @@ iframe {
   overflow-wrap: break-word;
   white-space: normal;
 }
+
+/*Ajuste das fotos na aba galeria*/
+.custom-photo-size {
+  width: 100%; /* Ou defina uma largura fixa como 100% ou 200px dependendo do seu design */
+  height: 250px; /* Define a altura para todas as imagens */
+  object-fit: cover; /* Garante que as imagens fiquem proporcionais, cortando se necessário */
+}

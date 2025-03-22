@@ -5,9 +5,9 @@
       <div class="col-md-9">
         
         <!-- Seção de Life Story em uma caixa separada -->
-        <div class="custom-box p-4 mt-4 ms-4">
+        <div class="custom-box p-4 mt-4">
           <div class="container mt-5">
-              <h3>Galeria de Fotos, Áudios e Vídeos</h3>
+              <h3>Tabs</h3>
 
               <!-- Navbar de Tabs -->
               <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -32,8 +32,8 @@
                   <div class="row">
                     {{#if gallery.photos.length}}
                       {{#each gallery.photos}}
-                        <div class="col-md-4 mb-3" >
-                          <img src="/images/uploads/{{this}}" class="img-fluid rounded custom-photo-size" alt="Foto do Memorial">
+                        <div class="col-md-4 mb-3">
+                          <img src="/images/uploads/{{this}}" class="img-fluid rounded" alt="Foto do Memorial">
                         </div>
                       {{/each}}
                     {{else}}
@@ -65,7 +65,7 @@
 
       <!-- Coluna Lateral (1/4) -->
       <div class="col-md-3">
-        <div class="custom-box p-3 me-4 mt-4">
+        <div class="custom-box p-3">
           <h4>Informações Gerais</h4>
           <ul class="list-unstyled">
             <li><strong>Gênero:</strong> {{#if gender}}{{gender}}{{else}}Não informado{{/if}}</li>
@@ -73,17 +73,17 @@
           </ul>
         </div>
 
-        <div class="custom-box p-3 mt-3 me-4">
+        <div class="custom-box p-3 mt-3">
           <h4>Estatísticas</h4>
           <p><strong>Visitas:</strong> 1234</p> <!-- Pode ser dinâmico no futuro -->
           <p><strong>Tributos:</strong> {{tribute.length}}</p>
         </div>
 
-        <div class="custom-box p-3 mt-3 me-4">
+        <div class="custom-box p-3 mt-3">
           <h4>Galeria</h4>
           {{#if gallery.photos.length}}
             {{#each gallery.photos}}
-              <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
+              <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2" alt="Foto de {{../firstName}}">
             {{/each}}
           {{else}}
             <p>Nenhuma foto disponível.</p>

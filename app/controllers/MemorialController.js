@@ -172,7 +172,7 @@ const MemorialController = {
     const { slug } = req.params
 
     try {
-      const memorial = await Memorial.findOne({ slug })
+      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
 
       if (!memorial) {
         return res.status(404).render("errors/404", {
@@ -221,7 +221,7 @@ const MemorialController = {
   exibirGallery: async (req, res) => {
     const { slug } = req.params
     try {
-      const memorial = await Memorial.findOne({ slug })
+      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
 
       if (!memorial) {
         return res.status(404).render("errors/404", {
@@ -270,7 +270,7 @@ const MemorialController = {
   exibirStories: async (req, res) => {
     const { slug } = req.params
     try {
-      const memorial = await Memorial.findOne({ slug })
+      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
 
       if (!memorial) {
         return res.status(404).render("errors/404", {
