@@ -71,7 +71,11 @@ const MemorialController = {
         slug,
         gender: gender || "Não informado",
         relationship: relationship || "Não informado",
-        mainPhoto: mainPhoto || "/images/uploads/default.png",
+        mainPhoto: {
+          url: req.file
+            ? `/images/uploads/${req.file.filename}`
+            : "/images/uploads/default.png", // URL padrão se não houver arquivo
+        },
         epitaph: epitaph || "Nenhum epitáfio foi cadastrado.",
         birth,
         death,
@@ -116,7 +120,7 @@ const MemorialController = {
           message: "Memorial não encontrado.",
         })
       }
-      console.log(memorial)
+      //console.log(memorial)
       const calcularIdade = (dataNascimento) => {
         if (!dataNascimento || isNaN(new Date(dataNascimento))) return null
 

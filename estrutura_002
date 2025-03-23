@@ -21,8 +21,11 @@
 │   ├── memorial.body.hbs
 │   ├── MemorialController copy.js
 │   ├── Memorial copy.js
+│   ├── memorial-gallery copy 2.hbs
+│   ├── memorial-gallery copy.hbs
 │   ├── memorial-header copy 2.hbs
 │   ├── memorial-header copy.hbs
+│   ├── memorial-lifestory copy.hbs
 │   ├── memorial-partials999
 │   │   ├── memorial.body.hbs
 │   │   ├── memorial-footer.hbs
@@ -44,8 +47,7 @@
 │   ├── seed-002.js
 │   ├── seed-003.js
 │   ├── seed-004.js
-│   ├── seed-005.js
-│   └── seed.js
+│   └── seed-005.js
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
@@ -56,6 +58,7 @@
 │   │   ├── errorHandlerMiddleware.js
 │   │   └── setUserMiddleware.js
 │   ├── models
+│   │   ├── Memorial copy.js
 │   │   ├── Memorial.js
 │   │   └── User.js
 │   ├── routes
@@ -85,10 +88,7 @@
 │       │   └── memorial-layout.hbs
 │       ├── memorial
 │       │   ├── memorial-about.hbs
-│       │   ├── memorial-gallery copy 2.hbs
-│       │   ├── memorial-gallery copy.hbs
 │       │   ├── memorial-gallery.hbs
-│       │   ├── memorial-lifestory copy.hbs
 │       │   ├── memorial-lifestory.hbs
 │       │   ├── memorial-pesquisa.hbs
 │       │   └── memorial-stories.hbs
@@ -148,11 +148,16 @@
 │   │   │   ├── tribute_flor.png
 │   │   │   └── tribute_vela.png
 │   │   └── uploads
+│   │       ├── default.png
 │   │       ├── generosidade.png
+│   │       ├── mickey.png
+│   │       ├── mulher.png
+│   │       ├── olivia.png
 │   │       ├── pateta0.jpg
 │   │       ├── pateta1.jpg
 │   │       ├── pateta2.jpg
-│   │       └── pateta3.jpg
+│   │       ├── pateta3.jpg
+│   │       └── pateta.png
 │   ├── js
 │   │   ├── calcula_idade.js
 │   │   ├── navbar.js
@@ -167,4 +172,4 @@
     ├── models
     └── routes
 
-32 directories, 136 files
+32 directories, 141 files
