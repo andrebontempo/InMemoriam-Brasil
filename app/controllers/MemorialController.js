@@ -8,8 +8,16 @@ const MemorialController = {
     //console.log("Requisição recebida para criar memorial.")
     //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
 
-    const { firstName, lastName, gender, relationship, epitaph, about, theme } =
-      req.body
+    const {
+      firstName,
+      lastName,
+      gender,
+      relationship,
+      mainPhoto,
+      epitaph,
+      about,
+      theme,
+    } = req.body
 
     // Ajusta o objeto `birth` garantindo valores padrões
     const birth = {
@@ -29,9 +37,7 @@ const MemorialController = {
 
     // Ajusta a galeria para garantir um array mesmo que esteja vazio
     const gallery = {
-      photos: req.body["gallery.photos"]
-        ? [req.body["gallery.photos"]]
-        : ["https://via.placeholder.com/300?text=Sem+imagens"],
+      photos: req.body["gallery.photos"] ? [req.body["gallery.photos"]] : [],
       audios: req.body["gallery.audios"] ? [req.body["gallery.audios"]] : [],
       videos: req.body["gallery.videos"] ? [req.body["gallery.videos"]] : [],
     }
@@ -65,20 +71,23 @@ const MemorialController = {
         slug,
         gender: gender || "Não informado",
         relationship: relationship || "Não informado",
+        mainPhoto: mainPhoto || "/images/uploads/default.png",
         epitaph: epitaph || "Nenhum epitáfio foi cadastrado.",
         birth,
         death,
-        about: about || "Nenhuma biografia disponível.",
+        about:
+          about ||
+          "Aqui serão inseridas informações sobre o Memrorial e sua criação.",
         lifeStory: [
           {
-            title: "História não fornecida",
-            content: "Ainda não há história cadastrada.",
+            title: "Aqui será inseria a Mini Biograria do homenageado",
+            content: "Ainda não há conteúdo cadastrado.",
           },
         ],
         stories: [
           {
-            title: "Sem histórias",
-            content: "Nenhuma história foi adicionada ainda.",
+            title: "Ainda Sem histórias compartilhadas",
+            content: "Nenhuma história foi compartilhada ainda.",
           },
         ],
         gallery,
@@ -107,7 +116,7 @@ const MemorialController = {
           message: "Memorial não encontrado.",
         })
       }
-
+      console.log(memorial)
       const calcularIdade = (dataNascimento) => {
         if (!dataNascimento || isNaN(new Date(dataNascimento))) return null
 
@@ -131,18 +140,16 @@ const MemorialController = {
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
+        mainPhoto: memorial.mainPhoto,
         relationship: memorial.relationship,
-        // Calcula a idade com base na data de nascimento
-        idade: calcularIdade(memorial.birth?.date),
+        idade: calcularIdade(memorial.birth?.date), // Calcula a idade com base na data de nascimento
         birth: {
-          //date: formatarData(memorial.birth?.date),
           date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          //date: formatarData(memorial.death?.date),
           date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
@@ -154,7 +161,7 @@ const MemorialController = {
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
         stories: Array.isArray(memorial.stories) ? memorial.stories : [],
         gallery: memorial.gallery || {
-          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          photos: [],
           audios: [],
           videos: [],
         },
@@ -204,7 +211,7 @@ const MemorialController = {
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
         stories: Array.isArray(memorial.stories) ? memorial.stories : [],
         gallery: memorial.gallery || {
-          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          photos: [],
           audios: [],
           videos: [],
         },
@@ -253,7 +260,7 @@ const MemorialController = {
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
         stories: Array.isArray(memorial.stories) ? memorial.stories : [],
         gallery: memorial.gallery || {
-          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          photos: [],
           audios: [],
           videos: [],
         },
@@ -271,7 +278,6 @@ const MemorialController = {
     const { slug } = req.params
     try {
       const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
-
       if (!memorial) {
         return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
@@ -302,7 +308,7 @@ const MemorialController = {
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
         stories: Array.isArray(memorial.stories) ? memorial.stories : [],
         gallery: memorial.gallery || {
-          photos: ["https://via.placeholder.com/300?text=Sem+imagens"],
+          photos: [],
           audios: [],
           videos: [],
         },

@@ -84,7 +84,6 @@ const AuthController = {
       await newUser.save()
 
       //console.log("Usuário cadastrado com sucesso:", newUser)
-
       // Agora que o usuário foi registrado, vamos logá-lo automaticamente:
       // A autenticação será o mesmo processo que ocorre no login
       req.session.user = {

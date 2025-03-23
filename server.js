@@ -4,8 +4,8 @@ const path = require("path")
 const conectarDB = require("./config/db")
 const session = require("express-session")
 const formData = require("express-form-data")
-require("dotenv").config()
 const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
+require("dotenv").config()
 
 const app = express()
 
@@ -49,15 +49,8 @@ const hbs = exphbs.create({
 
       const options = { year: "numeric", month: "long", day: "numeric" }
       return data.toLocaleDateString("pt-BR", options)
-    },
+    }, //Formata a data para ser usada em qualquer lugar do sistema
   },
-
-  //helpers: {
-  //  formatDate: function (date) {
-  //    const options = { year: "numeric", month: "long", day: "numeric" }
-  //    return new Date(date).toLocaleDateString("pt-BR", options)
-  //  },
-  //},
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })
 

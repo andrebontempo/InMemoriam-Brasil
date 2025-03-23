@@ -30,7 +30,7 @@ router.get("/:slug/stories", MemorialController.exibirStories)
 // Rota genérica que redireciona corretamente
 router.get("/:slug", (req, res) => {
   //console.log("Redirecionando para /memorial/:slug/about")
-  res.redirect(`/memorial/${req.params.slug}/about`) // Ajuste aqui
+  res.redirect(`/memorial/${req.params.slug}/about`)
 })
 
 module.exports = router
