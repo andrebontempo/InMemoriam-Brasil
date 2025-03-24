@@ -6,6 +6,7 @@ const session = require("express-session")
 const formData = require("express-form-data")
 const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
+const methodOverride = require("method-override")
 
 const app = express()
 
@@ -23,6 +24,8 @@ app.use(
     saveUninitialized: false,
   })
 )
+//Método adicionado para o formulário usar o PUT - sem isto só aceita POST
+app.use(methodOverride("_method"))
 
 // Importar rotas
 const routes = require("./app/routes")
@@ -50,6 +53,13 @@ const hbs = exphbs.create({
       const options = { year: "numeric", month: "long", day: "numeric" }
       return data.toLocaleDateString("pt-BR", options)
     }, //Formata a data para ser usada em qualquer lugar do sistema
+
+    ifEquals: function (a, b, options) {
+      if (a === b) {
+        return options.fn(this) // Executa o bloco "true"
+      }
+      return options.inverse(this) // Executa o bloco "false"
+    }, //Corrige o erro na hora de editar o Memorial.
   },
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })

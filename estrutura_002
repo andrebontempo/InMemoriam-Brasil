@@ -31,8 +31,11 @@
 │   │   ├── memorial-footer.hbs
 │   │   ├── memorial-header.hbs
 │   │   └── memorial-navbar.hbs
+│   ├── memorial-pesquisa copy.hbs
 │   ├── memorial-styles copy.css
 │   ├── navbar copy.hbs
+│   ├── personal copy2.hbs
+│   ├── personal copy.hbs
 │   ├── register copy.hbs
 │   ├── seed.js
 │   ├── Styles.bootstrap.css
@@ -87,6 +90,10 @@
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
 │       ├── memorial
+│       │   ├── edit
+│       │   │   ├── about.hbs
+│       │   │   ├── epitaph.hbs
+│       │   │   └── personal.hbs
 │       │   ├── memorial-about.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
@@ -172,4 +179,4 @@
     ├── models
     └── routes
 
-32 directories, 141 files
+33 directories, 147 files
