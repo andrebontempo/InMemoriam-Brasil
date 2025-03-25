@@ -18,3 +18,5 @@ Plataforma para criação de memoriais virtuais.
 
 3. Acesse o site em:
    `http://localhost:3000`
+
+---
