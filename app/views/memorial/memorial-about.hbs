@@ -66,7 +66,8 @@
             {{#if about}}
               {{about}}
             {{else}}
-              Nenhum conteúdo ainda disponível.
+              Este memorial foi criado por
+              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em memória de {{firstName}} {{lastName}}, {{idade}} anos de idade, e que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Que a sua recordação dure para sempre.
             {{/if}}
           </p>
         </div>
@@ -79,8 +80,8 @@
               <div class="card my-2 custom-box p-2">
                 <div class="card-body d-flex p-2">
                   <div class="me-3" style="width: 100px;">
-                    {{#if this.image}}
-                      <img src="/images/tribute/{{this.image}}" alt="Símbolo do tributo" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+                    {{#if this.type}}
+                      <img src="/images/tribute/{{this.type}}" alt="Símbolo do tributo" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
                     {{else}}
                       <img src="/images/tribute/tribute_caneta.png" alt="Imagem padrão" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
                     {{/if}}

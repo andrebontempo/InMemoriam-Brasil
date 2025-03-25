@@ -6,7 +6,14 @@ const { Console } = require("console")
 const MemorialController = {
   criarMemorial: async (req, res) => {
     //console.log("Requisição recebida para criar memorial.")
+    //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
     //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
+
+    // Garantir que o usuário autenticado esteja presente
+    const user1 = req.session.loggedUser
+    if (!user1) {
+      return res.status(401).json({ message: "Usuário não autenticado" })
+    }
 
     const {
       firstName,
@@ -66,6 +73,12 @@ const MemorialController = {
       }
 
       const memorial = new Memorial({
+        user: user1._id,
+        /*
+        user: {
+          $oid: user1._id,
+        },
+        */
         firstName,
         lastName,
         slug,
@@ -79,9 +92,6 @@ const MemorialController = {
         epitaph: epitaph || "Nenhum epitáfio foi cadastrado.",
         birth,
         death,
-        about:
-          about ||
-          "Aqui serão inseridas informações sobre o Memrorial e sua criação.",
         lifeStory: [
           {
             title: "Aqui será inseria a Mini Biograria do homenageado",
@@ -113,7 +123,9 @@ const MemorialController = {
     const { slug } = req.params
     //console.log(slug)
     try {
-      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
+      const memorial = await Memorial.findOne({ slug })
+        .populate({ path: "user", select: "firstName lastName" }) // Certifique-se de que os campos corretos estão sendo populados
+        .lean() // Converte o documento em um objeto simples
       //console.log(memorial)
       if (!memorial) {
         return res.status(404).render("errors/404", {
@@ -140,6 +152,12 @@ const MemorialController = {
 
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
+        /*
+        user: {
+          firstName: memorial.user.firstName || "First Não informado",
+          lastName: memorial.user.lastName || "Last não informado",
+        },
+        */
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
@@ -159,7 +177,7 @@ const MemorialController = {
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",
         },
-        about: memorial.about || "Informação não disponível.",
+        about: memorial.about,
         epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
         tribute: memorial.tribute || [], // Passando os tributos para o template
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],

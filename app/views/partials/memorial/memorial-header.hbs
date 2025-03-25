@@ -32,7 +32,7 @@
 
       <!-- Links de autenticação à direita -->
       <div class="d-flex gap-3">
-        {{#if user}}
+        {{#if loggedUser}}
           <div class="dropdown">
             <a
               class="btn btn-link text-white dropdown-toggle fs-6"
@@ -43,7 +43,7 @@
               style="text-decoration: none;"
             >
               Bem-vindo(a),
-              {{user.firstName}}
+              {{loggedUser.firstName}}
             </a>
             <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton">
               <li><a class="dropdown-item" href="/auth/dashboard">A Minha Conta</a></li>

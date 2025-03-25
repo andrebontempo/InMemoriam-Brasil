@@ -24,6 +24,10 @@ app.use(
     saveUninitialized: false,
   })
 )
+
+// Aplicar o middleware global para disponibilizar `user` em todas as views
+app.use(setUserMiddleware)
+
 //Método adicionado para o formulário usar o PUT - sem isto só aceita POST
 app.use(methodOverride("_method"))
 
@@ -70,9 +74,6 @@ app.set("views", path.join(__dirname, "app/views"))
 
 // Middlewares
 app.use(express.static(path.join(__dirname, "public"))) // Arquivos estáticos (CSS, JS, imagens)
-
-// Aplicar o middleware global para disponibilizar `user` em todas as views
-app.use(setUserMiddleware)
 
 // Usar rotas
 app.use("/", routes)

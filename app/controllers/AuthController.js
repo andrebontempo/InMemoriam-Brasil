@@ -36,14 +36,21 @@ const AuthController = {
       }
 
       // Armazena dados do usuário na sessão
-      req.session.user = {
+      //console.log(user.lastName)
+      req.session.loggedUser = {
         id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
       }
 
-      res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
+      //console.log("Usuário autenticadooo:", req.session.loggedUser)
+
+      req.session.save(() => {
+        res.redirect("/auth/dashboard")
+      })
+
+      //res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
     } catch (error) {
       console.error("Erro ao processar login:", error)
       res.status(500).render("/auth/login", { error: "Erro ao fazer login." })
