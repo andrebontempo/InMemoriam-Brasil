@@ -20,6 +20,7 @@
 │   ├── memorial-about copy.hbs
 │   ├── memorial.body.hbs
 │   ├── MemorialController copy.js
+│   ├── MemorialControllerTESTE.js
 │   ├── Memorial copy.js
 │   ├── memorial-gallery copy 2.hbs
 │   ├── memorial-gallery copy.hbs
@@ -179,4 +180,4 @@
     ├── models
     └── routes
 
-33 directories, 147 files
+33 directories, 148 files
