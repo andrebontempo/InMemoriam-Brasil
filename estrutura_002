@@ -3,6 +3,7 @@
 │   ├── AuthController copy 2.js
 │   ├── AuthController copy 3.js
 │   ├── AuthController copy.js
+│   ├── authMiddleware copy.js
 │   ├── contato copy.hbs
 │   ├── criar-memorial copy 2.hbs
 │   ├── criar-memorial copy 3.hbs
@@ -62,7 +63,6 @@
 │   │   ├── errorHandlerMiddleware.js
 │   │   └── setUserMiddleware.js
 │   ├── models
-│   │   ├── Memorial copy.js
 │   │   ├── Memorial.js
 │   │   └── User.js
 │   ├── routes
@@ -91,6 +91,7 @@
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
 │       ├── memorial
+│       │   ├── create-memorial9999.hbs
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
@@ -113,6 +114,7 @@
 │           ├── condicoes-utilizacao.hbs
 │           ├── contato.hbs
 │           ├── criar-memorial.hbs
+│           ├── criar-memorialTESTE.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
 │           ├── memoriais-virtuais.hbs
@@ -178,6 +180,14 @@
 └── tests
     ├── controllers
     ├── models
+    │   ├── 000_TIMESTAMP.md
+    │   ├── 001_NOVO_MODELS.md
+    │   ├── Gallery.js
+    │   ├── LifeStory.js
+    │   ├── Memorial.js
+    │   ├── Story.js
+    │   ├── Tribute.js
+    │   └── User.js
     └── routes
 
-33 directories, 148 files
+33 directories, 158 files
