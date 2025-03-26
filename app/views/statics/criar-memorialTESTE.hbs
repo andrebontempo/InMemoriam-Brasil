@@ -28,6 +28,7 @@
               class="form-control"
               id="firstName"
               name="firstName"
+              value="{{formData.firstName}}"
               required
             />
           </div>
@@ -38,6 +39,7 @@
               class="form-control"
               id="lastName"
               name="lastName"
+              value="{{formData.lastName}}"
               required
             />
           </div>
@@ -53,6 +55,7 @@
                 id="male"
                 name="gender"
                 value="male"
+                {{#if (eq formData.gender "male")}}checked{{/if}}
                 required
               />
               <label for="male">Masculino</label>
@@ -61,6 +64,7 @@
                 id="female"
                 name="gender"
                 value="female"
+                {{#if (eq formData.gender "female")}}checked{{/if}}
                 required
                 class="ms-3"
               />
@@ -70,6 +74,7 @@
                 id="other"
                 name="gender"
                 value="other"
+                {{#if (eq formData.gender "other")}}checked{{/if}}
                 required
                 class="ms-3"
               />
@@ -85,26 +90,11 @@
               required
             >
               <option value="">Selecione</option>
-              <option value="amigo">Amigo</option>
-              <option value="amiga">Amiga</option>
-              <option value="avo">Avô</option>
-              <option value="avo">Avó</option>
-              <option value="filho">Filho</option>
-              <option value="filha">Filha</option>
-              <option value="irmao">Irmão</option>
-              <option value="irma">Irmã</option>
-              <option value="mae">Mãe</option>
-              <option value="marido">Marido</option>
-              <option value="neto">Neto</option>
-              <option value="neta">Neta</option>
-              <option value="pai">Pai</option>
-              <option value="primo">Primo</option>
-              <option value="prima">Prima</option>
-              <option value="sobrinho">Sobrinho</option>
-              <option value="sobrinha">Sobrinha</option>
-              <option value="tia">Tia</option>
-              <option value="tio">Tio</option>
-              <option value="esposa">Esposa</option>
+              <option value="amigo" {{#if (eq formData.relationship "amigo")}}selected{{/if}}>Amigo</option>
+              <option value="amiga" {{#if (eq formData.relationship "amiga")}}selected{{/if}}>Amiga</option>
+              <option value="avo" {{#if (eq formData.relationship "avo")}}selected{{/if}}>Avô</option>
+              <option value="filho" {{#if (eq formData.relationship "filho")}}selected{{/if}}>Filho</option>
+              <option value="filha" {{#if (eq formData.relationship "filha")}}selected{{/if}}>Filha</option>
             </select>
           </div>
         </div>
@@ -119,34 +109,8 @@
               class="form-control"
               id="birthDate"
               name="birth.date"
+              value="{{formData.birth.date}}"
               required
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="birthCity" class="form-label">Cidade:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="birthCity"
-              name="birth.city"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="birthState" class="form-label">Estado:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="birthState"
-              name="birth.state"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="birthCountry" class="form-label">País:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="birthCountry"
-              name="birth.country"
             />
           </div>
         </div>
@@ -161,34 +125,8 @@
               class="form-control"
               id="deathDate"
               name="death.date"
+              value="{{formData.death.date}}"
               required
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathCity" class="form-label">Cidade:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathCity"
-              name="death.city"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathState" class="form-label">Estado:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathState"
-              name="death.state"
-            />
-          </div>
-          <div class="col-md-3">
-            <label for="deathCountry" class="form-label">País:</label>
-            <input
-              type="text"
-              class="form-control"
-              id="deathCountry"
-              name="death.country"
             />
           </div>
         </div>
@@ -200,19 +138,6 @@
         class="border rounded p-4 mb-4"
         style="background-color: #7a142f; color: white;"
       >
-
-        <!-- Foto Principal -->
-        <div class="mb-3">
-          <label for="mainPhoto" class="form-label">Foto Principal:</label>
-          <input
-            type="file"
-            class="form-control"
-            id="mainPhoto"
-            name="mainPhoto"
-            accept="image/*"
-          />
-        </div>
-
         <!-- Epitáfio -->
         <div class="mb-3">
           <label for="epitaph" class="form-label">Epitáfio:</label>
@@ -222,17 +147,7 @@
             name="epitaph"
             rows="2"
             maxlength="255"
-          ></textarea>
-        </div>
-
-        <!-- Tema -->
-        <div class="mb-3">
-          <label for="theme" class="form-label">Tema:</label>
-          <select class="form-control" id="theme" name="theme">
-            <option value="classico">Clássico</option>
-            <option value="moderno">Moderno</option>
-            <option value="religioso">Religioso</option>
-          </select>
+          >{{formData.epitaph}}</textarea>
         </div>
       </div>
 
@@ -240,5 +155,6 @@
         <button type="submit" class="btn btn-light">Criar Memorial</button>
       </div>
     </form>
+
   </div>
 </main>

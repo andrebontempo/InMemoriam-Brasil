@@ -9,7 +9,7 @@ router.post("/register", AuthController.registerUser) // Rota para processar o c
 router.get("/login", AuthController.showLoginForm) // Rota para exibir o formulário de login
 router.post("/login", AuthController.loginUser) // Rota para processar o login
 router.get("/dashboard", authMiddleware, (req, res) => {
-  res.render("auth/dashboard", { user: req.session.user })
+  res.render("auth/dashboard", { user: req.session.loggedUser })
 })
 router.get("/logout", AuthController.logout)
 

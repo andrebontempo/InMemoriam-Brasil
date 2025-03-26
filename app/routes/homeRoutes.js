@@ -1,6 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const HomeController = require("../controllers/HomeController")
+const authMiddleware = require("../middlewares/authMiddleware")
 
 // Rota raiz do site
 router.get("/", HomeController.index)
@@ -9,11 +10,21 @@ router.get("/", HomeController.index)
 router.get("/sobre", (req, res) => {
   res.render("statics/sobre", { title: "Sobre Nós - In Memoriam Brasil" })
 })
+/*
 router.get("/criar-memorial", (req, res) => {
   res.render("statics/criar-memorial", {
     title: "Criar Memorial - In Memoriam Brasil",
   })
 })
+*/
+// Rota para exibir o formulário de criação do memorial
+router.get("/criar-memorial", authMiddleware, (req, res) => {
+  const formData = req.session.formData || {} // Recupera os dados ou mantém vazio
+  delete req.session.formData // Limpa a sessão para evitar reuso indevido
+
+  res.render("statics/criar-memorial", { formData })
+})
+
 router.get("/plano-opcoes", (req, res) => {
   res.render("statics/plano-opcoes", {
     title: "Plano e Opções - In Memoriam Brasil",

@@ -1,6 +1,8 @@
 const express = require("express")
 const router = express.Router()
 const MemorialController = require("../controllers/MemorialController")
+// Importando o middleware corretamente
+const authMiddleware = require("../middlewares/authMiddleware") // Certifique-se de que o caminho está correto!
 
 //router.get("/", MemorialController.list)
 //router.get("/:id", MemorialController.view)
@@ -8,15 +10,10 @@ const MemorialController = require("../controllers/MemorialController")
 //router.put("/:id", MemorialController.update)
 //router.delete("/:id", MemorialController.delete)
 
-//Rota para a criação de memoriais
-router.post(
-  "/criar-memorial",
-  (req, res, next) => {
-    //console.log("Requisição recebida para criar memorial.")
-    next() // Passa para o controlador
-  },
-  MemorialController.criarMemorial
-)
+router.post("/create-memorial", authMiddleware, (req, res) => {
+  console.log("PASSOU AQUI PARA CRIAR") //, req.body)
+  MemorialController.criarMemorial(req, res)
+})
 
 // Rota de pesquisa
 router.get("/pesquisa", MemorialController.pesquisarMemorial)
@@ -37,6 +34,11 @@ router.get("/:slug/stories", MemorialController.exibirStories)
 router.get("/:slug", (req, res) => {
   //console.log("Redirecionando para /memorial/:slug/about")
   res.redirect(`/memorial/${req.params.slug}/about`)
+})
+
+router.post("/create-memorial", authMiddleware, (req, res) => {
+  console.log("PASSOU AQUI PARA CRIAR") //, req.body)
+  MemorialController.criarMemorial(req, res)
 })
 
 module.exports = router

@@ -25,14 +25,6 @@ const UserSchema = new mongoose.Schema(
     // Biografia e localização (opcionais)
     bio: { type: String, maxlength: 500 },
     location: { type: String, maxlength: 100 },
-
-    // Lista de memoriais que este usuário criou
-    memorialsCreated: [
-      { type: mongoose.Schema.Types.ObjectId, ref: "Memorial" },
-    ],
-
-    // Tributos feitos pelo usuário
-    tributesMade: [{ type: mongoose.Schema.Types.ObjectId, ref: "Memorial" }],
   },
   { timestamps: true } // Adiciona createdAt e updatedAt
 )

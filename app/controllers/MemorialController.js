@@ -2,6 +2,7 @@ const Memorial = require("../models/Memorial")
 const path = require("path")
 const fs = require("fs")
 const { Console } = require("console")
+const mongoose = require("mongoose")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
@@ -10,10 +11,9 @@ const MemorialController = {
     //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
 
     // Garantir que o usuário autenticado esteja presente
-    const user1 = req.session.loggedUser
-    if (!user1) {
-      return res.status(401).json({ message: "Usuário não autenticado" })
-    }
+    const userCurrent = req.session.loggedUser
+
+    //console.log("LOG CONTROLLER - Usuário atual (session):", userCurrent)
 
     const {
       firstName,
@@ -73,7 +73,9 @@ const MemorialController = {
       }
 
       const memorial = new Memorial({
-        user: user1._id,
+        //user: new mongoose.Types.ObjectId(userCurrent.id),
+        user: new mongoose.Types.ObjectId(userCurrent._id),
+        //user: userCurrent.id,
         /*
         user: {
           $oid: user1._id,
@@ -84,6 +86,7 @@ const MemorialController = {
         slug,
         gender: gender || "Não informado",
         relationship: relationship || "Não informado",
+        visibility: req.body.visibility || "public", // Usa o valor de visibilidade do formulário
         mainPhoto: {
           url: req.file
             ? `/images/uploads/${req.file.filename}`
@@ -152,12 +155,12 @@ const MemorialController = {
 
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
-        /*
+
         user: {
           firstName: memorial.user.firstName || "First Não informado",
           lastName: memorial.user.lastName || "Last não informado",
         },
-        */
+
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,

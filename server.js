@@ -25,7 +25,7 @@ app.use(
   })
 )
 
-// Aplicar o middleware global para disponibilizar `user` em todas as views
+// Aplicar o middleware global para disponibilizar `loggedUser` em todas as views
 app.use(setUserMiddleware)
 
 //Método adicionado para o formulário usar o PUT - sem isto só aceita POST
@@ -57,6 +57,8 @@ const hbs = exphbs.create({
       const options = { year: "numeric", month: "long", day: "numeric" }
       return data.toLocaleDateString("pt-BR", options)
     }, //Formata a data para ser usada em qualquer lugar do sistema
+
+    eq: (a, b) => a === b, // Função de comparação
 
     ifEquals: function (a, b, options) {
       if (a === b) {

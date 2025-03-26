@@ -5,8 +5,8 @@ const MemorialSchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
-      required: false,
-    }, // Dono do memorial
+      required: true,
+    }, // Criador do memorial
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     slug: { type: String, unique: true, required: true },

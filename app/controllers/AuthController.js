@@ -36,18 +36,21 @@ const AuthController = {
       }
 
       // Armazena dados do usuário na sessão
-      //console.log(user.lastName)
       req.session.loggedUser = {
-        id: user._id,
+        _id: user._id,
         firstName: user.firstName,
         lastName: user.lastName,
         email: user.email,
       }
 
-      //console.log("Usuário autenticadooo:", req.session.loggedUser)
+      const formData = req.session.formData
+      delete req.session.formData
+
+      const redirectTo = req.session.returnTo || "/auth/dashboard" // Definir antes do uso
+      delete req.session.returnTo // Remover a URL salva para evitar redirecionamentos repetidos
 
       req.session.save(() => {
-        res.redirect("/auth/dashboard")
+        res.redirect(redirectTo)
       })
 
       //res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
