@@ -1,0 +1,30 @@
+<!-- views/partials/memorial-sidebar.hbs -->
+<div class="col-md-3">
+    <!-- Compartilhar -->
+    <div class="custom-box p-3 mt-4 me-4">
+        <h4><i class="bi bi-share-fill"></i> Compartilhe</h4>
+        <ul class="list-unstyled">
+            <li>Convide amigos e familiares para visitar este memorial.</li>
+            <li>Mantenha viva na memória as lembranças</li>
+        </ul>
+    </div>
+
+    <!-- Estatísticas -->
+    <div class="custom-box p-3 mt-3 me-4">
+        <h4><i class="bi bi-bar-chart-fill"></i> Estatísticas</h4>
+        <p><strong>Visitas:</strong> 1234</p>
+        <p><strong>Tributos:</strong> {{tribute.length}}</p>
+    </div>
+
+    <!-- Galeria -->
+    <div class="custom-box p-3 mt-3 me-4">
+        <h4>Galeria</h4>
+        {{#if gallery.photos.length}}
+            {{#each gallery.photos}}
+                <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
+            {{/each}}
+        {{else}}
+            <p>Nenhuma foto disponível.</p>
+        {{/if}}
+    </div>
+</div>
