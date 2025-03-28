@@ -1,58 +1,4 @@
 .
-├── 0_antigos
-│   ├── AuthController copy 2.js
-│   ├── AuthController copy 3.js
-│   ├── AuthController copy.js
-│   ├── authMiddleware copy.js
-│   ├── contato copy.hbs
-│   ├── criar-memorial copy 2.hbs
-│   ├── criar-memorial copy 3.hbs
-│   ├── criar-memorial copy.hbs
-│   ├── criar-memorial_t.hbs
-│   ├── estrutura_002_conteudo
-│   ├── Gallery.js
-│   ├── header copy.hbs
-│   ├── home copy 2.hbs
-│   ├── home copy.hbs
-│   ├── index copy.js
-│   ├── login copy.hbs
-│   ├── memoriais99.hbs
-│   ├── memorial_999.hbs
-│   ├── memorial-about copy.hbs
-│   ├── memorial.body.hbs
-│   ├── MemorialController copy.js
-│   ├── MemorialControllerTESTE.js
-│   ├── Memorial copy.js
-│   ├── memorial-gallery copy 2.hbs
-│   ├── memorial-gallery copy.hbs
-│   ├── memorial-header copy 2.hbs
-│   ├── memorial-header copy.hbs
-│   ├── memorial-lifestory copy.hbs
-│   ├── memorial-partials999
-│   │   ├── memorial.body.hbs
-│   │   ├── memorial-footer.hbs
-│   │   ├── memorial-header.hbs
-│   │   └── memorial-navbar.hbs
-│   ├── memorial-pesquisa copy.hbs
-│   ├── memorial-styles copy.css
-│   ├── navbar copy.hbs
-│   ├── personal copy2.hbs
-│   ├── personal copy.hbs
-│   ├── register copy.hbs
-│   ├── seed.js
-│   ├── Styles.bootstrap.css
-│   ├── styles copy 2.css
-│   ├── styles copy.css
-│   ├── styles-ROXO.css
-│   ├── teste.js
-│   ├── User copy 2.js
-│   └── User copy.js
-├── 1_seeds
-│   ├── seed-001.js
-│   ├── seed-002.js
-│   ├── seed-003.js
-│   ├── seed-004.js
-│   └── seed-005.js
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
@@ -91,7 +37,6 @@
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
 │       ├── memorial
-│       │   ├── create-memorial9999.hbs
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
@@ -109,12 +54,12 @@
 │       │   └── memorial
 │       │       ├── memorial-footer.hbs
 │       │       ├── memorial-header.hbs
-│       │       └── memorial-navbar.hbs
+│       │       ├── memorial-navbar.hbs
+│       │       └── memorial-sidebar.hbs
 │       └── statics
 │           ├── condicoes-utilizacao.hbs
 │           ├── contato.hbs
 │           ├── criar-memorial.hbs
-│           ├── criar-memorialTESTE.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
 │           ├── memoriais-virtuais.hbs
@@ -176,18 +121,6 @@
 │       ├── tutorial.mp4
 │       └── tutorial_SOL.mp4
 ├── README.md
-├── server.js
-└── tests
-    ├── controllers
-    ├── models
-    │   ├── 000_TIMESTAMP.md
-    │   ├── 001_NOVO_MODELS.md
-    │   ├── Gallery.js
-    │   ├── LifeStory.js
-    │   ├── Memorial.js
-    │   ├── Story.js
-    │   ├── Tribute.js
-    │   └── User.js
-    └── routes
+└── server.js
 
-33 directories, 158 files
+26 directories, 98 files
