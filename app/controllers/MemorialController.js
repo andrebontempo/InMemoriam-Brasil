@@ -1,4 +1,9 @@
 const Memorial = require("../models/Memorial")
+const User = require("../models/User")
+const Tribute = require("../models/Tribute") // Ajuste o caminho conforme necessário
+const lifeStory = require("../models/LifeStory")
+const stories = require("../models/Story")
+const gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
 const { Console } = require("console")
@@ -15,16 +20,8 @@ const MemorialController = {
 
     //console.log("LOG CONTROLLER - Usuário atual (session):", userCurrent)
 
-    const {
-      firstName,
-      lastName,
-      gender,
-      relationship,
-      mainPhoto,
-      epitaph,
-      about,
-      theme,
-    } = req.body
+    const { firstName, lastName, gender, kinship, mainPhoto, epitaph } =
+      req.body
 
     // Ajusta o objeto `birth` garantindo valores padrões
     const birth = {
@@ -84,17 +81,18 @@ const MemorialController = {
         firstName,
         lastName,
         slug,
-        gender: gender || "Não informado",
-        relationship: relationship || "Não informado",
+        gender: gender, // || "Não informado",
+        kinship: kinship, // || "Não informado",
         visibility: req.body.visibility || "public", // Usa o valor de visibilidade do formulário
         mainPhoto: {
           url: req.file
             ? `/images/uploads/${req.file.filename}`
             : "/images/uploads/default.png", // URL padrão se não houver arquivo
         },
-        epitaph: epitaph || "Nenhum epitáfio foi cadastrado.",
+        epitaph: epitaph, // || "Nenhum epitáfio foi cadastrado.",
         birth,
         death,
+        /*
         lifeStory: [
           {
             title: "Aqui será inseria a Mini Biograria do homenageado",
@@ -108,7 +106,9 @@ const MemorialController = {
           },
         ],
         gallery,
-        theme: theme || "blue-theme",
+        
+        theme: theme, || "blue-theme",
+        */
       })
 
       //console.log(memorial)
@@ -122,75 +122,104 @@ const MemorialController = {
     }
   },
 
+  // Método para exibir o memorial
   exibirMemorial: async (req, res) => {
     const { slug } = req.params
-    //console.log(slug)
     try {
       const memorial = await Memorial.findOne({ slug })
-        .populate({ path: "user", select: "firstName lastName" }) // Certifique-se de que os campos corretos estão sendo populados
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content" }) // Populate para lifeStory
+        .populate({ path: "stories", select: "title content" }) // Populate para stories
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
         .lean() // Converte o documento em um objeto simples
-      //console.log(memorial)
+
       if (!memorial) {
         return res.status(404).render("errors/404", {
           message: "Memorial não encontrado.",
         })
       }
-      //console.log(memorial)
-      const calcularIdade = (dataNascimento) => {
+
+      // Buscar os tributos relacionados ao memorial
+      const tributes = await Tribute.find({ memorial: memorial._id })
+        .select("name message type image updatedAt") // Selecionando campos específicos dos tributos
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      // Função para calcular a idade
+      const calcularIdade = (dataNascimento, dataFalecimento) => {
         if (!dataNascimento || isNaN(new Date(dataNascimento))) return null
+        if (!dataFalecimento || isNaN(new Date(dataFalecimento))) return null
 
         const nascimento = new Date(dataNascimento)
-        const hoje = new Date()
+        const falecimento = new Date(dataFalecimento)
 
-        let idade = hoje.getFullYear() - nascimento.getFullYear()
-        const m = hoje.getMonth() - nascimento.getMonth()
+        let anos = falecimento.getFullYear() - nascimento.getFullYear()
+        let meses = falecimento.getMonth() - nascimento.getMonth()
+        let dias = falecimento.getDate() - nascimento.getDate()
 
-        // Ajusta a idade se o aniversário ainda não ocorreu este ano
-        if (m < 0 || (m === 0 && hoje.getDate() < nascimento.getDate())) {
-          idade--
+        // Ajusta se o mês de falecimento for anterior ao de nascimento
+        if (meses < 0 || (meses === 0 && dias < 0)) {
+          anos--
+          meses += 12
         }
 
-        return idade
+        // Ajusta os dias para meses com diferentes quantidades de dias
+        if (dias < 0) {
+          const ultimoMes = new Date(
+            falecimento.getFullYear(),
+            falecimento.getMonth(),
+            0
+          ).getDate()
+          dias += ultimoMes
+          meses--
+        }
+
+        // Retorna idade no formato adequado
+        if (anos > 0) {
+          return `${anos} ano${anos > 1 ? "s" : ""} e ${meses} ${
+            meses === 1 ? "mês" : "meses"
+          }`
+        } else {
+          return `${meses} ${meses === 1 ? "mês" : "meses"}`
+        }
       }
 
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
-
         user: {
-          firstName: memorial.user.firstName || "First Não informado",
-          lastName: memorial.user.lastName || "Last não informado",
+          firstName: memorial.user.firstName || "Primeiro Nome Não informado",
+          lastName: memorial.user.lastName || "Último Nome Não informado",
         },
-
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
         mainPhoto: memorial.mainPhoto,
-        relationship: memorial.relationship,
-        idade: calcularIdade(memorial.birth?.date), // Calcula a idade com base na data de nascimento
-        birth: {
-          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.birth?.city || "Local desconhecido",
-          state: memorial.birth?.state || "Estado não informado",
-          country: memorial.birth?.country || "País não informado",
-        },
-        death: {
-          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.death?.city || "Local desconhecido",
-          state: memorial.death?.state || "Estado não informado",
-          country: memorial.death?.country || "País não informado",
-        },
-        about: memorial.about,
-        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
-        tribute: memorial.tribute || [], // Passando os tributos para o template
-        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        tribute: tributes || [], // Passando os tributos para o template
+        lifeStory: memorial.lifeStory || [], // Passando lifeStory para o template
+        stories: memorial.stories || [], // Passando stories para o template
         gallery: memorial.gallery || {
           photos: [],
           audios: [],
           videos: [],
         },
-        theme: memorial.theme || "blue-theme",
+        idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
+        birth: {
+          date: memorial.birth?.date || "Não informada",
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: memorial.death?.date || "Não informada",
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
+        about: memorial.about,
+        epitaph: memorial.epitaph, // || "",
+        theme: memorial.theme, // || "blue-theme",
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
@@ -200,6 +229,7 @@ const MemorialController = {
     }
   },
 
+  // Método para exibir a página de edição do memorial
   editarMemorial: async (req, res) => {
     try {
       //console.log("Recebendo requisição para editar memorial:", req.params.slug)

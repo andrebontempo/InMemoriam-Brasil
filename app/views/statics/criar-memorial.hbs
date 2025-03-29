@@ -13,14 +13,14 @@
     >
 
       <!-- Dados Pessoais -->
-      <h3 class="mt-4 fw-bold">Dados do Homenageado</h3>
+      <!--<h3 class="mt-4 fw-bold">Dados do Homenageado</h3>-->
       <div
         class="border rounded p-4 mb-4"
         style="background-color: #7a142f; color: white;"
       >
 
         <!-- Nome e Sobrenome -->
-        <div class="row mb-3">
+        <div class="row g-3">
           <div class="col-md-6">
             <label for="firstName" class="form-label">Primeiro Nome:</label>
             <input
@@ -44,46 +44,48 @@
         </div>
 
         <!-- Sexo e Parentesco -->
-        <div class="row mb-3">
+        <div class="row g-3 mt-3">
           <div class="col-md-6">
             <label class="form-label">Sexo:</label>
-            <div>
-              <input
-                type="radio"
-                id="male"
-                name="gender"
-                value="male"
-                required
-              />
-              <label for="male">Masculino</label>
-              <input
-                type="radio"
-                id="female"
-                name="gender"
-                value="female"
-                required
-                class="ms-3"
-              />
-              <label for="female">Feminino</label>
-              <input
-                type="radio"
-                id="other"
-                name="gender"
-                value="other"
-                required
-                class="ms-3"
-              />
-              <label for="other">Outros</label>
+            <div class="d-flex gap-3">
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="male"
+                  name="gender"
+                  value="Masculino"
+                  required
+                />
+                <label for="male" class="form-check-label">Masculino</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="female"
+                  name="gender"
+                  value="Feminino"
+                  required
+                />
+                <label for="female" class="form-check-label">Feminino</label>
+              </div>
+              <div class="form-check">
+                <input
+                  type="radio"
+                  class="form-check-input"
+                  id="other"
+                  name="gender"
+                  value="Outros"
+                  required
+                />
+                <label for="other" class="form-check-label">Outros</label>
+              </div>
             </div>
           </div>
           <div class="col-md-6">
-            <label for="relationship" class="form-label">Parentesco:</label>
-            <select
-              class="form-control"
-              id="relationship"
-              name="relationship"
-              required
-            >
+            <label for="kinship" class="form-label">Parentesco:</label>
+            <select class="form-select" id="kinship" name="kinship" required>
               <option value="">Selecione</option>
               <option value="amigo">Amigo</option>
               <option value="amiga">Amiga</option>
@@ -95,15 +97,7 @@
               <option value="irma">Irmã</option>
               <option value="mae">Mãe</option>
               <option value="marido">Marido</option>
-              <option value="neto">Neto</option>
-              <option value="neta">Neta</option>
               <option value="pai">Pai</option>
-              <option value="primo">Primo</option>
-              <option value="prima">Prima</option>
-              <option value="sobrinho">Sobrinho</option>
-              <option value="sobrinha">Sobrinha</option>
-              <option value="tia">Tia</option>
-              <option value="tio">Tio</option>
               <option value="esposa">Esposa</option>
             </select>
           </div>
@@ -111,7 +105,7 @@
 
         <!-- Nascimento -->
         <h4 class="mt-4 fw-bold">Nascimento</h4>
-        <div class="row mb-3">
+        <div class="row g-3">
           <div class="col-md-3">
             <label for="birthDate" class="form-label">Data:</label>
             <input
@@ -153,7 +147,7 @@
 
         <!-- Falecimento -->
         <h4 class="mt-4 fw-bold">Falecimento</h4>
-        <div class="row mb-3">
+        <div class="row g-3">
           <div class="col-md-3">
             <label for="deathDate" class="form-label">Data:</label>
             <input
@@ -192,18 +186,10 @@
             />
           </div>
         </div>
-      </div>
-
-      <!-- Dados do Memorial -->
-      <h3 class="mt-4 fw-bold">Dados do Memorial</h3>
-      <div
-        class="border rounded p-4 mb-4"
-        style="background-color: #7a142f; color: white;"
-      >
 
         <!-- Foto Principal -->
-        <div class="mb-3">
-          <label for="mainPhoto" class="form-label">Foto Principal:</label>
+        <div class="mt-4">
+          <label for="mainPhoto" class="form-label">Foto do Homenageado:</label>
           <input
             type="file"
             class="form-control"
@@ -214,7 +200,7 @@
         </div>
 
         <!-- Epitáfio -->
-        <div class="mb-3">
+        <div class="mt-3">
           <label for="epitaph" class="form-label">Epitáfio:</label>
           <textarea
             class="form-control"
@@ -223,16 +209,6 @@
             rows="2"
             maxlength="255"
           ></textarea>
-        </div>
-
-        <!-- Tema -->
-        <div class="mb-3">
-          <label for="theme" class="form-label">Tema:</label>
-          <select class="form-control" id="theme" name="theme">
-            <option value="classico">Clássico</option>
-            <option value="moderno">Moderno</option>
-            <option value="religioso">Religioso</option>
-          </select>
         </div>
       </div>
 

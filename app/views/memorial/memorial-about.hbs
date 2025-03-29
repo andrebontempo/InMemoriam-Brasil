@@ -30,14 +30,18 @@
               </p>
             </div>
           {{else}}
-            <p class="text-center"><strong>Epitáfio:</strong> Nenhum epitáfio ainda cadastrado.</p>
+             <div class="epitaph-box text-center">
+              <p class="epitaph-content">Aqui repousa uma alma que amou e foi amada. Que sua memória viva para sempre em nossos corações.</p>
+                
+            </div>
+            
           {{/if}}
         </div>
 
         <!-- Informações do Memorial -->
         <div class="custom-box mx-4">
           <div class="birth-death-info mt-2 text-start">
-            <p><i class="bi bi-calendar-date-fill"></i><strong> Idade:</strong> {{idade}} anos</p>
+            <p><i class="bi bi-calendar-date-fill"></i><strong> Idade:</strong> {{idade}}</p>
             <p>
               <i class="bi bi-star-fill"></i>
               <strong>Nascido(a) em </strong>
@@ -67,7 +71,7 @@
               {{about}}
             {{else}}
               Este memorial foi criado por
-              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em memória de {{firstName}} {{lastName}}, {{idade}} anos de idade, e que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Que a sua recordação dure para sempre.
+              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em memória de {{firstName}} {{lastName}}, {{idade}} de idade, e que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Que a sua recordação dure para sempre.
             {{/if}}
           </p>
         </div>
@@ -87,7 +91,7 @@
             {{/if}}
           </div>
           <div class="flex-grow-1 d-flex flex-column">
-            <small class="text-secondary mb-2">Publicado por {{this.name}} em {{formatDate this.createdAt}}.</small>
+            <small class="text-secondary mb-2">Publicado por {{this.name}} em {{formatDate this.updatedAt}}.</small>
             <p class="card-text fs-5 flex-grow-1">{{this.message}}</p>
             <div class="d-flex justify-content-end mt-2">
               <!-- Botão Editar -->

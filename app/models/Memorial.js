@@ -2,26 +2,54 @@ const mongoose = require("mongoose")
 
 const MemorialSchema = new mongoose.Schema(
   {
-    user: {
-      type: mongoose.Schema.Types.ObjectId,
-      ref: "User",
-      required: true,
-    }, // Criador do memorial
+    user: { type: mongoose.Schema.Types.ObjectId, ref: "User", required: true }, // Criador do memorial
     firstName: { type: String, required: true },
     lastName: { type: String, required: true },
     slug: { type: String, unique: true, required: true },
-    gender: { type: String, required: false },
-    relationship: { type: String, required: false },
+    gender: { type: String },
+    kinship: { type: String },
 
-    // **Foto principal**
+    // Foto principal
     mainPhoto: {
       url: { type: String, required: true },
       updatedAt: { type: Date, default: Date.now },
     },
 
+    // Tema e plano - No futuro, serão ~40 opções
+    theme: {
+      type: String,
+      enum: ["Flores", "Estrelas", "Horizonte"],
+      default: "Flores",
+    },
+    plan: {
+      type: String,
+      enum: ["free", "premium"],
+      default: "free",
+    },
+    planDetails: {
+      expirationDate: { type: Date }, // Data de vencimento do plano premium
+      amountPaid: { type: Number }, // Valor pago (se aplicável)
+      isPaid: { type: Boolean, default: false }, // Se o pagamento foi concluído
+    },
+
+    // **Epitáfio** - Agora com valor default
+    epitaph: {
+      type: String,
+      maxlength: 255,
+      default: "",
+    },
+    epitaphTimestamp: { type: Date, default: Date.now },
+
+    // **Sobre o memorial** - Agora com valor default
+    about: {
+      type: String,
+      default: "",
+    },
+    aboutTimestamp: { type: Date, default: Date.now },
+
     // **Informações de nascimento**
     birth: {
-      date: { type: Date, required: false },
+      date: { type: Date, required: true },
       city: { type: String },
       state: { type: String },
       country: { type: String },
@@ -29,78 +57,67 @@ const MemorialSchema = new mongoose.Schema(
 
     // **Informações de falecimento**
     death: {
-      date: { type: Date, required: false },
+      date: { type: Date, required: true },
       city: { type: String },
       state: { type: String },
       country: { type: String },
     },
 
-    // **Epitáfio**
-    epitaph: { type: String, maxlength: 255 },
-    epitaphTimestamp: { type: Date, default: Date.now },
-
-    // **Sobre o memorial**
-    about: { type: String },
-
-    // **Tributos (homenagens feitas por outros usuários)**
+    // **Campo tribute**: Referência para a coleção Tribute
     tribute: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        name: { type: String, required: true },
-        message: { type: String },
-        type: {
-          type: String,
-          enum: ["vela", "flor", "mensagem"],
-          required: true,
-        },
-        image: { type: String, default: "" },
-        createdAt: { type: Date, default: Date.now },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Tribute",
       },
     ],
 
-    // **Histórias de Vida**
+    // **Campo lifeStory**: Referência para a coleção LifeStory
     lifeStory: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        title: { type: String, default: "" },
-        content: { type: String, default: "" },
-        images: [{ type: String }],
-        createdAt: { type: Date, default: Date.now },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "LifeStory",
       },
     ],
 
-    // **Depoimentos e histórias**
+    // **Campo stories**: Referência para a coleção Story
     stories: [
       {
-        user: { type: mongoose.Schema.Types.ObjectId, ref: "User" },
-        title: { type: String, default: "" },
-        content: { type: String, default: "" },
-        images: [{ type: String }],
-        createdAt: { type: Date, default: Date.now },
+        type: mongoose.Schema.Types.ObjectId,
+        ref: "Story",
       },
     ],
 
-    // **Galeria (armazenando apenas URLs dos arquivos)**
+    // **Campo gallery**: Referência para a coleção Gallery
     gallery: {
-      photos: [{ type: String }],
-      audios: [{ type: String }],
-      videos: [{ type: String }],
+      photos: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Gallery",
+        },
+      ],
+      audios: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Gallery",
+        },
+      ],
+      videos: [
+        {
+          type: mongoose.Schema.Types.ObjectId,
+          ref: "Gallery",
+        },
+      ],
     },
 
-    // **Tema do memorial**
-    theme: { type: String, default: "blue-theme" },
-
-    // **Histórico de alterações**
+    // Logs de atualização
     updateLogs: [
       {
-        field: { type: String },
-        oldValue: { type: mongoose.Schema.Types.Mixed },
-        newValue: { type: mongoose.Schema.Types.Mixed },
+        field: String,
+        oldValue: mongoose.Schema.Types.Mixed,
+        newValue: mongoose.Schema.Types.Mixed,
         updatedAt: { type: Date, default: Date.now },
       },
     ],
-
-    // **Timestamp principal do memorial**
   },
   { timestamps: true }
 )
@@ -130,9 +147,3 @@ MemorialSchema.pre("save", function (next) {
 })
 
 module.exports = mongoose.model("Memorial", MemorialSchema)
-
-/*
-Agora, quando um memorial for atualizado, você poderá acessar o histórico de alterações assim:
-const memorial = await Memorial.findById(memorialId);
-console.log(memorial.updateLogs);
-*/

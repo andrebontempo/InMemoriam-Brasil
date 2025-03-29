@@ -11,7 +11,7 @@ const authMiddleware = require("../middlewares/authMiddleware") // Certifique-se
 //router.delete("/:id", MemorialController.delete)
 
 router.post("/create-memorial", authMiddleware, (req, res) => {
-  console.log("PASSOU AQUI PARA CRIAR") //, req.body)
+  //console.log("PASSOU AQUI PARA CRIAR") //, req.body)
   MemorialController.criarMemorial(req, res)
 })
 

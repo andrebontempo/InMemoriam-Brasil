@@ -51,18 +51,11 @@ const hbs = exphbs.create({
       const data = new Date(date)
 
       if (format === "year") {
-        return data.getUTCFullYear() // Garante que está pegando o ano UTC
+        return data.getFullYear()
       }
 
-      // Formata a data manualmente em UTC
-      const dia = data.getUTCDate().toString().padStart(2, "0")
-      const mes = data.toLocaleString("pt-BR", {
-        month: "long",
-        timeZone: "UTC",
-      }) // Nome do mês em português
-      const ano = data.getUTCFullYear()
-
-      return `${dia} de ${mes} de ${ano}`
+      const options = { year: "numeric", month: "long", day: "numeric" }
+      return data.toLocaleDateString("pt-BR", options)
     }, //Formata a data para ser usada em qualquer lugar do sistema
 
     eq: (a, b) => a === b, // Função de comparação
