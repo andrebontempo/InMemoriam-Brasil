@@ -20,13 +20,13 @@
               <input type="text" class="form-control" value="{{lastName}}" disabled>
             </div>
             <div class="mb-3">
-              <label class="form-label"><strong>Endereço Web (Slug):</strong></label>
+              <label class="form-label"><strong>Endereço Web (Slug): inmemoriambrasil.com.br/</strong></label>
               <input type="text" class="form-control" value="{{slug}}" disabled>
             </div>
             
             <!-- Sexo -->
             <div class="mb-3">
-              <label class="form-label"><strong>Sexo:</strong></label><br>
+              <legend>Sexo</legend><br>
               <input type="radio" name="gender" value="Masculino" {{#ifEquals gender "Masculino"}}checked{{/ifEquals}}> Masculino
               <input type="radio" name="gender" value="Feminino" {{#ifEquals gender "Feminino"}}checked{{/ifEquals}}> Feminino
               <input type="radio" name="gender" value="Outros" {{#ifEquals gender "Outros"}}checked{{/ifEquals}}> Outros
@@ -35,7 +35,7 @@
             <!-- Parentesco -->
             <div class="mb-3">
               <label class="form-label"><strong>Parentesco:</strong></label>
-              <input type="text" class="form-control" name="relationship" value="{{relationship}}">
+              <input type="text" class="form-control" name="kinship" value="{{kinship}}">
             </div>
             
             <!-- Nascimento -->
@@ -56,6 +56,13 @@
               <input type="text" class="form-control" name="death.country" placeholder="País" value="{{death.country}}">
             </fieldset>
             
+            <!-- Epitáfio -->
+            <div class="mb-3">
+              <legend>Epitáfio</legend>
+              <!--<label class="form-label"><strong>Epitáfio:</strong> <small>(Frase curta em homenagem)</small></label>-->
+              <input type="text" class="form-control" name="epitaph" value="{{epitaph}}" placeholder="Exemplo: 'Sempre em nossos corações'">
+            </div>
+
             <!-- Botões de Ação -->
             <div class="text-end mt-4">
               <a href="/memorial/{{slug}}" class="btn btn-secondary">Cancelar</a>

@@ -195,6 +195,7 @@ const MemorialController = {
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
+        kinship: memorial.kinship,
         mainPhoto: memorial.mainPhoto,
         tribute: tributes || [], // Passando os tributos para o template
         lifeStory: memorial.lifeStory || [], // Passando lifeStory para o template
@@ -243,41 +244,48 @@ const MemorialController = {
 
       //console.log("Memorial encontrado:", memorial)
       //res.render("memorial/edit/personal", { memorial })
-      return res.render("memorial/edit/personal", {
+      return res.render("memorial/edit/memorial", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
         mainPhoto: memorial.mainPhoto,
-        relationship: memorial.relationship,
+        kinship: memorial.kinship,
         birth: {
-          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
+          date: memorial.birth?.date
+            ? new Date(memorial.birth.date).toISOString().split("T")[0]
+            : "",
+          //date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",
           state: memorial.birth?.state || "Estado não informado",
           country: memorial.birth?.country || "País não informado",
         },
         death: {
-          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
+          date: memorial.death?.date
+            ? new Date(memorial.death.date).toISOString().split("T")[0]
+            : "",
+
+          //date: memorial.death?.date || "Não informada", // Passa a data sem formatar
           city: memorial.death?.city || "Local desconhecido",
           state: memorial.death?.state || "Estado não informado",
           country: memorial.death?.country || "País não informado",
         },
-        about: memorial.about || "Informação não disponível.",
-        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
-        tribute: memorial.tribute || [], // Passando os tributos para o template
-        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
-        theme: memorial.theme || "blue-theme",
+        about: memorial.about, // || "Informação não disponível.",
+        epitaph: memorial.epitaph, // || "Nenhum epitáfio fornecido.",
+        //tribute: memorial.tribute || [], // Passando os tributos para o template
+        //lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
+        //stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        //gallery: memorial.gallery || {
+        //  photos: [],
+        //  audios: [],
+        //  videos: [],
+        //},
+        theme: memorial.theme || "Flores",
       })
     } catch (error) {
       //console.error("Erro ao carregar memorial para edição:", error)
-      res.status(500).send("Erro interno do servidor")
+      res.status(500).send("Erro interno do servidorrrrr")
     }
   },
 
@@ -325,7 +333,8 @@ const MemorialController = {
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
-        relationship: memorial.relationship,
+        mainPhoto: memorial.mainPhoto,
+        kinship: memorial.kinship,
         birth: {
           date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
           city: memorial.birth?.city || "Local desconhecido",

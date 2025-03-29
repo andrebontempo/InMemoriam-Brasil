@@ -11,12 +11,11 @@
           <!-- Botão de edição com menu suspenso -->
           <div class="dropdown mt-2">
             <button class="btn btn-primary dropdown-toggle" type="button" id="editDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-              <i class="bi bi-pencil-fill"></i> Editar
-            </button>
+              <i class="bi bi-pencil-fill"></i> Editar Memorial</button>
             <ul class="dropdown-menu dropdown-menu-end" aria-labelledby="editDropdown">
-              <li><a class="dropdown-item" href="/memorial/{{slug}}/edit/personal"><i class="bi bi-person-fill"></i> Nome e Dados Pessoais</a></li>
-              <li><a class="dropdown-item" href="/memorial/edit/epitaph/{{memorialId}}"><i class="bi bi-quote"></i> Epitáfio</a></li>
-              <li><a class="dropdown-item" href="/memorial/edit/about/{{memorialId}}"><i class="bi bi-file-text-fill"></i> Sobre o Memorial</a></li>
+              <li><a class="dropdown-item" href="/memorial/{{slug}}/edit/memorial"><i class="bi bi-person-fill"></i> Nome e Dados Pessoais</a></li>
+            <!--  <li><a class="dropdown-item" href="/memorial/edit/epitaph/{{memorialId}}"><i class="bi bi-quote"></i> Epitáfio</a></li> -->
+            <!--  <li><a class="dropdown-item" href="/memorial/edit/about/{{memorialId}}"><i class="bi bi-file-text-fill"></i> Sobre o Memorial</a></li>  -->
             </ul>
           </div>
         </div>
@@ -71,7 +70,7 @@
               {{about}}
             {{else}}
               Este memorial foi criado por
-              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em memória de {{firstName}} {{lastName}}, {{idade}} de idade, e que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Que a sua recordação dure para sempre.
+              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em homenagem a {{firstName}} {{lastName}} que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Viveu {{idade}} de uma história repleta de momentos especiais. Seu legado permanecerá vivo nestas páginas, onde suas lembranças serão preservadas com carinho e respeito.
             {{/if}}
           </p>
         </div>

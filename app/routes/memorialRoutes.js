@@ -19,7 +19,7 @@ router.post("/create-memorial", authMiddleware, (req, res) => {
 router.get("/pesquisa", MemorialController.pesquisarMemorial)
 
 // Rota para exibir o formulário de edição de memorial
-router.get("/:slug/edit/personal", MemorialController.editarMemorial)
+router.get("/:slug/edit/memorial", MemorialController.editarMemorial)
 
 // Rota para a atualização dos dados do memorial
 router.put("/:slug/edit/update", MemorialController.atualizarMemorial)
