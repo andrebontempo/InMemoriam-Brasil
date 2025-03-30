@@ -11,6 +11,7 @@
 │   ├── criar-memorial copy.hbs
 │   ├── criar-memorialTESTE.hbs
 │   ├── criar-memorial_t.hbs
+│   ├── dashboard copy.hbs
 │   ├── estrutura_002_conteudo
 │   ├── Gallery.js
 │   ├── header copy.hbs
@@ -20,8 +21,13 @@
 │   ├── login copy.hbs
 │   ├── memoriais99.hbs
 │   ├── memorial_999.hbs
+│   ├── memorial-about copy 2.hbs
+│   ├── memorial-about copy 3.hbs
+│   ├── memorial-about copy 4.hbs
 │   ├── memorial-about copy9.hbs
 │   ├── memorial-about copy.hbs
+│   ├── memorial-about_OK.hbs
+│   ├── memorial-about-TESTE.hbs
 │   ├── memorial-about_TESTE.hbs
 │   ├── memorial.body.hbs
 │   ├── MemorialController copy 2.js
@@ -55,6 +61,7 @@
 │   ├── styles copy.css
 │   ├── styles-ROXO.css
 │   ├── teste.js
+│   ├── TributeController copy.js
 │   ├── User copy 2.js
 │   └── User copy.js
 ├── 1_seeds
@@ -69,7 +76,8 @@
 │   ├── controllers
 │   │   ├── AuthController.js
 │   │   ├── HomeController.js
-│   │   └── MemorialController.js
+│   │   ├── MemorialController.js
+│   │   └── TributeController.js
 │   ├── middlewares
 │   │   ├── authMiddleware.js
 │   │   ├── errorHandlerMiddleware.js
@@ -85,7 +93,8 @@
 │   │   ├── authRoutes.js
 │   │   ├── homeRoutes.js
 │   │   ├── index.js
-│   │   └── memorialRoutes.js
+│   │   ├── memorialRoutes.js
+│   │   └── tributeRoutes.js
 │   ├── services
 │   │   ├── authService.js
 │   │   ├── memorialService.js
@@ -149,6 +158,7 @@
 ├── public
 │   ├── css
 │   │   ├── main-styles.css
+│   │   ├── memorial-styles copy.css
 │   │   └── memorial-styles.css
 │   ├── images
 │   │   ├── background_11.jpg
@@ -177,6 +187,7 @@
 │   │       ├── generosidade.png
 │   │       ├── mickey.png
 │   │       ├── mulher.png
+│   │       ├── olivia_1.png
 │   │       ├── olivia.png
 │   │       ├── pateta0.jpg
 │   │       ├── pateta1.jpg
@@ -203,6 +214,13 @@
     │   ├── Story.js
     │   ├── Tribute.js
     │   └── User.js
-    └── routes
+    ├── routes
+    └── tributes
+        ├── chatGPT.md
+        ├── create_1.hbs
+        ├── create.hbs
+        ├── edit.hbs
+        ├── index.hbs
+        └── show.hbs
 
-33 directories, 173 files
+34 directories, 190 files
