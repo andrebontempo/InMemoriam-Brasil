@@ -1,5 +1,7 @@
 const bcrypt = require("bcrypt") // Use a biblioteca bcrypt original
 const User = require("../models/User")
+const Memorial = require("../models/Memorial") // Importe o modelo Memorial
+const mongoose = require("mongoose")
 
 const AuthController = {
   // Exibir o formulário de cadastro
@@ -60,6 +62,42 @@ const AuthController = {
     }
   },
 
+  // Exibir o painel do usuário autenticado com seus memoriais
+  showDashboard: async (req, res) => {
+    // Verifica se o usuário está autenticado
+    if (!req.session.loggedUser) {
+      return res.redirect("/auth/login")
+    }
+
+    try {
+      //console.log("Usuário autenticado:", req.session.loggedUser)
+
+      // Busca todos os memoriais onde o campo 'user' corresponde ao ID do usuário autenticado
+      const userId = req.session.loggedUser._id
+      const memoriais = await Memorial.find({ user: userId }).lean() // Retorna objetos JSON para Handlebars
+
+      //console.log("Memoriais encontrados:", memoriais) // Verifica no console
+
+      // Renderiza o dashboard e passa os memoriais encontrados
+      res.render("auth/dashboard", { user: req.session.loggedUser, memoriais })
+    } catch (err) {
+      console.error("Erro ao buscar memoriais do usuário:", err)
+      res.status(500).send("Erro ao carregar o painel")
+    }
+  },
+
+  /*
+  // Exibir o painel do usuário autenticado
+  showDashboard: (req, res) => {
+    // Verifica se o usuário está autenticado
+    if (!req.session.loggedUser) {
+      return res.redirect("/auth/login")
+    }
+    console.log("Usuário autenticado:", req.session.loggedUser)
+    // Renderiza a página do painel do usuário
+    res.render("auth/dashboard", { user: req.session.loggedUser })
+  },
+*/
   // Processar o cadastro do usuário
   registerUser: async (req, res) => {
     try {

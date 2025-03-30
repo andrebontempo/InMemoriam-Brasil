@@ -1,5 +1,45 @@
 <main class="container my-5">
-  <h2>Bem-vindo(a), {{loggedUser.firstName}} {{loggedUser.lastName}}!</h2>
-  <p>Você está logado(a).</p>
-  <a href="/auth/logout" class="btn btn-primary">Sair</a>
+  <h2 class="text-center">Bem-vindo(a),
+    {{loggedUser.firstName}}
+    {{loggedUser.lastName}}!</h2>
+  <p class="text-center">Você está logado(a).</p>
+
+  <!-- Botão "Sair" alinhado à direita -->
+  <div class="text-end">
+    <a href="/auth/logout" class="btn btn-primary">Sair</a>
+  </div>
+
+  <p class="text-center"><strong>Aqui estão os memoriais que você criou:</strong></p>
+
+  {{#if memoriais.length}}
+    <div class="list-group">
+      {{#each memoriais}}
+        <a
+          href="/memorial/{{this.slug}}"
+          class="list-group-item list-group-item-action d-flex align-items-center"
+        >
+          <!-- Imagem do memorial -->
+          <img
+            src="{{this.mainPhoto.url}}"
+            alt="Foto de {{this.firstName}}"
+            class="rounded me-3"
+            style="width: 80px; height: 80px; object-fit: cover; border: 2px solid #4f0e21;"
+          />
+
+          <!-- Informações do memorial -->
+          <div>
+            <h5 class="mb-1">{{this.firstName}} {{this.lastName}}</h5>
+            <p class="mb-1">
+              <strong>Nascimento:</strong>
+              {{formatDate this.birth.date}}<br />
+              <strong>Falecimento:</strong>
+              {{formatDate this.death.date}}
+            </p>
+          </div>
+        </a>
+      {{/each}}
+    </div>
+  {{else}}
+    <p class="text-center text-muted">Você ainda não criou nenhum memorial.</p>
+  {{/if}}
 </main>
