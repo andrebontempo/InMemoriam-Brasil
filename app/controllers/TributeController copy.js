@@ -42,21 +42,22 @@ const TributeController = {
     try {
       const tributeId = req.params.id
 
-      // Busca o tributo e carrega os detalhes do memorial
-      const tribute = await Tribute.findById(tributeId).populate("memorial")
-
+      // Verifica se o tributo existe
+      const tribute = await Tribute.findById(tributeId)
       if (!tribute) {
         return res.status(404).send("Tributo não encontrado")
       }
 
-      // Agora podemos acessar o slug do memorial
-      const memorialSlug = tribute.memorial.slug
+      // Pegamos o memorial do tributo para redirecionamento
+      const memorialSlug = tribute.memorial.slug // Certifique-se de que "memorial" existe no tributo
 
       // Deleta o tributo do banco de dados
       await Tribute.findByIdAndDelete(tributeId)
 
-      // Redireciona para a página do memorial
+      // Redirecione de volta para o memorial
       res.redirect(`/memorial/${memorialSlug}`)
+      // Redireciona para a página do memorial
+      //res.redirect(`/memorial/${tribute.memorial.slug}`)
     } catch (err) {
       console.error(err)
       res.status(500).send("Erro ao deletar tributo")
