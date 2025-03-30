@@ -17,7 +17,7 @@ const TributeSchema = new mongoose.Schema(
     },
 
     // Nome do usuário que criou o tributo (pode ser obtido do modelo User)
-    name: { type: String, required: true, trim: true },
+    name: { type: String, required: false, trim: true },
 
     // Mensagem opcional deixada pelo usuário
     message: {

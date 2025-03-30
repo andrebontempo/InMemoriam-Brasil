@@ -240,39 +240,10 @@ iframe {
   border-color: var(--bs-dark); /* Cor escura ao clicar */
 }
 
-/* Sobrescreve a classe btn-secundary do Bootstrap */
-.btn-secundary {
-  background-color: var(--bs-primary); /* Cor primária */
-  border-color: var(--bs-secondary); /* Cor secundária */
-  color: #ffffff; /* Cor do texto */
-}
-
-/* Efeito hover */
-.btn-secundary:hover {
-  background-color: var(--bs-secondary); /* Cor secundária ao passar o mouse */
-  border-color: var(--bs-dark); /* Cor escura ao passar o mouse */
-}
-
-/* Efeito active (quando o botão é clicado) */
-.btn-secundary:active {
-  background-color: var(--bs-dark); /* Cor escura ao clicar */
-  border-color: var(--bs-dark); /* Cor escura ao clicar */
-}
-
 .card-img-top {
   width: 100%; /* Para ocupar toda a largura do card */
   height: 300px; /* Defina uma altura fixa */
   object-fit: cover; /* Garante que a imagem cubra toda a área sem distorcer */
-}
-
-.card-text {
-  word-wrap: break-word; /* Garante que palavras longas sejam quebradas */
-  overflow-wrap: break-word; /* Alternativa para navegadores modernos */
-  white-space: normal; /* Impede que o texto fique em uma única linha */
-}
-.flex-grow-1 {
-  max-width: 100%; /* Garante que o conteúdo fique dentro do card */
-  overflow: hidden;
 }
 
 .form-control::placeholder {
@@ -318,10 +289,6 @@ iframe {
 /*Mais espaço entre os ícones*/
 .bi {
   margin-right: 8px;
-}
-/*Mais espaço entre os ícones*/
-.text-justify {
-  text-align: justify;
 }
 
 .tribute-section {
@@ -396,41 +363,4 @@ Caixa de Edição de Tributo .edit-box {
 
 .edit-icon:hover {
   transform: scale(1.1);
-}
-
-/* Estilos adicionais para o formulário de TRIBUTO */
-.edit-icon {
-  width: 40px;
-  height: 40px;
-  cursor: pointer;
-  transition: transform 0.2s;
-}
-
-.edit-icon:hover {
-  transform: scale(1.2); /* Aumenta o tamanho do ícone ao passar o mouse */
-}
-
-.edit-input {
-  font-size: 1rem;
-  border: 1px solid #ccc;
-  border-radius: 4px;
-  padding: 10px;
-  resize: vertical;
-}
-
-.edit-input:focus {
-  border-color: #007bff; /* Cor de borda ao focar no campo */
-}
-
-.card {
-  border-radius: 10px; /* Bordas arredondadas para o card */
-}
-
-.card-body {
-  background-color: #f9f9f9; /* Cor de fundo clara */
-  border-radius: 10px; /* Arredonda as bordas do conteúdo */
-}
-
-.text-end button {
-  margin-top: 10px; /* Espaçamento superior para o botão */
 }

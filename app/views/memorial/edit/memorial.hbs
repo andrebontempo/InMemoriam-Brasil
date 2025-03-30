@@ -7,36 +7,39 @@
         <!-- Formulário de Edição do Memorial -->
         <div class="custom-box p-4 ms-4">
           <h3>Editar Memorial</h3>
-          <form action="/memorial/{{slug}}/edit/update?_method=PUT" method="POST">
+          <!--<form action="/memorial/{{slug}}/edit/update?_method=PUT" method="POST">-->
+          <form action="/memorial/{{slug}}/edit/update" method="POST">
             <input type="hidden" name="_method" value="PUT">
 
             <!-- Nome e Sobrenome -->
             <div class="mb-3">
               <label class="form-label"><strong>Nome:</strong></label>
-              <input type="text" class="form-control" value="{{firstName}}" disabled>
+              <input type="text" class="form-control" name="firstName" value="{{firstName}}" readonly>
             </div>
             <div class="mb-3">
               <label class="form-label"><strong>Sobrenome:</strong></label>
-              <input type="text" class="form-control" value="{{lastName}}" disabled>
+              <input type="text" class="form-control" name="lastName" value="{{lastName}}" readonly>
             </div>
             <div class="mb-3">
               <label class="form-label"><strong>Endereço Web (Slug): inmemoriambrasil.com.br/</strong></label>
-              <input type="text" class="form-control" value="{{slug}}" disabled>
+              <input type="text" class="form-control" name="slug" value="{{slug}}" readonly>
             </div>
             
             <!-- Sexo -->
-            <div class="mb-3">
-              <legend>Sexo</legend><br>
+            <fieldset class="mb-3">
+              <legend>Sexo</legend>
+              <!--<label class="form-label"><strong>Sexo:</strong></label><br>-->
               <input type="radio" name="gender" value="Masculino" {{#ifEquals gender "Masculino"}}checked{{/ifEquals}}> Masculino
               <input type="radio" name="gender" value="Feminino" {{#ifEquals gender "Feminino"}}checked{{/ifEquals}}> Feminino
               <input type="radio" name="gender" value="Outros" {{#ifEquals gender "Outros"}}checked{{/ifEquals}}> Outros
-            </div>
+            </fieldset>
             
             <!-- Parentesco -->
-            <div class="mb-3">
-              <label class="form-label"><strong>Parentesco:</strong></label>
+            <fieldset class="mb-3">
+              <legend>Parentesco</legend>
+              <!--<label class="form-label"><strong>Parentesco:</strong></label><br>-->
               <input type="text" class="form-control" name="kinship" value="{{kinship}}">
-            </div>
+            </fieldset>
             
             <!-- Nascimento -->
             <fieldset class="mb-3">
@@ -57,14 +60,15 @@
             </fieldset>
             
             <!-- Epitáfio -->
-            <div class="mb-3">
-              <legend>Epitáfio</legend>
+            <fieldset class="mb-3">
+              <legend for="epitaph" class="form-label">Epitáfio</legend>
               <!--<label class="form-label"><strong>Epitáfio:</strong> <small>(Frase curta em homenagem)</small></label>-->
               <input type="text" class="form-control" name="epitaph" value="{{epitaph}}" placeholder="Exemplo: 'Sempre em nossos corações'">
-            </div>
+            </fieldset>
 
             <!-- Botões de Ação -->
-            <div class="text-end mt-4">
+            <!--<div class="text-end mt-4">-->
+            <div class="d-flex justify-content-end align-items-center gap-2 mt-4">
               <a href="/memorial/{{slug}}" class="btn btn-secondary">Cancelar</a>
               <button type="submit" class="btn btn-primary">Atualizar</button>
             </div>

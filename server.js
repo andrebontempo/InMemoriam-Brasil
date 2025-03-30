@@ -28,8 +28,15 @@ app.use(
 // Aplicar o middleware global para disponibilizar `loggedUser` em todas as views
 app.use(setUserMiddleware)
 
-//Método adicionado para o formulário usar o PUT - sem isto só aceita POST
-app.use(methodOverride("_method"))
+// Método adicionado para o formulário usar o PUT - sem isto só aceita POST
+//app.use(methodOverride("_method"))
+app.use(
+  methodOverride((req, res) => {
+    if (req.body && typeof req.body === "object" && "_method" in req.body) {
+      return req.body._method
+    }
+  })
+)
 
 // Importar rotas
 const routes = require("./app/routes")

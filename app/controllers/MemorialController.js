@@ -143,7 +143,8 @@ const MemorialController = {
 
       // Buscar os tributos relacionados ao memorial
       const tributes = await Tribute.find({ memorial: memorial._id })
-        .select("name message type image updatedAt") // Selecionando campos específicos dos tributos
+        .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
+        .select("name message type image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
 
       // Função para calcular a idade
@@ -194,6 +195,7 @@ const MemorialController = {
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
+        id: memorial._id,
         gender: memorial.gender,
         kinship: memorial.kinship,
         mainPhoto: memorial.mainPhoto,

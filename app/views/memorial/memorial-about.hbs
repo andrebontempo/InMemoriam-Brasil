@@ -63,9 +63,14 @@
         </div>
 
         <!-- Sobre o Memorial -->
-        <div class="custom-box my-2 mx-4 text-start ">
+        <div class="custom-box my-2 mx-4 text-start">
           <h3>Sobre este Memorial</h3>
-          <p>
+          <p class="text-justify">
+            {{#if memorialName}}
+              Este memorial é dedicado a {{memorialName}}.
+            {{else}}
+              Este memorial é dedicado a {{firstName}} {{lastName}}.
+            {{/if}}
             {{#if about}}
               {{about}}
             {{else}}
@@ -76,27 +81,40 @@
         </div>
 
         <!-- Tributos -->
-<div class="custom-box my-2 mx-4 text-start ">
+<div class="custom-box my-2 mx-4 text-start">
   <h3 class="text-start">Tributos</h3>
   {{#if tribute.length}}
     {{#each tribute}}
       <div class="card my-2 custom-box">
-        <div class="card-body d-flex">
-          <div class="me-3" style="width: 100px;">
-            {{#if this.type}}
-              <img src="/images/tribute/{{this.type}}" alt="Símbolo do tributo" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
-            {{else}}
-              <img src="/images/tribute/tribute_caneta.png" alt="Imagem padrão" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
-            {{/if}}
-          </div>
-          <div class="flex-grow-1 d-flex flex-column">
-            <small class="text-secondary mb-2">Publicado por {{this.name}} em {{formatDate this.updatedAt}}.</small>
-            <p class="card-text fs-5 flex-grow-1">{{this.message}}</p>
-            <div class="d-flex justify-content-end mt-2">
-              <!-- Botão Editar -->
-              <a href="/tribute/edit-tribute/{{this._id}}" class="btn btn-primary me-3" style="text-decoration: none;"><i class="bi bi-pencil-fill"></i>Editar</a>
-              <!-- Botão Apagar -->
-              <a href="/delete/{{this._id}}" class="btn btn-primary" style="text-decoration: none;"><i class="bi bi-trash-fill"></i>Apagar</a>
+        <div class="card-body">
+          <div class="d-flex">
+            <!-- Imagem do tributo à esquerda -->
+            <div class="me-3" style="width: 100px;">
+              {{#if this.type}}
+                <img src="/images/tribute/{{this.type}}" alt="Símbolo do tributo" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+              {{else}}
+                <img src="/images/tribute/tribute_caneta.png" alt="Imagem padrão" class="rounded" style="width: 100px; height: 100px; object-fit: cover;">
+              {{/if}}
+            </div>
+
+            <!-- Corpo do post -->
+            <div class="flex-grow-1">
+              <p class="card-text fs-5">{{this.message}}</p>
+              
+              <!-- Informações de autoria e data com fonte menor -->
+              <div class="text-muted mb-2 fs-8">
+                Publicado por <strong>{{this.user.firstName}} {{this.user.lastName}}</strong> em {{formatDate this.createdAt}}.
+              </div>
+
+              <!-- Botões de interação com cores do padrão -->
+              <div class="d-flex justify-content-end gap-2 mt-3">
+                <a href="/tribute/edit-tribute/{{this._id}}" class="btn btn-primary" style="text-decoration: none;">
+                  <i class="bi bi-pencil-fill"></i> Editar
+                </a>
+                <a href="/delete/{{this._id}}" class="btn btn-primary" style="text-decoration: none;">
+                  <i class="bi bi-trash-fill"></i> Apagar
+                </a>
+              </div>
             </div>
           </div>
         </div>
@@ -106,6 +124,84 @@
     <p>Nenhum tributo adicionado ainda.</p>
   {{/if}}
 </div>
+
+
+
+<!-- Formulário de Envio de Tributo -->
+<form action="/tribute/create" method="POST">
+  <input type="hidden" name="memorial" value="{{id}}" /> <!-- Passando o ID do memorial -->
+  <input type="hidden" name="slug" value="{{slug}}" /> <!-- Passando o ID do memorial -->
+  
+  <!-- Caixa de Edição de Tributo (com Bootstrap e CSS) -->
+  <div class="custom-box my-2 mx-4">
+    <h3>Deixe seu tributo</h3>
+    <div class="card p-3">
+      <!-- Escolha do tipo de tributo com botões de rádio -->
+      <div class="d-flex justify-content-center mb-3">
+        <!-- Caneta (selecionada por padrão) -->
+        <div class="text-center me-3">
+          <img
+            src="/images/tribute/tributo_caneta.png"
+            class="edit-icon"
+            alt="Caneta"
+            style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+          <br>
+          <input type="radio" id="tributeTypeCaneta" name="type" value="tributo_caneta.png" checked>
+        </div>
+
+        <!-- Flor -->
+        <div class="text-center me-3">
+          <img
+            src="/images/tribute/tributo_flor.png"
+            class="edit-icon"
+            alt="Flor"
+            style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+          <br>
+          <input type="radio" id="tributeTypeFlor" name="type" value="tributo_flor.png">
+        </div>
+
+        <!-- Vela -->
+        <div class="text-center">
+          <img
+            src="/images/tribute/tributo_vela.png"
+            class="edit-icon"
+            alt="Vela"
+            style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+          <br>
+          <input type="radio" id="tributeTypeVela" name="type" value="tributo_vela.png">
+        </div>
+      </div>
+
+      <!-- Caixa de texto à esquerda -->
+      <div class="d-flex mb-2">
+        <textarea
+          class="edit-input form-control"
+          rows="3"
+          placeholder="Escreva sua mensagem..."
+          name="message"
+          required
+        ></textarea>
+      </div>
+
+      <!-- Informação sobre o usuário -->
+      <div class="text-muted mb-2 fs-7 text-end">
+        Por usuário logado.
+      </div>
+
+      <!-- Botão Enviar -->
+      <div class="text-end">
+        <button type="submit" class="btn btn-primary">
+          Enviar Tributo
+        </button>
+      </div>
+    </div>
+  </div>
+</form>
+
+
+
+
+
 </div>
 
       <!-- Coluna Lateral (1/4) -->
