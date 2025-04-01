@@ -8,16 +8,16 @@ const path = require("path")
 const fs = require("fs")
 const { Console } = require("console")
 const mongoose = require("mongoose")
+const moment = require("moment-timezone")
+const { calcularIdade } = require("../utils/helpers")
 
 const MemorialController = {
   criarMemorial: async (req, res) => {
-    //console.log("Requisição recebida para criar memorial.")
     //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
     //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
 
     // Garantir que o usuário autenticado esteja presente
     const userCurrent = req.session.loggedUser
-
     //console.log("LOG CONTROLLER - Usuário atual (session):", userCurrent)
 
     const { firstName, lastName, gender, kinship, mainPhoto, epitaph } =
@@ -53,7 +53,7 @@ const MemorialController = {
       })
     }
 
-    // Gera o slug baseado no nome
+    // Gera o slug baseado no nome e sobrenome
     const slug = `${firstName}-${lastName}`
       .toLowerCase()
       .normalize("NFD")
@@ -70,14 +70,8 @@ const MemorialController = {
       }
 
       const memorial = new Memorial({
-        //user: new mongoose.Types.ObjectId(userCurrent.id),
-        user: new mongoose.Types.ObjectId(userCurrent._id),
-        //user: userCurrent.id,
-        /*
-        user: {
-          $oid: user1._id,
-        },
-        */
+        //user: new mongoose.Types.ObjectId(userCurrent._id),
+        user: userCurrent._id,
         firstName,
         lastName,
         slug,
@@ -146,45 +140,6 @@ const MemorialController = {
         .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
         .select("name message type image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
-
-      // Função para calcular a idade
-      const calcularIdade = (dataNascimento, dataFalecimento) => {
-        if (!dataNascimento || isNaN(new Date(dataNascimento))) return null
-        if (!dataFalecimento || isNaN(new Date(dataFalecimento))) return null
-
-        const nascimento = new Date(dataNascimento)
-        const falecimento = new Date(dataFalecimento)
-
-        let anos = falecimento.getFullYear() - nascimento.getFullYear()
-        let meses = falecimento.getMonth() - nascimento.getMonth()
-        let dias = falecimento.getDate() - nascimento.getDate()
-
-        // Ajusta se o mês de falecimento for anterior ao de nascimento
-        if (meses < 0 || (meses === 0 && dias < 0)) {
-          anos--
-          meses += 12
-        }
-
-        // Ajusta os dias para meses com diferentes quantidades de dias
-        if (dias < 0) {
-          const ultimoMes = new Date(
-            falecimento.getFullYear(),
-            falecimento.getMonth(),
-            0
-          ).getDate()
-          dias += ultimoMes
-          meses--
-        }
-
-        // Retorna idade no formato adequado
-        if (anos > 0) {
-          return `${anos} ano${anos > 1 ? "s" : ""} e ${meses} ${
-            meses === 1 ? "mês" : "meses"
-          }`
-        } else {
-          return `${meses} ${meses === 1 ? "mês" : "meses"}`
-        }
-      }
 
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",

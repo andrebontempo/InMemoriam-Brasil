@@ -7,6 +7,11 @@ const formData = require("express-form-data")
 const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
 const methodOverride = require("method-override")
+const helpers = require("./app/utils/helpers") // Importa os helpers externos
+
+const moment = require("moment-timezone")
+// Configura o idioma para português
+moment.locale("pt-br")
 
 const app = express()
 
@@ -42,7 +47,6 @@ app.use(
 const routes = require("./app/routes")
 
 // Configurações do Handlebars
-
 const hbs = exphbs.create({
   defaultLayout: "main", // Define o layout principal
   extname: "hbs", // Extensão padrão para os templates Handlebars
@@ -51,39 +55,11 @@ const hbs = exphbs.create({
     path.join(__dirname, "app/views/partials/main"), // Partials para home e páginas que não são de memoriais
     path.join(__dirname, "app/views/partials/memorial"), // Partials específicas de memoriais
   ],
-  helpers: {
-    formatDate: function (date, format) {
-      if (!date || isNaN(new Date(date))) return "Data inválida"
-
-      const data = new Date(date)
-
-      if (format === "year") {
-        return data.getUTCFullYear() // Garante que está pegando o ano UTC
-      }
-
-      // Formata a data manualmente em UTC
-      const dia = data.getUTCDate().toString().padStart(2, "0")
-      const mes = data.toLocaleString("pt-BR", {
-        month: "long",
-        timeZone: "UTC",
-      }) // Nome do mês em português
-      const ano = data.getUTCFullYear()
-
-      return `${dia} de ${mes} de ${ano}`
-    }, //Formata a data para ser usada em qualquer lugar do sistema
-
-    eq: (a, b) => a === b, // Função de comparação
-
-    ifEquals: function (a, b, options) {
-      if (a === b) {
-        return options.fn(this) // Executa o bloco "true"
-      }
-      return options.inverse(this) // Executa o bloco "false"
-    }, //Corrige o erro na hora de editar o Memorial.
-  },
+  helpers, // Usa os helpers externos do arquivo utils/helpers.js
   cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
 })
 
+// Configurar o Handlebars como motor de template
 app.engine(".hbs", hbs.engine)
 app.set("view engine", ".hbs")
 app.set("views", path.join(__dirname, "app/views"))

@@ -1,5 +1,6 @@
 const Tribute = require("../models/Tribute") // Ajuste o caminho conforme necessário
 const mongoose = require("mongoose")
+const moment = require("moment-timezone")
 
 const TributeController = {
   // Exibir o formulário de cadastro
@@ -22,6 +23,7 @@ const TributeController = {
         type: type,
         message: message,
         name: "Nome do Tributo",
+        createdAt: moment().toDate(), // Armazena em UTC (padrão)
         user: new mongoose.Types.ObjectId(userCurrent._id),
         //name: req.user.firstName + " " + req.user.lastName, // Nome do usuário logado
       })
