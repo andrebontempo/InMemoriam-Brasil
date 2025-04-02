@@ -5,7 +5,7 @@
       <div class="col-md-9">
         
         <!-- Container para o botão de edição e alinhamento -->
-        <div class="d-flex justify-content-between align-items-center mb-2">
+        <div class="d-flex justify-content-between align-items-center mb-2 mx-4">
           <div></div> <!-- Espaço vazio para manter alinhamento correto -->
           
           <!-- Botão de edição com menu suspenso -->
@@ -21,7 +21,7 @@
         </div>
 
         <!-- Bloco estrutural transparente para o epitáfio -->
-        <div class="custom-box-transparent my-4 ms-4 d-flex justify-content-center">
+        <div class="custom-box-transparent my-4 mx-4 d-flex justify-content-center">
           {{#if epitaph}}
             <div class="epitaph-box text-center">
               <p class="epitaph-content">
@@ -209,7 +209,7 @@
       <!-- Coluna Lateral (1/4) -->
       <div class="col-md-3">
         <!-- Sidebar -->
-        <div class="custom-box my-2 mx-2">
+        <div class="custom-box-sidebar">
           <h4><i class="bi bi-share-fill"></i> Compartilhe</h4>
           <ul class="list-unstyled">
             <li>Convide amigos e familiares para visitar este memorial.</li>
@@ -217,13 +217,13 @@
           </ul>
         </div>
 
-        <div class="custom-box my-2 mx-2">
+        <div class="custom-box-sidebar my-2 mx-2">
           <h4><i class="bi bi-bar-chart-fill"></i> Estatísticas</h4>
           <p><strong>Visitas:</strong> 1234</p>
           <p><strong>Tributos:</strong> {{tribute.length}}</p>
         </div>
 
-        <div class="custom-box my-2 mx-2">
+        <div class="custom-box-sidebar my-2 mx-2">
           <h4>Galeria</h4>
           {{#if gallery.photos.length}}
             {{#each gallery.photos}}
