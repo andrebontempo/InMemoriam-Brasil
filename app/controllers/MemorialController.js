@@ -80,8 +80,8 @@ const MemorialController = {
         visibility: req.body.visibility || "public", // Usa o valor de visibilidade do formulário
         mainPhoto: {
           url: req.file
-            ? `/images/uploads/${req.file.filename}`
-            : "/images/uploads/default.png", // URL padrão se não houver arquivo
+            ? `/uploads/${req.file.filename}`
+            : "/uploads/default.png", // URL padrão se não houver arquivo
         },
         epitaph: epitaph, // || "Nenhum epitáfio foi cadastrado.",
         birth,

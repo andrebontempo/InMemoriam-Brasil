@@ -21,7 +21,7 @@
         <h4>Galeria</h4>
         {{#if gallery.photos.length}}
             {{#each gallery.photos}}
-                <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
+                <img src="/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
             {{/each}}
         {{else}}
             <p>Nenhuma foto disponível.</p>

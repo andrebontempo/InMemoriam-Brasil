@@ -171,8 +171,18 @@
 ├── public
 │   ├── css
 │   │   ├── main-styles.css
-│   │   └── memorial-styles.css
-│   ├── images
+│   │   ├── memorial-styles.css
+│   │   └── templates
+│   ├── js
+│   │   ├── calcula_idade.js
+│   │   ├── navbar.js
+│   │   └── scripts.js
+│   ├── memorials
+│   │   └── memorialID
+│   │       ├── audios
+│   │       ├── images
+│   │       └── videos
+│   ├── site
 │   │   ├── background_11.jpg
 │   │   ├── background_12.jpg
 │   │   ├── background1.jpg
@@ -194,27 +204,24 @@
 │   │   │   ├── tributo_caneta.png
 │   │   │   ├── tributo_flor.png
 │   │   │   └── tributo_vela.png
-│   │   └── uploads
-│   │       ├── default.png
-│   │       ├── default-story.jpg
-│   │       ├── generosidade.png
-│   │       ├── lifeStory-pateta-pereira.jpg
-│   │       ├── mickey.png
-│   │       ├── mulher.png
-│   │       ├── olivia_1.png
-│   │       ├── olivia.png
-│   │       ├── pateta0.jpg
-│   │       ├── pateta1.jpg
-│   │       ├── pateta2.jpg
-│   │       ├── pateta3.jpg
-│   │       └── pateta.png
-│   ├── js
-│   │   ├── calcula_idade.js
-│   │   ├── navbar.js
-│   │   └── scripts.js
-│   └── videos
-│       ├── tutorial.mp4
-│       └── tutorial_SOL.mp4
+│   │   ├── tutorial.mp4
+│   │   └── tutorial_SOL.mp4
+│   ├── templates
+│   ├── uploads
+│   │   ├── default.png
+│   │   ├── default-story.jpg
+│   │   ├── generosidade.png
+│   │   ├── lifeStory-pateta-pereira.jpg
+│   │   ├── mickey.png
+│   │   ├── mulher.png
+│   │   ├── olivia_1.png
+│   │   ├── olivia.png
+│   │   ├── pateta0.jpg
+│   │   ├── pateta1.jpg
+│   │   ├── pateta2.jpg
+│   │   ├── pateta3.jpg
+│   │   └── pateta.png
+│   └── users
 ├── README.md
 ├── server.js
 └── tests
@@ -238,4 +245,4 @@
         ├── index.hbs
         └── show.hbs
 
-34 directories, 205 files
+41 directories, 205 files

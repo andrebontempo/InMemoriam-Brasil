@@ -8,9 +8,9 @@ const LifeStoryController = {
   // Criar uma nova história de vida
   createLifeStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
-    console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
+    //console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
     try {
-      console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
+      //console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
 
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
@@ -37,7 +37,7 @@ const LifeStoryController = {
 
       // Salvar no banco de dados
       await newLifeStory.save()
-      console.log("História de vida salva com sucesso!")
+      //console.log("História de vida salva com sucesso!")
 
       res.redirect(`/memorial/${memorial.slug}/lifestory`)
     } catch (error) {
@@ -49,7 +49,7 @@ const LifeStoryController = {
   // Exibir histórias de vida de um memorial
   exibirLifeStory: async (req, res) => {
     const { slug } = req.params
-    console.log("ESTOU AQUI EXIBIR LIFESTORY - Slug recebido:", slug)
+    //console.log("ESTOU AQUI EXIBIR LIFESTORY - Slug recebido:", slug)
     try {
       const memorial = await Memorial.findOne({ slug })
         .populate({ path: "user", select: "firstName lastName" })
