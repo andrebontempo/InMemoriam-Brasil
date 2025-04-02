@@ -17,6 +17,23 @@ const formatDate = (date, format) => {
   return `${dia} de ${mes} de ${ano}`
 }
 
+// Função para formatar datas
+const formatDateTribute = (date, format) => {
+  if (!date || isNaN(new Date(date))) return "Data inválida"
+
+  const data = moment.utc(date).tz("America/Sao_Paulo") // Convertendo para o fuso horário correto
+
+  if (format === "year") {
+    return data.year()
+  }
+
+  const dia = data.date().toString().padStart(2, "0")
+  const mes = data.format("MMMM") // Nome do mês em português
+  const ano = data.year()
+
+  return `${dia} de ${mes} de ${ano}`
+}
+
 // Função para calcular a idade
 const calcularIdade = (dataNascimento, dataFalecimento) => {
   if (!dataNascimento || !dataFalecimento) return null
@@ -49,6 +66,7 @@ const ifEquals = function (a, b, options) {
 // Exporta todas as funções
 module.exports = {
   formatDate,
+  formatDateTribute,
   calcularIdade,
   eq,
   ifEquals,
