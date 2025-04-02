@@ -4,7 +4,7 @@ Plataforma para criação de memoriais virtuais.
 
 ## Como executar
 
-1. Instale as dependências:
+1. Instale as dependências:d
 
    ```bash
    npm install
