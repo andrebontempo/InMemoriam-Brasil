@@ -3,6 +3,7 @@ const router = express.Router()
 const MemorialController = require("../controllers/MemorialController")
 // Importando o middleware corretamente
 const authMiddleware = require("../middlewares/authMiddleware") // Certifique-se de que o caminho está correto!
+const LifeStoryController = require("../controllers/LifeStoryController")
 
 //router.get("/", MemorialController.list)
 //router.get("/:id", MemorialController.view)
@@ -26,7 +27,7 @@ router.put("/:slug/edit/update", MemorialController.atualizarMemorial)
 
 // Rotas mais específicas primeiro
 router.get("/:slug/about", MemorialController.exibirMemorial)
-router.get("/:slug/lifestory", MemorialController.exibirLifeStory)
+router.get("/:slug/lifestory", LifeStoryController.exibirLifeStory) //Esta é que leva para a página de histórias
 router.get("/:slug/gallery", MemorialController.exibirGallery)
 router.get("/:slug/stories", MemorialController.exibirStories)
 

@@ -15,9 +15,14 @@
 │   ├── estrutura_002_conteudo
 │   ├── Gallery.js
 │   ├── header copy.hbs
+│   ├── helpers copy.js
 │   ├── home copy 2.hbs
 │   ├── home copy.hbs
 │   ├── index copy.js
+│   ├── LifeStoryController copy 2.js
+│   ├── LifeStoryController copy 3.js
+│   ├── LifeStoryController copy.js
+│   ├── LifeStory copy.js
 │   ├── login copy.hbs
 │   ├── memoriais99.hbs
 │   ├── memorial_999.hbs
@@ -41,6 +46,7 @@
 │   ├── memorial-header copy 2.hbs
 │   ├── memorial-header copy.hbs
 │   ├── memorial-layout_TESTE.hbs
+│   ├── memorial-lifestory copy 2.hbs
 │   ├── memorial-lifestory copy.hbs
 │   ├── memorial-partials999
 │   │   ├── memorial.body.hbs
@@ -55,7 +61,10 @@
 │   ├── personal copy.hbs
 │   ├── register copy.hbs
 │   ├── seed.js
+│   ├── server copy 2.js
+│   ├── server copy 3.js
 │   ├── server copy7.js
+│   ├── server copy.js
 │   ├── Styles.bootstrap.css
 │   ├── styles copy 2.css
 │   ├── styles copy.css
@@ -71,17 +80,20 @@
 │   ├── seed-004.js
 │   ├── seed-005.js
 │   ├── seed-006.js
-│   └── seed-007.js
+│   ├── seed-007.js
+│   └── seed_life.js
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
 │   │   ├── HomeController.js
+│   │   ├── LifeStoryController.js
 │   │   ├── MemorialController.js
 │   │   └── TributeController.js
 │   ├── middlewares
 │   │   ├── authMiddleware.js
 │   │   ├── errorHandlerMiddleware.js
-│   │   └── setUserMiddleware.js
+│   │   ├── setUserMiddleware.js
+│   │   └── uploadMiddleware.js
 │   ├── models
 │   │   ├── Gallery.js
 │   │   ├── LifeStory.js
@@ -93,6 +105,7 @@
 │   │   ├── authRoutes.js
 │   │   ├── homeRoutes.js
 │   │   ├── index.js
+│   │   ├── lifeStoryRoutes.js
 │   │   ├── memorialRoutes.js
 │   │   └── tributeRoutes.js
 │   ├── services
@@ -158,7 +171,6 @@
 ├── public
 │   ├── css
 │   │   ├── main-styles.css
-│   │   ├── memorial-styles copy.css
 │   │   └── memorial-styles.css
 │   ├── images
 │   │   ├── background_11.jpg
@@ -184,7 +196,9 @@
 │   │   │   └── tributo_vela.png
 │   │   └── uploads
 │   │       ├── default.png
+│   │       ├── default-story.jpg
 │   │       ├── generosidade.png
+│   │       ├── lifeStory-pateta-pereira.jpg
 │   │       ├── mickey.png
 │   │       ├── mulher.png
 │   │       ├── olivia_1.png
@@ -215,6 +229,7 @@
     │   ├── Tribute.js
     │   └── User.js
     ├── routes
+    │   └── lifestory.js
     └── tributes
         ├── chatGPT.md
         ├── create_1.hbs
@@ -223,4 +238,4 @@
         ├── index.hbs
         └── show.hbs
 
-34 directories, 190 files
+34 directories, 205 files
