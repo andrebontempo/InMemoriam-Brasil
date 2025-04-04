@@ -17,7 +17,7 @@
         </div>
 
         <div class="custom-box my-2 mx-4 text-start">
-          <h3>Jornada de Vida em capítulos.</h3>
+          <h3 class="text-start">Jornada de Vida em capítulos.</h3>
           <p>Nesta seção, revivemos os momentos mais marcantes da vida de {{user.firstName}} {{user.lastName}}, desde sua infância até seu legado...</p>
         </div>
 
@@ -112,7 +112,7 @@
           <h4>Galeria</h4>
           {{#if gallery.photos.length}}
             {{#each gallery.photos}}
-              <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
+              <img src="/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
             {{/each}}
           {{else}}
             <p>Nenhuma foto disponível.</p>

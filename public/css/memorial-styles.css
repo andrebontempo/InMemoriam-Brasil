@@ -303,7 +303,7 @@ iframe {
   /*background-color: var(--bs-dark); /* Vermelho claro */
   background: radial-gradient(
     circle,
-    #9e6565,
+    #7c364b,
     var(--bs-dark)
   ); /* Degradê escuro para o centro */
   padding: 5px;
