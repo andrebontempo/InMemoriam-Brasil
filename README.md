@@ -10,7 +10,7 @@ Plataforma para criação de memoriais virtuais.
    npm install
    ```
 
-2. Execute o servidorr:
+2. Execute o servidor:
 
    ```bash
    npm start
