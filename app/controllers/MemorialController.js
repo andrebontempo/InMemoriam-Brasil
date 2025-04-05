@@ -2,7 +2,7 @@ const Memorial = require("../models/Memorial")
 const User = require("../models/User")
 const Tribute = require("../models/Tribute") // Ajuste o caminho conforme necessário
 const lifeStory = require("../models/LifeStory")
-const stories = require("../models/Story")
+const sharedStory = require("../models/SharedStory")
 const gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
@@ -123,7 +123,7 @@ const MemorialController = {
       const memorial = await Memorial.findOne({ slug })
         .populate({ path: "user", select: "firstName lastName" })
         .populate({ path: "lifeStory", select: "title content" }) // Populate para lifeStory
-        .populate({ path: "stories", select: "title content" }) // Populate para stories
+        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedstory
         .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
         .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
         .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
@@ -156,7 +156,7 @@ const MemorialController = {
         mainPhoto: memorial.mainPhoto,
         tribute: tributes || [], // Passando os tributos para o template
         lifeStory: memorial.lifeStory || [], // Passando lifeStory para o template
-        stories: memorial.stories || [], // Passando stories para o template
+        sharedStory: memorial.sharedStory || [], // Passando stories para o template
         gallery: memorial.gallery || {
           photos: [],
           audios: [],
@@ -307,7 +307,9 @@ const MemorialController = {
         about: memorial.about || "Informação não disponível.",
         epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        sharedStory: Array.isArray(memorial.lifeStory)
+          ? memorial.sharedStory
+          : [],
         gallery: memorial.gallery || {
           photos: [],
           audios: [],
@@ -340,6 +342,7 @@ const MemorialController = {
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
+        mainPhoto: memorial.mainPhoto,
         relationship: memorial.relationship,
         birth: {
           date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
@@ -372,7 +375,7 @@ const MemorialController = {
     }
   },
 
-  exibirStories: async (req, res) => {
+  exibirSharedStories: async (req, res) => {
     const { slug } = req.params
     try {
       const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
@@ -382,12 +385,13 @@ const MemorialController = {
         })
       }
 
-      return res.render("memorial/memorial-stories", {
+      return res.render("memorial/memorial-sharedstory", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
         gender: memorial.gender,
+        mainPhoto: memorial.mainPhoto,
         relationship: memorial.relationship,
         birth: {
           date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
@@ -404,7 +408,9 @@ const MemorialController = {
         about: memorial.about || "Informação não disponível.",
         epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
         lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
+        sharedStory: Array.isArray(memorial.sharedStory)
+          ? memorial.sharedStory
+          : [],
         gallery: memorial.gallery || {
           photos: [],
           audios: [],

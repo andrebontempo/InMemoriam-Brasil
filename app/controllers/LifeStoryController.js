@@ -54,7 +54,7 @@ const LifeStoryController = {
       const memorial = await Memorial.findOne({ slug })
         .populate({ path: "user", select: "firstName lastName" })
         .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
-        .populate({ path: "stories", select: "title content" }) // Populate para stories
+        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
         .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
         .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
         .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria

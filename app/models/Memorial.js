@@ -80,10 +80,10 @@ const MemorialSchema = new mongoose.Schema(
     ],
 
     // **Campo stories**: Referência para a coleção Story
-    stories: [
+    sharedStory: [
       {
         type: mongoose.Schema.Types.ObjectId,
-        ref: "Story",
+        ref: "SharedStory",
       },
     ],
 

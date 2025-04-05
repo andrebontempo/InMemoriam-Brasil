@@ -29,7 +29,7 @@ router.put("/:slug/edit/update", MemorialController.atualizarMemorial)
 router.get("/:slug/about", MemorialController.exibirMemorial)
 router.get("/:slug/lifestory", LifeStoryController.exibirLifeStory) //Esta é que leva para a página de histórias
 router.get("/:slug/gallery", MemorialController.exibirGallery)
-router.get("/:slug/stories", MemorialController.exibirStories)
+router.get("/:slug/sharedstory", MemorialController.exibirSharedStories)
 
 // Rota genérica que redireciona corretamente
 router.get("/:slug", (req, res) => {

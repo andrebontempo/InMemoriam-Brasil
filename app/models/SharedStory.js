@@ -1,6 +1,6 @@
 const mongoose = require("mongoose")
 
-const StorySchema = new mongoose.Schema(
+const SharedStorySchema = new mongoose.Schema(
   {
     // Referência ao Memorial ao qual esta história pertence (Obrigatório)
     memorial: {
@@ -31,6 +31,6 @@ const StorySchema = new mongoose.Schema(
 )
 
 // Índice no MongoDB para melhorar a performance ao buscar histórias de um memorial
-StorySchema.index({ memorial: 1 })
+SharedStorySchema.index({ memorial: 1 })
 
-module.exports = mongoose.model("Story", StorySchema)
+module.exports = mongoose.model("SharedStory", SharedStorySchema)
