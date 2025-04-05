@@ -48,38 +48,12 @@ router.post("/create", authMiddleware, tributeController.createTribute)
 // Rota para DELETAR um tributo específico
 router.post("/delete/:id", authMiddleware, tributeController.deleteTribute)
 
-// Rota para editar um tributo (GET)
-router.get("/edit/:id", async (req, res) => {
-  try {
-    const tribute = await Tribute.findById(req.params.id)
-    if (!tribute) {
-      return res.status(404).send("Tributo não encontrado")
-    }
-    res.render("/edit", { tribute })
-  } catch (err) {
-    console.error(err)
-    res.status(500).send("Erro ao carregar tributo para edição.")
-  }
-})
+// Rota para EDITAR um tributo específico
+router.get("/edit/:id", authMiddleware, tributeController.editarTribute)
 
-// Rota para atualizar um tributo (POST)
-router.post("/edit/:id", async (req, res) => {
-  try {
-    const { type, message, name } = req.body
-    const tribute = await Tribute.findByIdAndUpdate(
-      req.params.id,
-      { type, message, name },
-      { new: true } // Retorna o tributo atualizado
-    )
-    if (!tribute) {
-      return res.status(404).send("Tributo não encontrado")
-    }
-    res.redirect(`/tribute/${tribute._id}`) // Redireciona para o tributo atualizado
-  } catch (err) {
-    console.error(err)
-    res.status(500).send("Erro ao atualizar tributo.")
-  }
-})
+// Rota para a atualização dos dados do memorial
+router.put("/update/:id", authMiddleware, tributeController.atualizarTribute)
+
 /*
 // Rota para deletar um tributo via POST
 router.post("/delete/:id", async (req, res) => {

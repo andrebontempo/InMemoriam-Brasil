@@ -1,0 +1,104 @@
+<main class="container my-0">
+  <div class="custom-container my-0 p-2">
+    <div class="row">
+      <!-- Coluna Principal (3/4) -->
+      <div class="col-md-9 my-4">
+        
+        <!-- Formulário de Edição do Memorial -->
+        <div class="custom-box p-4 ms-4">
+          <!-- Formulário de Edição de Tributo -->
+          <form action="/tribute/update/{{tribute._id}}?_method=PUT" method="POST">
+            <input type="hidden" name="_method" value="PUT">
+            <input type="hidden" name="memorial" value="{{tribute.memorial}}" />
+            <input type="hidden" name="slug" value="{{slug}}" />
+
+            <!-- Caixa de Edição de Tributo -->
+            <div class="custom-box my-2 mx-4">
+              <h3>Editar Tributo</h3>
+              <div class="card p-3">
+
+                <!-- Escolha do tipo de tributo -->
+                <div class="d-flex justify-content-center mb-3">
+
+                  <!-- Caneta -->
+                  <div class="text-center me-3">
+                    <img src="/site/tribute/tributo_caneta.png" class="edit-icon" alt="Caneta"
+                      style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+                    <br>
+                    <input type="radio" id="tributeTypeCaneta" name="type" value="tributo_caneta.png"
+                      {{#ifEquals tribute.type "tributo_caneta.png"}}checked{{/ifEquals}}>
+                  </div>
+
+                  <!-- Flor -->
+                  <div class="text-center me-3">
+                    <img src="/site/tribute/tributo_flor.png" class="edit-icon" alt="Flor"
+                      style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+                    <br>
+                    <input type="radio" id="tributeTypeFlor" name="type" value="tributo_flor.png"
+                      {{#ifEquals tribute.type "tributo_flor.png"}}checked{{/ifEquals}}>
+                  </div>
+
+                  <!-- Vela -->
+                  <div class="text-center me-3">
+                    <img src="/site/tribute/tributo_vela.png" class="edit-icon" alt="Vela"
+                      style="width: 40px; height: 40px; object-fit: cover; pointer-events: none; margin-bottom: 10px;">
+                    <br>
+                    <input type="radio" id="tributeTypeVela" name="type" value="tributo_vela.png"
+                      {{#ifEquals tribute.type "tributo_vela.png"}}checked{{/ifEquals}}>
+                  </div>
+
+                </div>
+
+                <!-- Caixa de texto com mensagem -->
+                <div class="d-flex mb-2">
+                  <textarea class="edit-input form-control" rows="3" placeholder="Escreva sua mensagem..."
+                    name="message" required>{{tribute.message}}</textarea>
+                </div>
+
+                <!-- Informação sobre o usuário -->
+                <div class="text-muted mb-2 fs-7 text-end">
+                  Editando como usuário logado.
+                </div>
+
+                <!-- Botões -->
+                <div class="d-flex justify-content-end align-items-center gap-2">
+                  <a href="/memorial/{{slug}}" class="btn btn-secondary">Cancelar</a>
+                  <button type="submit" class="btn btn-primary">Atualizar Tributo</button>
+                </div>
+
+              </div>
+            </div>
+          </form>
+        </div>
+      </div>
+
+      <!-- Coluna Lateral (1/4) -->
+      <div class="col-md-3">
+        <div class="custom-box p-3 mt-4 me-4">
+          <h4><i class="bi bi-share-fill"></i> Compartilhe</h4>
+          <ul class="list-unstyled">
+            <li>Convide amigos e familiares para visitar este memorial.</li>
+            <li>Mantenha viva na memória as lembranças</li>
+          </ul>
+        </div>
+
+        <div class="custom-box p-3 mt-3 me-4">
+          <h4><i class="bi bi-bar-chart-fill"></i> Estatísticas</h4>
+          <p><strong>Visitas:</strong> 1234</p>
+          <p><strong>Tributos:</strong> {{tribute.length}}</p>
+        </div>
+
+        <div class="custom-box p-3 mt-3 me-4">
+          <h4>Galeria</h4>
+          {{#if gallery.photos.length}}
+            {{#each gallery.photos}}
+              <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
+            {{/each}}
+          {{else}}
+            <p>Nenhuma foto disponível.</p>
+          {{/if}}
+        </div>
+      </div>
+    </div>
+  </div>
+</main>

@@ -9,6 +9,7 @@
 │   ├── criar-memorial copy 2.hbs
 │   ├── criar-memorial copy 3.hbs
 │   ├── criar-memorial copy.hbs
+│   ├── criar-memorial_TESTE.hbs
 │   ├── criar-memorialTESTE.hbs
 │   ├── criar-memorial_t.hbs
 │   ├── dashboard copy.hbs
@@ -54,6 +55,7 @@
 │   │   ├── memorial-header.hbs
 │   │   └── memorial-navbar.hbs
 │   ├── memorial-pesquisa copy.hbs
+│   ├── memorial-stories copy.hbs
 │   ├── memorial-styles copy.css
 │   ├── memorial_TESTE.hbs
 │   ├── navbar copy.hbs
@@ -70,7 +72,10 @@
 │   ├── styles copy.css
 │   ├── styles-ROXO.css
 │   ├── teste.js
+│   ├── tribute999.hbs
 │   ├── TributeController copy.js
+│   ├── tribute copy 2.hbs
+│   ├── tribute copy.hbs
 │   ├── User copy 2.js
 │   └── User copy.js
 ├── 1_seeds
@@ -98,7 +103,7 @@
 │   │   ├── Gallery.js
 │   │   ├── LifeStory.js
 │   │   ├── Memorial.js
-│   │   ├── Story.js
+│   │   ├── SharedStory.js
 │   │   ├── Tribute.js
 │   │   └── User.js
 │   ├── routes
@@ -132,12 +137,13 @@
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
-│       │   │   └── memorial.hbs
+│       │   │   ├── memorial.hbs
+│       │   │   └── tribute.hbs
 │       │   ├── memorial-about.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
 │       │   ├── memorial-pesquisa.hbs
-│       │   └── memorial-stories.hbs
+│       │   └── memorial-sharedstory.hbs
 │       ├── partials
 │       │   ├── main
 │       │   │   ├── footer.hbs
@@ -188,6 +194,7 @@
 │   │   ├── background1.jpg
 │   │   ├── background (cópia).jpg
 │   │   ├── background.jpg
+│   │   ├── default-story.jpg
 │   │   ├── favicon-32x32_1.svg
 │   │   ├── favicon-32x32_old.svg
 │   │   ├── favicon-32x32.png
@@ -245,4 +252,4 @@
         ├── index.hbs
         └── show.hbs
 
-41 directories, 205 files
+41 directories, 212 files
