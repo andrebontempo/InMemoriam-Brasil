@@ -1,9 +1,9 @@
 const Memorial = require("../models/Memorial")
 const User = require("../models/User")
 const Tribute = require("../models/Tribute") // Ajuste o caminho conforme necessário
-const lifeStory = require("../models/LifeStory")
-const sharedStory = require("../models/SharedStory")
-const gallery = require("../models/Gallery")
+const LifeStory = require("../models/LifeStory")
+const SharedStory = require("../models/SharedStory")
+const Gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
 const { Console } = require("console")
