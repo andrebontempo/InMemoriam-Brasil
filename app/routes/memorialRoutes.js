@@ -23,7 +23,13 @@ router.get("/pesquisa", MemorialController.pesquisarMemorial)
 router.get("/:slug/edit/memorial", MemorialController.editarMemorial)
 
 // Rota para a atualização dos dados do memorial
-router.put("/:slug/edit/update", MemorialController.atualizarMemorial)
+router.put("/:slug/update/memorial", MemorialController.atualizarMemorial)
+
+// Rota para exibir o formulário de edição de memorial
+router.get("/:slug/edit/epitaph", MemorialController.editarEpitaph)
+
+// Rota para a atualização dos dados do memorial
+router.put("/:slug/update/epitaph", MemorialController.atualizarEpitaph)
 
 // Rotas mais específicas primeiro
 router.get("/:slug/about", MemorialController.exibirMemorial)
