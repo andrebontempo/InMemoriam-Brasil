@@ -5,13 +5,16 @@
       <div class="col-md-9">
         <!-- Conteúdo Principal -->
         <div class="custom-box my-2 mx-4 text-start">
-          <h3 class="text-start">Jornada de Vida em capítulos.</h3>
-          <p>Nesta seção, revivemos os momentos mais marcantes da vida de {{user.firstName}} {{user.lastName}}, desde sua infância até seu legado...</p>
+          <h3 class="text-start"><i class="bi bi-journal-bookmark me-2"></i>Jornada de Vida em Capítulos</h3>
+          <p class="text-justify">Neste espaço do memorial, são reunidos relatos que preservam momentos marcantes da trajetória de <strong>{{firstName}} {{lastName}}</strong>. Em ordem cronológica, cada história registrada contribui para manter viva sua memória, revelando aspectos significativos de sua vida e legado.</p>
         </div>
 
         <!-- História de Vida -->
         <div class="custom-box my-2 mx-4 text-start">
-          <h3 class="text-start">História de Vida</h3>
+          <h3 class="text-start">
+            Histórias de Vida:
+            <span class="fs-5 text-muted">Acontecimentos marcantes...</span>
+          </h3>
           {{#if lifeStory.length}}
             {{#each lifeStory}}
               <div class="card my-2 custom-box">

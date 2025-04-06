@@ -54,14 +54,17 @@
               {{about}}
             {{else}}
               Este memorial foi criado por
-              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em homenagem a {{firstName}} {{lastName}} que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Viveu {{idade}} de uma história repleta de momentos especiais. Seu legado permanecerá vivo nestas páginas, onde suas lembranças serão preservadas com carinho e respeito.
+              {{#if user}} {{user.firstName}} {{user.lastName}} {{else}} um usuário desconhecido {{/if}}, em homenagem a <strong>{{firstName}} {{lastName}}</strong> que nos deixou em {{#if death.date}}{{formatDate death.date}}{{else}}Não informada{{/if}}. Viveu {{idade}} de uma história repleta de momentos especiais. Seu legado permanecerá vivo nestas páginas, onde suas lembranças serão preservadas com carinho e respeito.
             {{/if}}
           </p>
         </div>
 
 <!-- Tributos -->
 <div class="custom-box my-2 mx-4 text-start">
-  <h3 class="text-start">Tributos</h3>
+<h3 class="text-start"><i class="bi bi-chat-left-text me-2"></i>
+  Tributos:
+  <span class="fs-5 text-muted">Leia e deixe a sua homenagem...</span>
+</h3>
   {{#if tribute.length}}
     {{#each tribute}}
       <div class="card my-2 custom-box">

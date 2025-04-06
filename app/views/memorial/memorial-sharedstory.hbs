@@ -5,13 +5,16 @@
       <div class="col-md-9">
         <!-- Conteúdo Principal -->
         <div class="custom-box my-2 mx-4 text-start">
-          <h3 class="text-start">Jornada de Vida em capítulos compartilhados.</h3>
-          <p>Nesta seção, amigos e familiares compartilham momentos especiais vividos ao lado de {{user.firstName}} {{user.lastName}}, criando uma colcha de memórias afetivas.</p>
+          <h3 class="text-start"><i class="bi bi-chat-left-heart me-2"></i>Jornada de Vida – Histórias Compartilhadas</h3>
+          <p class="text-justify">Neste espaço, familiares, amigos e pessoas queridas são convidados a compartilhar lembranças significativas vividas ao lado de <strong>{{firstName}} {{lastName}}</strong>, construindo juntos uma narrativa afetiva feita de momentos únicos e especiais.</p>
         </div>
 
         <!-- Histórias Compartilhadas -->
         <div class="custom-box my-2 mx-4 text-start">
-          <h3 class="text-start">Histórias Compartilhadas</h3>
+          <h3 class="text-start">
+            Histórias Compartilhadas:
+            <span class="fs-5 text-muted">Participe, compartilhe uma história...</span>
+          </h3>
           {{#if sharedStory.length}}
             {{#each sharedStory}}
               <div class="card my-2 custom-box">
