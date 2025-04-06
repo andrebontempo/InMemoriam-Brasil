@@ -117,12 +117,13 @@ const LifeStoryController = {
       })
     }
   },
-  // Atualizar uma história de vida existente
-  updateLifeStory: async (req, res) => {
+  // Método para editar uma história de vida existente
+  editLifeStory: async (req, res) => {
     try {
-      const { title, content, eventDate, slug } = req.body
-      const lifeStory = await LifeStory.findById(req.params.id)
-
+      const lifeStory = await LifeStory.findById(req.params.id).populate(
+        "memorial"
+      )
+      //console.log("Lifestory encontrado:", lifeStory)
       if (!lifeStory) {
         return res.status(404).send("História não encontrada")
       }
@@ -135,12 +136,57 @@ const LifeStoryController = {
         lifeStory.image = `/uploads/${req.file.filename}`
       }
 
+      //lifeStory.title = title
+      //lifeStory.content = content
+      //lifeStory.eventDate = moment(eventDate).toDate()
+
+      res.render("memorial/edit/lifestory", {
+        layout: "memorial-layout",
+        lifeStory: lifeStory.toObject(), // Converte para objeto simples
+        slug: lifeStory.memorial.slug, // Passa o slug do memorial
+        mainPhoto: lifeStory.memorial.mainPhoto, // Passa a foto principal do memorial
+        eventDate: moment(lifeStory.eventDate).format("YYYY-MM-DD"),
+        birth: lifeStory.memorial.birth,
+        death: lifeStory.memorial.death,
+      })
+    } catch (error) {
+      console.error("Erro ao editar história:", error)
+      res.status(500).send("Erro interno do servidor")
+    }
+  },
+
+  // Atualizar uma história de vida existente
+  updateLifeStory: async (req, res) => {
+    try {
+      //console.log("UPDATE LIFESTORY - Body recebido:", req.body)
+
+      const { title, content, eventDate, slug } = req.body
+      const lifeStory = await LifeStory.findById(req.params.id)
+
+      if (!lifeStory) {
+        return res.status(404).send("História não encontrada")
+      }
+
+      // Atualiza imagem, se houver novo upload
+      if (req.file) {
+        if (lifeStory.image) {
+          const oldPath = path.join(__dirname, "..", "public", lifeStory.image)
+          if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
+        }
+        lifeStory.image = `/uploads/${req.file.filename}`
+      }
+
+      // Atualiza os campos
       lifeStory.title = title
       lifeStory.content = content
-      lifeStory.eventDate = moment(eventDate).toDate()
+
+      // Só atualiza eventDate se ele estiver presente e válido
+      if (eventDate && eventDate.trim() !== "") {
+        lifeStory.eventDate = moment(eventDate, "YYYY-MM-DD").toDate()
+      }
 
       await lifeStory.save()
-      res.redirect(`/memorial/${slug}`)
+      res.redirect(`/memorial/${slug}/lifestory`)
     } catch (error) {
       console.error("Erro ao editar história:", error)
       res.status(500).send("Erro interno do servidor")
@@ -164,7 +210,7 @@ const LifeStoryController = {
       }
 
       await LifeStory.findByIdAndDelete(req.params.id)
-      res.redirect(`/memorial/${lifeStory.memorial.slug}`)
+      res.redirect(`/memorial/${lifeStory.memorial.slug}/lifestory`)
     } catch (error) {
       console.error("Erro ao deletar história:", error)
       res.status(500).send("Erro interno do servidor")

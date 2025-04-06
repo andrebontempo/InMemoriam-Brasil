@@ -10,15 +10,14 @@ router.get("memorial/:slug/lifestory", LifeStoryController.exibirLifeStory)
 // Rota para criar uma nova história de vida
 router.post("/create", LifeStoryController.createLifeStory)
 
-// Rota para DELETAR um tributo específico
-//router.post("/delete/:id", authMiddleware, tributeController.deleteTribute)
-
 // Rota para editar uma história de vida
-//router.get("/edit/:id", LifeStoryController.editLifeStory)
-//router.post("/update/:id", LifeStoryController.updateLifeStory)
+router.get("/edit/:id", LifeStoryController.editLifeStory)
+
+// Rota para atualizar uma história de vida
+router.put("/update/:id", LifeStoryController.updateLifeStory)
 
 // Rota para excluir uma história de vida
-//router.post("/delete/:id", LifeStoryController.deleteLifeStory)
+router.post("/delete/:id", LifeStoryController.deleteLifeStory)
 
 // Rota sugerida pelo ChatGPT
 
@@ -27,8 +26,5 @@ router.post("/create", LifeStoryController.createLifeStory)
 
 // Editar uma história existente (com upload de imagem opcional)
 //router.post("/edit/:id", upload.single("image"), LifeStoryController.update)
-
-// Deletar uma história
-//router.post("/delete/:id", LifeStoryController.delete)
 
 module.exports = router
