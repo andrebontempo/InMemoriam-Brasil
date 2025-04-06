@@ -154,6 +154,7 @@
 │       │   │   ├── header.hbs
 │       │   │   └── navbar.hbs
 │       │   └── memorial
+│       │       ├── memorial-cover.hbs
 │       │       ├── memorial-footer.hbs
 │       │       ├── memorial-header.hbs
 │       │       ├── memorial-navbar.hbs
@@ -199,6 +200,8 @@
 │   │   ├── background (cópia).jpg
 │   │   ├── background.jpg
 │   │   ├── bg_epitaph.png
+│   │   ├── bg_textura_1.png
+│   │   ├── bg_textura.png
 │   │   ├── default-story.jpg
 │   │   ├── favicon-32x32_1.svg
 │   │   ├── favicon-32x32_old.svg
@@ -258,4 +261,4 @@
         ├── index.hbs
         └── show.hbs
 
-41 directories, 218 files
+41 directories, 221 files
