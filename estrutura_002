@@ -14,6 +14,8 @@
 │   ├── criar-memorial_t.hbs
 │   ├── dashboard copy.hbs
 │   ├── estrutura_002_conteudo
+│   ├── GalleryController copy 2.js
+│   ├── GalleryController copy.js
 │   ├── Gallery.js
 │   ├── header copy.hbs
 │   ├── helpers copy.js
@@ -44,6 +46,7 @@
 │   ├── MemorialController copy.js
 │   ├── MemorialControllerTESTE.js
 │   ├── Memorial copy.js
+│   ├── memorial-gallery999.hbs
 │   ├── memorial-gallery copy 2.hbs
 │   ├── memorial-gallery copy.hbs
 │   ├── memorial-header copy 2.hbs
@@ -51,6 +54,8 @@
 │   ├── memorial-layout_TESTE.hbs
 │   ├── memorial-lifestory copy 2.hbs
 │   ├── memorial-lifestory copy.hbs
+│   ├── memorial-navbar copy 2.hbs
+│   ├── memorial-navbar copy.hbs
 │   ├── memorial-partials999
 │   │   ├── memorial.body.hbs
 │   │   ├── memorial-footer.hbs
@@ -93,6 +98,7 @@
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
+│   │   ├── GalleryController.js
 │   │   ├── HomeController.js
 │   │   ├── LifeStoryController.js
 │   │   ├── MemorialController.js
@@ -111,6 +117,7 @@
 │   │   └── User.js
 │   ├── routes
 │   │   ├── authRoutes.js
+│   │   ├── galleryRoutes
 │   │   ├── homeRoutes.js
 │   │   ├── index.js
 │   │   ├── lifeStoryRoutes.js
@@ -189,9 +196,16 @@
 │   │   ├── navbar.js
 │   │   └── scripts.js
 │   ├── memorials
-│   │   └── memorialID
+│   │   ├── memorialSLUG
+│   │   │   ├── audios
+│   │   │   ├── images
+│   │   │   └── videos
+│   │   └── pateta-pereira
 │   │       ├── audios
-│   │       ├── images
+│   │       ├── photos
+│   │       │   ├── pateta-pereira_01.jpg
+│   │       │   ├── pateta-pereira_02.jpg
+│   │       │   └── pateta-pereira_03.jpg
 │   │       └── videos
 │   ├── site
 │   │   ├── background_11.jpg
@@ -199,6 +213,8 @@
 │   │   ├── background1.jpg
 │   │   ├── background (cópia).jpg
 │   │   ├── background.jpg
+│   │   ├── bg_epitaph_2.png
+│   │   ├── bg_epitaph_8.png
 │   │   ├── bg_epitaph.png
 │   │   ├── bg_textura_1.png
 │   │   ├── bg_textura.png
@@ -261,4 +277,4 @@
         ├── index.hbs
         └── show.hbs
 
-41 directories, 221 files
+45 directories, 233 files
