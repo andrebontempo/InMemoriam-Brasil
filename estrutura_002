@@ -23,6 +23,8 @@
 │   ├── LifeStoryController copy 2.js
 │   ├── LifeStoryController copy 3.js
 │   ├── LifeStoryController copy.js
+│   ├── lifestory copy 2.hbs
+│   ├── lifestory copy.hbs
 │   ├── LifeStory copy.js
 │   ├── login copy.hbs
 │   ├── memoriais99.hbs
@@ -55,6 +57,7 @@
 │   │   ├── memorial-header.hbs
 │   │   └── memorial-navbar.hbs
 │   ├── memorial-pesquisa copy.hbs
+│   ├── memorial-sharedstory copy.hbs
 │   ├── memorial-stories copy.hbs
 │   ├── memorial-styles copy.css
 │   ├── memorial_TESTE.hbs
@@ -137,6 +140,7 @@
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
+│       │   │   ├── lifestory.hbs
 │       │   │   ├── memorial.hbs
 │       │   │   └── tribute.hbs
 │       │   ├── memorial-about.hbs
@@ -194,6 +198,7 @@
 │   │   ├── background1.jpg
 │   │   ├── background (cópia).jpg
 │   │   ├── background.jpg
+│   │   ├── bg_epitaph.png
 │   │   ├── default-story.jpg
 │   │   ├── favicon-32x32_1.svg
 │   │   ├── favicon-32x32_old.svg
@@ -242,6 +247,7 @@
     │   ├── Story.js
     │   ├── Tribute.js
     │   └── User.js
+    ├── nomeclatura.md
     ├── routes
     │   └── lifestory.js
     └── tributes
@@ -252,4 +258,4 @@
         ├── index.hbs
         └── show.hbs
 
-41 directories, 212 files
+41 directories, 218 files

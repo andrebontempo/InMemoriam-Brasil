@@ -24,8 +24,8 @@ const SharedStorySchema = new mongoose.Schema(
     // Conteúdo da história (Obrigatório)
     content: { type: String, required: true, trim: true },
 
-    // Lista de imagens associadas à história (Opcional)
-    images: [{ type: String, default: [] }],
+    // Imagem associada à história
+    image: { type: String, default: "" }, // Apenas uma imagem por história
   },
   { timestamps: true } // Adiciona automaticamente os campos createdAt e updatedAt
 )
