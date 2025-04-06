@@ -37,18 +37,18 @@
                 {{#if gallery.photos.length}}
                   {{#each gallery.photos}}
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4 position-relative">
-                      <img
-                        src="/memorials/{{../slug}}/photos/{{this}}"
-                        class="galeria-foto"
-                        alt="Foto do memorial {{../slug}}"
-                      />
-                      <form action="/delete/photo" method="POST" class="position-absolute top-0 end-0 m-1">
+                      <a href="/memorials/{{../slug}}/photos/{{this}}" data-fancybox="galeria-fotos">
+                        <img
+                          src="/memorials/{{../slug}}/photos/{{this}}"
+                          class="img-fluid rounded shadow-sm"
+                          style="height: 250px; object-fit: cover; width: 100%;"
+                          alt="Foto do Memorial"
+                        />
+                      </a>
+                      <form action="/delete/photo" method="POST" class="delete-btn">
                         <input type="hidden" name="filename" value="{{this}}" />
-                        <button
-                          type="submit"
-                          class="btn btn-sm btn-danger"
-                          onclick="return confirm('Excluir esta foto?')"
-                        >
+                        <button type="submit" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1"
+                          onclick="return confirm('Excluir esta foto?')">
                           <i class="bi bi-trash"></i>
                         </button>
                       </form>
@@ -74,17 +74,14 @@
                 {{#if gallery.audios.length}}
                   {{#each gallery.audios}}
                     <div class="col-md-6 mb-3">
-                      <audio controls class="media-player w-100">
-                        <source src="/uploads/{{this}}" type="audio/mpeg" />
+                      <audio controls class="w-100">
+                        <source src="/memorial/{{../slug}}/audios/{{this}}" type="audio/mpeg" />
                         Seu navegador não suporta áudio.
                       </audio>
                       <form action="/delete/audio" method="POST" class="mt-1">
                         <input type="hidden" name="filename" value="{{this}}" />
-                        <button
-                          type="submit"
-                          class="btn btn-sm btn-danger"
-                          onclick="return confirm('Excluir este áudio?')"
-                        >
+                        <button type="submit" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Excluir este áudio?')">
                           <i class="bi bi-trash"></i> Excluir
                         </button>
                       </form>
@@ -110,17 +107,14 @@
                 {{#if gallery.videos.length}}
                   {{#each gallery.videos}}
                     <div class="col-md-6 mb-4">
-                      <video controls class="media-player w-100 rounded shadow-sm">
-                        <source src="/uploads/{{this}}" type="video/mp4" />
+                      <video controls class="w-100 rounded shadow-sm" style="max-height: 360px;">
+                        <source src="/memorial/{{../slug}}/videos/{{this}}" type="video/mp4" />
                         Seu navegador não suporta vídeo.
                       </video>
                       <form action="/delete/video" method="POST" class="mt-1">
                         <input type="hidden" name="filename" value="{{this}}" />
-                        <button
-                          type="submit"
-                          class="btn btn-sm btn-danger"
-                          onclick="return confirm('Excluir este vídeo?')"
-                        >
+                        <button type="submit" class="btn btn-sm btn-danger"
+                          onclick="return confirm('Excluir este vídeo?')">
                           <i class="bi bi-trash"></i> Excluir
                         </button>
                       </form>
@@ -152,7 +146,4 @@
 </main>
 
 <!-- Bootstrap Icons -->
-<link
-  href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css"
-  rel="stylesheet"
-/>
+<link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.10.5/font/bootstrap-icons.css" rel="stylesheet" />

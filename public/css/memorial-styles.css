@@ -473,3 +473,40 @@ iframe {
   object-fit: cover; /* Para manter o corte da imagem */
   border-radius: 8px;
 }
+.gallery-grid img {
+  transition: transform 0.3s ease-in-out;
+}
+.gallery-grid img:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}
+
+.galeria-foto {
+  width: 100%;
+  /*height: auto;*/
+  height: 200px; /* Altura fixa para padronizar */
+  border-radius: 8px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.15);
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.galeria-foto:hover {
+  transform: scale(1.03);
+}
+
+.media-player {
+  border-radius: 8px;
+  background-color: #f8f9fa;
+  min-height: 60px;
+  box-shadow: 0 1px 6px rgba(0, 0, 0, 0.1);
+}
+
+.gallery-grid {
+  gap: 15px;
+}
+
+.tab-content p {
+  font-style: italic;
+  color: #666;
+}
