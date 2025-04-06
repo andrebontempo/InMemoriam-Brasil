@@ -183,28 +183,24 @@ body {
 }
 
 header {
+  position: sticky;
+  top: 0; /* ele “cola” no topo quando atinge o topo */
+  z-index: 999; /* garante que fique acima de outros elementos */
   background-image: url("/site/bg_textura.png");
   background-size: 230px; /* ↓ diminui o tamanho do padrão */
-  background-position: center center;
   color: #fff;
-  padding: 5px 0;
-  position: sticky;
-  top: 0;
-  width: 100%;
-  z-index: 1000;
-  padding: 1rem;
-  /* background: rgba(53, 16, 26, 0.6); /* Transparente sempre */
-  backdrop-filter: blur(6px); /* Dá um efeito fosco ao fundo */
-  -webkit-backdrop-filter: blur(6px);
-  transition: all 0.3s ease;
+  padding: 10px 0;
+
+  transition: all 0.3s ease-in-out;
+  box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1); /* opcional, para dar leve profundidade */
 }
 
 .navbar {
-  background-color: var(--bs-primary); /* Cor primária */
+  background-color: var(--bs-dark); /* Cor primária */
 }
 
 footer {
-  background-color: var(--bs-primary); /* Cor primária */
+  background-color: var(--bs-dark); /* Cor primária */
   color: #fff;
   padding: 20px 0;
 }
@@ -352,14 +348,29 @@ iframe {
 }
 
 .epitaph-box {
-  background-color: var(--bs-primary); /*Cor primária */
-  color: #f8d7da;
-  font-family: "Dancing Script", cursive; /* Fonte manuscrita */
-  padding: 15px;
-  border-radius: 15px;
-  max-width: 100%;
-  margin: 2 auto;
-  box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.2);
+  background-image: url("/site/bg_epitaph.png");
+  background-repeat: no-repeat;
+  background-position: center;
+  background-size: 100% 100%;
+
+  padding: 3rem;
+  width: 100%;
+  margin-top: 0;
+  margin-bottom: 0;
+
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+
+  color: black; /* texto branco */
+  font-size: 2.5rem;
+  font-style: normal;
+
+  text-shadow: 2px 2px 4px white, 0 0 5px white, 0 0 10px white;
+
+  border: none;
+  background-color: transparent;
 }
 
 .epitaph-title {
