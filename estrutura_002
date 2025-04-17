@@ -21,7 +21,7 @@
 │   │   └── User.js
 │   ├── routes
 │   │   ├── authRoutes.js
-│   │   ├── galleryRoutes
+│   │   ├── galleryRoutes.js
 │   │   ├── homeRoutes.js
 │   │   ├── index.js
 │   │   ├── lifeStoryRoutes.js
@@ -51,10 +51,12 @@
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
+│       │   │   ├── gallery.hbs
 │       │   │   ├── lifestory.hbs
 │       │   │   ├── memorial.hbs
 │       │   │   └── tribute.hbs
 │       │   ├── memorial-about.hbs
+│       │   ├── memorial-gallery copy.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
 │       │   ├── memorial-pesquisa.hbs
@@ -119,6 +121,7 @@
 │   │   ├── background.jpg
 │   │   ├── bg_epitaph_2.png
 │   │   ├── bg_epitaph_8.png
+│   │   ├── bg_epitaph (cópia).png
 │   │   ├── bg_epitaph.png
 │   │   ├── bg_textura_1.png
 │   │   ├── bg_textura.png
@@ -133,6 +136,8 @@
 │   │   ├── homenageado4.png
 │   │   ├── logo.png
 │   │   ├── logo.svg
+│   │   ├── pescaria_1.png
+│   │   ├── pescaria (cópia).png
 │   │   ├── pescaria.png
 │   │   ├── time.jpg
 │   │   ├── tribute
@@ -160,4 +165,4 @@
 ├── README.md
 └── server.js
 
-37 directories, 124 files
+37 directories, 129 files
