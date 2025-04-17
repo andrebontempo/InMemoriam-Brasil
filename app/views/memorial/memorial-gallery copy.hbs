@@ -13,7 +13,7 @@
               <a class="nav-link active" id="tab-fotos" data-bs-toggle="tab" href="#fotos" role="tab">Fotos</a>
             </li>
             <li class="nav-item" role="presentation">
-              <a class="nav-link" id="tab-audios" data-bs-toggle="tab" href="#audios" role="tab">Audios</a>
+              <a class="nav-link" id="tab-audios" data-bs-toggle="tab" href="#audios" role="tab">Áudios</a>
             </li>
             <li class="nav-item" role="presentation">
               <a class="nav-link" id="tab-videos" data-bs-toggle="tab" href="#videos" role="tab">Vídeos</a>
@@ -25,17 +25,33 @@
 
             <!-- Aba de Fotos -->
             <div class="tab-pane fade show active" id="fotos" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Fotos</h5>
+                <form action="/upload/photo" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                  <input type="file" name="photo" class="form-control form-control-sm me-2" accept="image/*" />
+                  <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                </form>
+              </div>
+
               <div class="row gallery-grid">
                 {{#if gallery.photos.length}}
                   {{#each gallery.photos}}
-                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4">
-                      <a href="/memorials/{{../slug}}/photos/{{this}}" target="_blank">
-                        <img
-                          src="/memorials/{{../slug}}/photos/{{this}}"
-                          class="galeria-foto"
-                          alt="Foto do memorial {{../slug}}"
-                        />
-                      </a>
+                    <div class="col-sm-6 col-md-4 col-lg-3 mb-4 position-relative">
+                      <img
+                        src="/memorials/{{../slug}}/photos/{{this}}"
+                        class="galeria-foto"
+                        alt="Foto do memorial {{../slug}}"
+                      />
+                      <form action="/delete/photo" method="POST" class="position-absolute top-0 end-0 m-1">
+                        <input type="hidden" name="filename" value="{{this}}" />
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-danger"
+                          onclick="return confirm('Excluir esta foto?')"
+                        >
+                          <i class="bi bi-trash"></i>
+                        </button>
+                      </form>
                     </div>
                   {{/each}}
                 {{else}}
@@ -46,6 +62,14 @@
 
             <!-- Aba de Áudios -->
             <div class="tab-pane fade" id="audios" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Áudios</h5>
+                <form action="/upload/audio" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                  <input type="file" name="audio" class="form-control form-control-sm me-2" accept="audio/*" />
+                  <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                </form>
+              </div>
+
               <div class="row">
                 {{#if gallery.audios.length}}
                   {{#each gallery.audios}}
@@ -54,6 +78,16 @@
                         <source src="/uploads/{{this}}" type="audio/mpeg" />
                         Seu navegador não suporta áudio.
                       </audio>
+                      <form action="/delete/audio" method="POST" class="mt-1">
+                        <input type="hidden" name="filename" value="{{this}}" />
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-danger"
+                          onclick="return confirm('Excluir este áudio?')"
+                        >
+                          <i class="bi bi-trash"></i> Excluir
+                        </button>
+                      </form>
                     </div>
                   {{/each}}
                 {{else}}
@@ -64,14 +98,32 @@
 
             <!-- Aba de Vídeos -->
             <div class="tab-pane fade" id="videos" role="tabpanel">
+              <div class="d-flex justify-content-between align-items-center mb-3">
+                <h5 class="mb-0">Vídeos</h5>
+                <form action="/upload/video" method="POST" enctype="multipart/form-data" class="d-flex align-items-center">
+                  <input type="file" name="video" class="form-control form-control-sm me-2" accept="video/*" />
+                  <button type="submit" class="btn btn-sm btn-primary">Upload</button>
+                </form>
+              </div>
+
               <div class="row">
                 {{#if gallery.videos.length}}
                   {{#each gallery.videos}}
                     <div class="col-md-6 mb-4">
                       <video controls class="media-player w-100 rounded shadow-sm">
                         <source src="/uploads/{{this}}" type="video/mp4" />
-                        Seu navegador não suporta vídeos.
+                        Seu navegador não suporta vídeo.
                       </video>
+                      <form action="/delete/video" method="POST" class="mt-1">
+                        <input type="hidden" name="filename" value="{{this}}" />
+                        <button
+                          type="submit"
+                          class="btn btn-sm btn-danger"
+                          onclick="return confirm('Excluir este vídeo?')"
+                        >
+                          <i class="bi bi-trash"></i> Excluir
+                        </button>
+                      </form>
                     </div>
                   {{/each}}
                 {{else}}
@@ -112,6 +164,9 @@
         </div>
       </div> <!-- Fim da Coluna Lateral -->
 
+
     </div>
   </div>
 </main>
+
+
