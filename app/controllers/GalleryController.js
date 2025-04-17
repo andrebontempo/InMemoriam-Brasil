@@ -65,6 +65,66 @@ const GalleryController = {
     }
   },
 
+  // Editar galeria de um memorial
+  editarGallery: async (req, res) => {
+    const { slug } = req.params
+    //console.log("ESTOU EM EXIBIR GALERIA - Slug recebido:", slug)
+    try {
+      const memorial = await Memorial.findOne({ slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
+        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
+        .lean() // Converte o documento em um objeto simples
+
+      if (!memorial) {
+        return res.status(404).render("errors/404", {
+          message: "Memorial não encontrado.",
+        })
+      }
+
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
+      //console.log("Galeria:", galeria)
+
+      res.render("memorial/edit/gallery", {
+        layout: "memorial-layout",
+        slug: memorial.slug,
+        id: memorial._id,
+        firstName: memorial.firstName,
+        lastName: memorial.lastName,
+        gender: memorial.gender,
+        kinship: memorial.kinship,
+        mainPhoto: memorial.mainPhoto,
+        birth: memorial.birth,
+        death: memorial.death,
+        gallery: galleryData,
+        theme: memorial.theme,
+        user: {
+          firstName: memorial.user?.firstName || "Nome não informado",
+          lastName: memorial.user?.lastName || "Sobrenome não informado",
+        },
+      })
+    } catch (error) {
+      console.error("Erro ao exibir galeria:", error)
+      return res.status(500).render("errors/500", {
+        message: "Erro ao exibir galeria.",
+      })
+    }
+  },
+
   // Upload de arquivos na galeria
   uploadArquivo: async (req, res) => {
     const { slug, tipo } = req.params

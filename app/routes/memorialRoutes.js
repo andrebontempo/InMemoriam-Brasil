@@ -32,6 +32,9 @@ router.get("/:slug/edit/epitaph", MemorialController.editarEpitaph)
 // Rota para a atualização dos dados do memorial
 router.put("/:slug/update/epitaph", MemorialController.atualizarEpitaph)
 
+// Rota para editar a galeria
+router.get("/:slug/edit/gallery", GalleryController.editarGallery)
+
 // Rotas mais específicas primeiro
 router.get("/:slug/about", MemorialController.exibirMemorial)
 router.get("/:slug/lifestory", LifeStoryController.exibirLifeStory) //Esta é que leva para a página de histórias
