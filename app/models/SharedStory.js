@@ -16,13 +16,16 @@ const SharedStorySchema = new mongoose.Schema(
     },
 
     // Nome do autor (necessário se for anônimo)
-    name: { type: String, required: true, trim: true },
+    name: { type: String, required: false, trim: true },
 
     // Título da história (Opcional, mas recomendado)
     title: { type: String, trim: true, default: "" },
 
     // Conteúdo da história (Obrigatório)
     content: { type: String, required: true, trim: true },
+
+    // Data específica do acontecimento
+    eventDate: { type: Date, required: true },
 
     // Imagem associada à história
     image: { type: String, default: "" }, // Apenas uma imagem por história

@@ -40,7 +40,7 @@ const TributeController = {
   },
 
   // Método para editar um tributo (GET)
-  editarTribute: async (req, res) => {
+  editTribute: async (req, res) => {
     try {
       const tribute = await Tribute.findById(req.params.id).populate("memorial") // <--- aqui o populate
 
@@ -74,7 +74,7 @@ const TributeController = {
   },
 
   // Rota para atualizar um tributo (POST)
-  atualizarTribute: async (req, res) => {
+  updateTribute: async (req, res) => {
     try {
       const { type, message, name, slug } = req.body
       const tribute = await Tribute.findByIdAndUpdate(

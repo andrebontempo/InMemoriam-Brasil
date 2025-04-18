@@ -12,7 +12,7 @@ const moment = require("moment-timezone")
 const { calcularIdade } = require("../utils/helpers")
 
 const MemorialController = {
-  criarMemorial: async (req, res) => {
+  createMemorial: async (req, res) => {
     //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
     //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
 
@@ -117,7 +117,7 @@ const MemorialController = {
   },
 
   // Método para exibir o memorial
-  exibirMemorial: async (req, res) => {
+  showMemorial: async (req, res) => {
     const { slug } = req.params
     try {
       const memorial = await Memorial.findOne({ slug })
@@ -188,7 +188,7 @@ const MemorialController = {
   },
 
   // Método para exibir a página de edição do memorial
-  editarMemorial: async (req, res) => {
+  editMemorial: async (req, res) => {
     try {
       //console.log("Recebendo requisição para editar memorial:", req.params.slug)
 
@@ -247,7 +247,7 @@ const MemorialController = {
   },
 
   // Atualizar memorial
-  atualizarMemorial: async (req, res) => {
+  updateMemorial: async (req, res) => {
     try {
       const { slug } = req.params
       //const { gender, relationship, birth, death } = req.body // Aqui você pode pegar os dados do formulário
@@ -273,7 +273,7 @@ const MemorialController = {
   },
 
   // Método para exibir a página de edição do epitáfio
-  editarEpitaph: async (req, res) => {
+  editEpitaph: async (req, res) => {
     try {
       //console.log("EPITAPH - Recebendo requisição para editar memorial:", req.params.slug)
 
@@ -332,7 +332,7 @@ const MemorialController = {
   },
 
   // Atualizar memorial
-  atualizarEpitaph: async (req, res) => {
+  updateEpitaph: async (req, res) => {
     try {
       const { slug } = req.params
       //const { gender, relationship, birth, death } = req.body // Aqui você pode pegar os dados do formulário
@@ -357,162 +357,8 @@ const MemorialController = {
     }
   },
 
-  exibirLifeStory: async (req, res) => {
-    const { slug } = req.params
-
-    try {
-      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
-
-      if (!memorial) {
-        return res.status(404).render("errors/404", {
-          message: "Memorial não encontrado.",
-        })
-      }
-
-      return res.render("memorial/memorial-lifestory", {
-        layout: "memorial-layout",
-        firstName: memorial.firstName,
-        lastName: memorial.lastName,
-        slug: memorial.slug,
-        gender: memorial.gender,
-        mainPhoto: memorial.mainPhoto,
-        kinship: memorial.kinship,
-        birth: {
-          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.birth?.city || "Local desconhecido",
-          state: memorial.birth?.state || "Estado não informado",
-          country: memorial.birth?.country || "País não informado",
-        },
-        death: {
-          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.death?.city || "Local desconhecido",
-          state: memorial.death?.state || "Estado não informado",
-          country: memorial.death?.country || "País não informado",
-        },
-        about: memorial.about || "Informação não disponível.",
-        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
-        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        sharedStory: Array.isArray(memorial.lifeStory)
-          ? memorial.sharedStory
-          : [],
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
-        theme: memorial.theme || "blue-theme",
-      })
-    } catch (error) {
-      console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("/errors/500", {
-        message: "Erro ao exibir memorial.",
-      })
-    }
-  },
-
-  exibirGallery: async (req, res) => {
-    const { slug } = req.params
-    try {
-      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
-
-      if (!memorial) {
-        return res.status(404).render("errors/404", {
-          message: "Memorial não encontrado.",
-        })
-      }
-
-      return res.render("memorial/memorial-gallery", {
-        layout: "memorial-layout",
-        firstName: memorial.firstName,
-        lastName: memorial.lastName,
-        slug: memorial.slug,
-        gender: memorial.gender,
-        mainPhoto: memorial.mainPhoto,
-        relationship: memorial.relationship,
-        birth: {
-          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.birth?.city || "Local desconhecido",
-          state: memorial.birth?.state || "Estado não informado",
-          country: memorial.birth?.country || "País não informado",
-        },
-        death: {
-          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.death?.city || "Local desconhecido",
-          state: memorial.death?.state || "Estado não informado",
-          country: memorial.death?.country || "País não informado",
-        },
-        about: memorial.about || "Informação não disponível.",
-        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
-        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        stories: Array.isArray(memorial.stories) ? memorial.stories : [],
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
-        theme: memorial.theme || "blue-theme",
-      })
-    } catch (error) {
-      console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("errors/500", {
-        message: "Erro ao exibir memorial.",
-      })
-    }
-  },
-
-  exibirSharedStories: async (req, res) => {
-    const { slug } = req.params
-    try {
-      const memorial = await Memorial.findOne({ slug }).lean() // Garantindo que os documentos do Mongoose sejam convertidos em objetos simples
-      if (!memorial) {
-        return res.status(404).render("errors/404", {
-          message: "Memorial não encontrado.",
-        })
-      }
-
-      return res.render("memorial/memorial-sharedstory", {
-        layout: "memorial-layout",
-        firstName: memorial.firstName,
-        lastName: memorial.lastName,
-        slug: memorial.slug,
-        gender: memorial.gender,
-        mainPhoto: memorial.mainPhoto,
-        relationship: memorial.relationship,
-        birth: {
-          date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.birth?.city || "Local desconhecido",
-          state: memorial.birth?.state || "Estado não informado",
-          country: memorial.birth?.country || "País não informado",
-        },
-        death: {
-          date: memorial.death?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.death?.city || "Local desconhecido",
-          state: memorial.death?.state || "Estado não informado",
-          country: memorial.death?.country || "País não informado",
-        },
-        about: memorial.about || "Informação não disponível.",
-        epitaph: memorial.epitaph || "Nenhum epitáfio fornecido.",
-        lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        sharedStory: Array.isArray(memorial.sharedStory)
-          ? memorial.sharedStory
-          : [],
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
-        theme: memorial.theme || "blue-theme",
-      })
-    } catch (error) {
-      console.error("Erro ao exibir memorial:", error)
-      return res.status(500).render("errors/00", {
-        message: "Erro ao exibir memorial.",
-      })
-    }
-  },
-
   // Método para exibir a página de pesquisa por memorial
-  pesquisarMemorial: async (req, res) => {
+  searchMemorial: async (req, res) => {
     const termo = req.query.q // Obtém o termo digitado na pesquisa
     if (!termo) {
       return res.render("memorial/memorial-pesquisa", { resultados: [], termo })

@@ -16,6 +16,9 @@ const LifeStorySchema = new mongoose.Schema(
       required: true,
     },
 
+    // Nome do autor (necessário se for anônimo)
+    name: { type: String, required: false, trim: true },
+
     // Título da história de vida
     title: { type: String, required: true, trim: true },
 

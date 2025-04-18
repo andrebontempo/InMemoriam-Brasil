@@ -1,14 +1,14 @@
-const LifeStory = require("../models/LifeStory")
-const Memorial = require("../models/Memorial") // ✅ Importando o modelo correto
+const SharedStory = require("../models/SharedStory")
+const Memorial = require("../models/Memorial")
 const path = require("path")
 const fs = require("fs")
 const moment = require("moment-timezone")
 
-const LifeStoryController = {
-  // Criar uma nova história de vida
-  createLifeStory: async (req, res) => {
+const SharedStoryController = {
+  // Criar uma nova história compartilhada
+  createSharedStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
-    console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
+    //console.log("CRIAÇÃO DO SharedStory - Body recebido:", req.body)
     try {
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
@@ -23,36 +23,32 @@ const LifeStoryController = {
         return res.status(404).send("Memorial não encontrado")
       }
 
-      // Criar a história de vida com os dados corretos
-      const newLifeStory = new LifeStory({
-        memorial: memorial._id, // Pegando o ID do memorial corretamente
-        user: userCurrent ? userCurrent._id : null, // Definir usuário se estiver autenticado
-        //user: req.user ? req.user._id : null, // Definir usuário se estiver autenticado
+      const newSharedStory = new SharedStory({
+        memorial: memorial._id,
+        user: userCurrent ? userCurrent._id : null,
         title: req.body.title,
         content: req.body.content,
         eventDate: req.body.eventDate,
       })
 
-      // Salvar no banco de dados
-      await newLifeStory.save()
-      //console.log("História de vida salva com sucesso!")
+      await newSharedStory.save()
 
-      res.redirect(`/memorial/${memorial.slug}/lifestory`)
+      res.redirect(`/memorial/${memorial.slug}/sharedstory`)
     } catch (error) {
-      console.error("Erro ao criar história de vida:", error)
+      console.error("Erro ao criar história compartilhada:", error)
       res.status(500).render("errors/500")
     }
   },
 
-  // Exibir histórias de vida de um memorial
-  showLifeStory: async (req, res) => {
+  // Exibir histórias compartilhadas de um memorial
+  showSharedStory: async (req, res) => {
     const { slug } = req.params
-    //console.log("ESTOU AQUI EXIBIR LIFESTORY - Slug recebido:", slug)
+    //console.log("ESTOU AQUI EXIBIR SHAREDSTORY - Slug recebido:", slug)
     try {
       const memorial = await Memorial.findOne({ slug })
         .populate({ path: "user", select: "firstName lastName" })
         .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
-        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
+        .populate({ path: "sharedStory", select: "title content eventDate" }) // Populate para sharedStory
         .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
         .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
         .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
@@ -64,13 +60,15 @@ const LifeStoryController = {
         })
       }
 
-      // Buscar os Lifestories relacionados ao memorial
-      const lifestories = await LifeStory.find({ memorial: memorial._id })
+      // Buscar os Sharedstories relacionados ao memorial
+      const sharedstories = await SharedStory.find({ memorial: memorial._id })
         .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
         .select("title content eventDate image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
 
-      return res.render("memorial/memorial-lifestory", {
+      //console.log("Sharedstories encontrados:", sharedstories)
+
+      return res.render("memorial/memorial-sharedstory", {
         layout: "memorial-layout",
         user: {
           firstName: memorial.user.firstName || "Primeiro Nome Não informado",
@@ -84,9 +82,8 @@ const LifeStoryController = {
         kinship: memorial.kinship,
         mainPhoto: memorial.mainPhoto,
         //tribute: tributes || [], // Passando os tributos para o template
-        lifeStory: lifestories || [], // Passando lifeStory para o template
-
-        //stories: memorial.stories || [], // Passando stories para o template
+        //lifeStory: lifestories || [], // Passando lifeStory para o template
+        sharedStory: sharedstories || [], // Passando stories para o template
         gallery: memorial.gallery || {
           photos: [],
           audios: [],
@@ -116,105 +113,112 @@ const LifeStoryController = {
       })
     }
   },
-  // Método para editar uma história de vida existente
-  editLifeStory: async (req, res) => {
+
+  // Editar uma história compartilhada
+  editSharedStory: async (req, res) => {
     try {
-      const lifeStory = await LifeStory.findById(req.params.id).populate(
+      const sharedStory = await SharedStory.findById(req.params.id).populate(
         "memorial"
       )
-      //console.log("Lifestory encontrado:", lifeStory)
-      if (!lifeStory) {
-        return res.status(404).send("História não encontrada")
+
+      if (!sharedStory) {
+        return res.status(404).send("História compartilhada não encontrada")
       }
 
       if (req.file) {
-        if (lifeStory.image) {
-          const oldPath = path.join(__dirname, "..", "public", lifeStory.image)
+        if (sharedStory.image) {
+          const oldPath = path.join(
+            __dirname,
+            "..",
+            "public",
+            sharedStory.image
+          )
           if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
         }
-        lifeStory.image = `/uploads/${req.file.filename}`
+        sharedStory.image = `/uploads/${req.file.filename}`
       }
 
-      //lifeStory.title = title
-      //lifeStory.content = content
-      //lifeStory.eventDate = moment(eventDate).toDate()
-
-      res.render("memorial/edit/lifestory", {
+      res.render("memorial/edit/sharedstory", {
         layout: "memorial-layout",
-        lifeStory: lifeStory.toObject(), // Converte para objeto simples
-        slug: lifeStory.memorial.slug, // Passa o slug do memorial
-        mainPhoto: lifeStory.memorial.mainPhoto, // Passa a foto principal do memorial
-        eventDate: moment(lifeStory.eventDate).format("YYYY-MM-DD"),
-        birth: lifeStory.memorial.birth,
-        death: lifeStory.memorial.death,
+        sharedStory: sharedStory.toObject(),
+        slug: sharedStory.memorial.slug,
+        mainPhoto: sharedStory.memorial.mainPhoto,
+        eventDate: moment(sharedStory.eventDate).format("YYYY-MM-DD"),
+        birth: sharedStory.memorial.birth,
+        death: sharedStory.memorial.death,
       })
     } catch (error) {
-      console.error("Erro ao editar história:", error)
+      console.error("Erro ao editar história compartilhada:", error)
       res.status(500).send("Erro interno do servidor")
     }
   },
 
-  // Atualizar uma história de vida existente
-  updateLifeStory: async (req, res) => {
+  // Atualizar uma história compartilhada existente
+  updateSharedStory: async (req, res) => {
     try {
-      //console.log("UPDATE LIFESTORY - Body recebido:", req.body)
-
       const { title, content, eventDate, slug } = req.body
-      const lifeStory = await LifeStory.findById(req.params.id)
+      const sharedStory = await SharedStory.findById(req.params.id)
 
-      if (!lifeStory) {
-        return res.status(404).send("História não encontrada")
+      if (!sharedStory) {
+        return res.status(404).send("História compartilhada não encontrada")
       }
 
-      // Atualiza imagem, se houver novo upload
       if (req.file) {
-        if (lifeStory.image) {
-          const oldPath = path.join(__dirname, "..", "public", lifeStory.image)
+        if (sharedStory.image) {
+          const oldPath = path.join(
+            __dirname,
+            "..",
+            "public",
+            sharedStory.image
+          )
           if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
         }
-        lifeStory.image = `/uploads/${req.file.filename}`
+        sharedStory.image = `/uploads/${req.file.filename}`
       }
 
-      // Atualiza os campos
-      lifeStory.title = title
-      lifeStory.content = content
+      sharedStory.title = title
+      sharedStory.content = content
 
-      // Só atualiza eventDate se ele estiver presente e válido
       if (eventDate && eventDate.trim() !== "") {
-        lifeStory.eventDate = moment(eventDate, "YYYY-MM-DD").toDate()
+        sharedStory.eventDate = moment(eventDate, "YYYY-MM-DD").toDate()
       }
 
-      await lifeStory.save()
-      res.redirect(`/memorial/${slug}/lifestory`)
+      await sharedStory.save()
+      res.redirect(`/memorial/${slug}/sharedstory`)
     } catch (error) {
-      console.error("Erro ao editar história:", error)
+      console.error("Erro ao atualizar história compartilhada:", error)
       res.status(500).send("Erro interno do servidor")
     }
   },
 
-  // Deletar uma história de vida
-  deleteLifeStory: async (req, res) => {
+  // Deletar uma história compartilhada
+  deleteSharedStory: async (req, res) => {
     try {
-      const lifeStory = await LifeStory.findById(req.params.id).populate(
+      const sharedStory = await SharedStory.findById(req.params.id).populate(
         "memorial"
       )
 
-      if (!lifeStory) {
-        return res.status(404).send("História não encontrada")
+      if (!sharedStory) {
+        return res.status(404).send("História compartilhada não encontrada")
       }
 
-      if (lifeStory.image) {
-        const imagePath = path.join(__dirname, "..", "public", lifeStory.image)
+      if (sharedStory.image) {
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          "public",
+          sharedStory.image
+        )
         if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath)
       }
 
-      await LifeStory.findByIdAndDelete(req.params.id)
-      res.redirect(`/memorial/${lifeStory.memorial.slug}/lifestory`)
+      await SharedStory.findByIdAndDelete(req.params.id)
+      res.redirect(`/memorial/${sharedStory.memorial.slug}/sharedstory`)
     } catch (error) {
-      console.error("Erro ao deletar história:", error)
+      console.error("Erro ao deletar história compartilhada:", error)
       res.status(500).send("Erro interno do servidor")
     }
   },
 }
-
-module.exports = LifeStoryController
+// Exporta o controlador
+module.exports = SharedStoryController

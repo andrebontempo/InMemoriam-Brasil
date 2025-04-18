@@ -1,55 +1,49 @@
 const express = require("express")
 const router = express.Router()
 const MemorialController = require("../controllers/MemorialController")
-// Importando o middleware corretamente
-const authMiddleware = require("../middlewares/authMiddleware") // Certifique-se de que o caminho está correto!
 const LifeStoryController = require("../controllers/LifeStoryController")
+const SharedStoryController = require("../controllers/SharedStoryController")
 const GalleryController = require("../controllers/GalleryController")
-
+const authMiddleware = require("../middlewares/authMiddleware") // Importando o middleware corretamente
 //router.get("/", MemorialController.list)
 //router.get("/:id", MemorialController.view)
 //router.post("/", MemorialController.create)
 //router.put("/:id", MemorialController.update)
 //router.delete("/:id", MemorialController.delete)
 
+// Rota para pesquisar memorial
+router.get("/pesquisa", MemorialController.searchMemorial)
+
+// Rota para criar um memorial
 router.post("/create-memorial", authMiddleware, (req, res) => {
   //console.log("PASSOU AQUI PARA CRIAR") //, req.body)
-  MemorialController.criarMemorial(req, res)
+  MemorialController.createMemorial(req, res)
 })
 
-// Rota de pesquisa
-router.get("/pesquisa", MemorialController.pesquisarMemorial)
+// Rota para visualizar memorial
+router.get("/:slug/about", MemorialController.showMemorial)
 
-// Rota para exibir o formulário de edição de memorial
-router.get("/:slug/edit/memorial", MemorialController.editarMemorial)
+// Rota para editar memorial
+router.get("/:slug/edit/memorial", MemorialController.editMemorial)
 
-// Rota para a atualização dos dados do memorial
-router.put("/:slug/update/memorial", MemorialController.atualizarMemorial)
+// Rota para atualizar os dados do memorial
+router.put("/:slug/update/memorial", MemorialController.updateMemorial)
 
-// Rota para exibir o formulário de edição de memorial
-router.get("/:slug/edit/epitaph", MemorialController.editarEpitaph)
+//EPITÁFIO
+// Rota para editar o epitáfio
+router.get("/:slug/edit/epitaph", MemorialController.editEpitaph)
 
-// Rota para a atualização dos dados do memorial
-router.put("/:slug/update/epitaph", MemorialController.atualizarEpitaph)
+// Rota para atualizar o epitáfio
+router.put("/:slug/update/epitaph", MemorialController.updateEpitaph)
 
-// Rota para editar a galeria
-router.get("/:slug/edit/gallery", GalleryController.editarGallery)
+// Rotas para exibir histórias de vida, histórias compartilhadas e a galeria
+router.get("/:slug/lifestory", LifeStoryController.showLifeStory)
+router.get("/:slug/sharedstory", SharedStoryController.showSharedStory)
+router.get("/:slug/gallery", GalleryController.showGallery)
 
-// Rotas mais específicas primeiro
-router.get("/:slug/about", MemorialController.exibirMemorial)
-router.get("/:slug/lifestory", LifeStoryController.exibirLifeStory) //Esta é que leva para a página de histórias
-router.get("/:slug/gallery", GalleryController.exibirGallery)
-router.get("/:slug/sharedstory", MemorialController.exibirSharedStories)
-
-// Rota genérica que redireciona corretamente
+// Rota genérica que redireciona corretamente para /memorial/:slug/about"
 router.get("/:slug", (req, res) => {
-  //console.log("Redirecionando para /memorial/:slug/about")
   res.redirect(`/memorial/${req.params.slug}/about`)
-})
-
-router.post("/create-memorial", authMiddleware, (req, res) => {
-  console.log("PASSOU AQUI PARA CRIAR") //, req.body)
-  MemorialController.criarMemorial(req, res)
 })
 
 module.exports = router

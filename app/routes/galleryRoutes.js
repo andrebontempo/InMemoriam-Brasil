@@ -6,6 +6,11 @@ const upload = require("../middlewares/uploadMiddleware")
 // Listar arquivos por tipo
 //router.get("/memorial/:slug/gallery", GalleryController.exibirGaleria)
 
+// Rota para editar a galeria
+//router.get("/:slug/edit/gallery", GalleryController.editarGallery)
+
+router.get("/edit/:id", GalleryController.editGallery)
+
 // Upload de novo arquivo para memorial e tipo (fotos, audios, videos)
 router.post(
   "/memorial/:slug/:type/upload",

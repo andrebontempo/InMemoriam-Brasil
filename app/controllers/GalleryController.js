@@ -6,7 +6,7 @@ const moment = require("moment-timezone")
 
 const GalleryController = {
   // Exibir galeria de um memorial
-  exibirGallery: async (req, res) => {
+  showGallery: async (req, res) => {
     const { slug } = req.params
     //console.log("ESTOU EM EXIBIR GALERIA - Slug recebido:", slug)
     try {
@@ -66,7 +66,7 @@ const GalleryController = {
   },
 
   // Editar galeria de um memorial
-  editarGallery: async (req, res) => {
+  editGallery: async (req, res) => {
     const { slug } = req.params
     //console.log("ESTOU EM EXIBIR GALERIA - Slug recebido:", slug)
     try {
