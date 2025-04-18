@@ -1,5 +1,6 @@
 const express = require("express")
 const router = express.Router()
+const MemorialController = require("../controllers/MemorialController")
 const GalleryController = require("../controllers/GalleryController")
 const upload = require("../middlewares/uploadMiddleware")
 
@@ -11,7 +12,7 @@ const upload = require("../middlewares/uploadMiddleware")
 
 router.get("/edit/:id", GalleryController.editGallery)
 
-// Upload de novo arquivo para memorial e tipo (fotos, audios, videos)
+/* Upload de novo arquivo para memorial e tipo (fotos, audios, videos)
 router.post(
   "/memorial/:slug/:type/upload",
   upload.single("file"),
@@ -23,5 +24,6 @@ router.delete(
   "/memorial/:slug/:type/:filename",
   GalleryController.deletarArquivo
 )
+*/
 
 module.exports = router

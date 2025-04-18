@@ -8,6 +8,7 @@ const GalleryController = {
   // Exibir galeria de um memorial
   showGallery: async (req, res) => {
     const { slug } = req.params
+
     //console.log("ESTOU EM EXIBIR GALERIA - Slug recebido:", slug)
     try {
       const memorial = await Memorial.findOne({ slug })
@@ -67,10 +68,11 @@ const GalleryController = {
 
   // Editar galeria de um memorial
   editGallery: async (req, res) => {
-    const { slug } = req.params
-    //console.log("ESTOU EM EXIBIR GALERIA - Slug recebido:", slug)
+    const { id } = req.params
+    //console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
+
     try {
-      const memorial = await Memorial.findOne({ slug })
+      const memorial = await Memorial.findOne({ _id: id })
         .populate({ path: "user", select: "firstName lastName" })
         .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
         .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
@@ -84,6 +86,7 @@ const GalleryController = {
           message: "Memorial não encontrado.",
         })
       }
+      //console.log("Memorial encontrado:", memorial)
 
       // Buscar as photos relacionados ao memorial
       const galeria = await Gallery.findOne({ memorial: memorial._id })
