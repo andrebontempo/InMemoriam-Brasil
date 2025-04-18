@@ -8,7 +8,7 @@ const LifeStoryController = {
   // Criar uma nova história de vida
   createLifeStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
-    console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
+    //console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
     try {
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
