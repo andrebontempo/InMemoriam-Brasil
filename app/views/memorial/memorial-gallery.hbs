@@ -58,7 +58,7 @@
                   {{#each gallery.audios}}
                     <div class="col-md-6 mb-3">
                       <audio controls class="media-player w-100">
-                        <source src="/uploads/{{this}}" type="audio/mpeg" />
+                        <source src="/memorials/{{../slug}}/audios/{{this}}" type="audio/mpeg" />
                         Seu navegador não suporta áudio.
                       </audio>
                     </div>
@@ -76,7 +76,7 @@
                   {{#each gallery.videos}}
                     <div class="col-md-6 mb-4">
                       <video controls class="media-player w-100 rounded shadow-sm">
-                        <source src="/uploads/{{this}}" type="video/mp4" />
+                        <source src="/memorials/{{../slug}}/videos/{{this}}" type="video/mp4" />
                         Seu navegador não suporta vídeos.
                       </video>
                     </div>

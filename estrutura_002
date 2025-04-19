@@ -6,6 +6,7 @@
 │   │   ├── HomeController.js
 │   │   ├── LifeStoryController.js
 │   │   ├── MemorialController.js
+│   │   ├── SharedStoryController.js
 │   │   └── TributeController.js
 │   ├── middlewares
 │   │   ├── authMiddleware.js
@@ -26,6 +27,7 @@
 │   │   ├── index.js
 │   │   ├── lifeStoryRoutes.js
 │   │   ├── memorialRoutes.js
+│   │   ├── sharedStoryRoutes.js
 │   │   └── tributeRoutes.js
 │   ├── services
 │   │   ├── authService.js
@@ -54,9 +56,9 @@
 │       │   │   ├── gallery.hbs
 │       │   │   ├── lifestory.hbs
 │       │   │   ├── memorial.hbs
+│       │   │   ├── sharedstory.hbs
 │       │   │   └── tribute.hbs
 │       │   ├── memorial-about.hbs
-│       │   ├── memorial-gallery copy.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
 │       │   ├── memorial-pesquisa.hbs
@@ -108,10 +110,12 @@
 │   │   │   └── videos
 │   │   └── pateta-pereira
 │   │       ├── audios
+│   │       │   └── pateta_audio_01.mp3
 │   │       ├── photos
 │   │       │   ├── pateta-pereira_01.jpg
 │   │       │   ├── pateta-pereira_02.jpg
-│   │       │   └── pateta-pereira_03.jpg
+│   │       │   ├── pateta-pereira_03.jpg
+│   │       │   └── pateta-pereira_04.jpg
 │   │       └── videos
 │   ├── site
 │   │   ├── background_11.jpg
@@ -165,4 +169,4 @@
 ├── README.md
 └── server.js
 
-37 directories, 129 files
+37 directories, 133 files
