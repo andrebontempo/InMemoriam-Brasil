@@ -3,12 +3,17 @@ const Memorial = require("../models/Memorial") // ✅ Importando o modelo corret
 const path = require("path")
 const fs = require("fs")
 const moment = require("moment-timezone")
+const { id } = require("bcrypto/lib/blake2b160")
 
 const LifeStoryController = {
   // Criar uma nova história de vida
   createLifeStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
-    //console.log("CRIAÇÃO DO LifeStory - Body recebido:", req.body)
+
+    console.log("ESTOU AQUI NA CRIAÇÃO DO LIFESTORY")
+    console.log("Chegando em createLifeStory")
+    console.log("req.body.memorial:", req.body.memorial)
+    console.log("req.params.slug:", req.params.slug)
     try {
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
@@ -26,6 +31,7 @@ const LifeStoryController = {
       // Criar a história de vida com os dados corretos
       const newLifeStory = new LifeStory({
         memorial: memorial._id, // Pegando o ID do memorial corretamente
+        slug: req.params.slug,
         user: userCurrent ? userCurrent._id : null, // Definir usuário se estiver autenticado
         //user: req.user ? req.user._id : null, // Definir usuário se estiver autenticado
         title: req.body.title,
@@ -72,6 +78,7 @@ const LifeStoryController = {
 
       return res.render("memorial/memorial-lifestory", {
         layout: "memorial-layout",
+        id: memorial._id,
         user: {
           firstName: memorial.user.firstName || "Primeiro Nome Não informado",
           lastName: memorial.user.lastName || "Último Nome Não informado",
@@ -185,10 +192,13 @@ const LifeStoryController = {
       }
 
       await lifeStory.save()
+      req.flash("success_msg", "História atualizada com sucesso!")
       res.redirect(`/memorial/${slug}/lifestory`)
     } catch (error) {
       console.error("Erro ao editar história:", error)
-      res.status(500).send("Erro interno do servidor")
+      req.flash("error_msg", "Título e conteúdo são obrigatórios.")
+      return res.redirect("back")
+      //res.status(500).send("Erro interno do servidor")
     }
   },
 

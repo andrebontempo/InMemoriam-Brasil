@@ -6,8 +6,7 @@
         
         <!-- Formulário de Edição do Memorial -->
         <div class="custom-box p-4 ms-4">
-          <!-- Formulário de Edição de Tributo -->
-          <form action="/tribute/update/{{tribute._id}}?_method=PUT" method="POST">
+          <form action="/memorial/{{slug}}/tribute/update/{{tribute._id}}?_method=PUT" method="POST">
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="memorial" value="{{tribute.memorial}}" />
             <input type="hidden" name="slug" value="{{slug}}" />

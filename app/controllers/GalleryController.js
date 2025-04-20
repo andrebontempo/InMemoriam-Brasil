@@ -127,6 +127,17 @@ const GalleryController = {
       })
     }
   },
+  uploadFile: (req, res) => {
+    // Verificar se o arquivo foi enviado
+    const { slug } = req.params
+    if (!req.file) {
+      return res.status(400).send("Nenhum arquivo enviado.")
+    }
+
+    // Se o arquivo foi enviado, retornamos a mensagem de sucesso
+    //res.send("Arquivo enviado com sucesso: " + req.file.filename)
+    res.redirect(`/memorial/${slug}/gallery`)
+  },
 
   // Upload de arquivos na galeria
   uploadArquivo: async (req, res) => {

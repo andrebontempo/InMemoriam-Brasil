@@ -87,11 +87,11 @@
               <div class="d-flex justify-content-end gap-2 mt-3">
 
 
-                <a href="/tribute/edit/{{this._id}}" class="btn btn-primary" style="text-decoration: none;">
+                <a href="/memorial/{{../slug}}/tribute/edit/{{this._id}}" class="btn btn-primary" style="text-decoration: none;">
                   <i class="bi bi-pencil-fill"></i> Editar
                 </a>
                 <!-- Formulário para deletar tributo via POST -->
-  <form action="/tribute/delete/{{this._id}}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este tributo?');">
+  <form action="/memorial/{{../slug}}/tribute/delete/{{this._id}}" method="POST" onsubmit="return confirm('Tem certeza que deseja apagar este tributo?');">
     <input type="hidden" name="memorial" value="{{id}}" /> <!-- Passando o ID do memorial -->
     <input type="hidden" name="slug" value="{{slug}}" /> <!-- Passando o ID do memorial -->
     <button type="submit" class="btn btn-primary">
@@ -117,7 +117,7 @@
 
 
 <!-- Formulário de Envio de Tributo -->
-<form action="/tribute/create" method="POST">
+<form action="/memorial/{{slug}}/tribute/create" method="POST">
   <input type="hidden" name="memorial" value="{{id}}" /> <!-- Passando o ID do memorial -->
   <input type="hidden" name="slug" value="{{slug}}" /> <!-- Passando o ID do memorial -->
   
@@ -186,41 +186,45 @@
     </div>
   </div>
 </form>
-
-
-
-
-
 </div>
 
-      <!-- Coluna Lateral (1/4) -->
+
+
+      <!-- Coluna Lateral -->
       <div class="col-md-3">
-        <!-- Sidebar -->
-        <div class="custom-box-sidebar">
-          <h4><i class="bi bi-share-fill"></i> Compartilhe</h4>
-          <ul class="list-unstyled">
+        <div class="custom-box-sidebar p-3">
+          <h4 class="fw-semibold"><i class="bi bi-share-fill me-2"></i>Compartilhe</h4>
+          <ul class="list-unstyled small">
             <li>Convide amigos e familiares para visitar este memorial.</li>
-            <li>Mantenha viva na memória as lembranças</li>
+            <li>Mantenha viva na memória as lembranças.</li>
           </ul>
         </div>
 
-        <div class="custom-box-sidebar my-2 mx-2">
-          <h4><i class="bi bi-bar-chart-fill"></i> Estatísticas</h4>
+        <div class="custom-box-sidebar my-2 mx-2 p-3">
+          <h4 class="fw-semibold"><i class="bi bi-bar-chart-fill me-2"></i>Estatísticas</h4>
           <p><strong>Visitas:</strong> 1234</p>
           <p><strong>Tributos:</strong> {{tribute.length}}</p>
         </div>
 
-        <div class="custom-box-sidebar my-2 mx-2">
-          <h4>Galeria</h4>
+        <div class="custom-box-sidebar my-2 mx-2 p-3">
+          <h4 class="fw-semibold"><i class="bi bi-images me-2"></i>Galeria</h4>
           {{#if gallery.photos.length}}
-            {{#each gallery.photos}}
-              <img src="/images/uploads/{{this}}" class="img-fluid rounded mb-2 custom-photo-size" alt="Foto de {{../firstName}}">
-            {{/each}}
+            <div class="row g-2">
+              {{#each gallery.photos}}
+                <div class="col-6">
+                  <img src="/memorials/{{../slug}}/photos/{{this}}" class="img-fluid rounded shadow-sm custom-sidebar-photo" alt="Foto de {{../firstName}}">
+                </div>
+              {{/each}}
+            </div>
+
           {{else}}
-            <p>Nenhuma foto disponível.</p>
+            <p class="text-muted">Nenhuma foto disponível.</p>
           {{/if}}
         </div>
-      </div>
+      </div><!-- Fim da Coluna Lateral -->
+
+
+
     </div>
   </div>
 </main>
