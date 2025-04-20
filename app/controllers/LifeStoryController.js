@@ -10,10 +10,10 @@ const LifeStoryController = {
   createLifeStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
 
-    console.log("ESTOU AQUI NA CRIAÇÃO DO LIFESTORY")
-    console.log("Chegando em createLifeStory")
-    console.log("req.body.memorial:", req.body.memorial)
-    console.log("req.params.slug:", req.params.slug)
+    //console.log("ESTOU AQUI NA CRIAÇÃO DO LIFESTORY")
+    //console.log("Chegando em createLifeStory")
+    //console.log("req.body.memorial:", req.body.memorial)
+    //console.log("req.params.slug:", req.params.slug)
     try {
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
