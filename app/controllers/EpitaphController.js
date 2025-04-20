@@ -62,6 +62,16 @@ const EpitaphController = {
 
   // Atualizar memorial
   updateEpitaph: async (req, res) => {
+    /*
+    console.log(
+      "EPITAPH - Recebendo requisição para atualizar epitaph:",
+      req.params.slug
+    )
+
+    console.log("Body recebido:", req.body)
+    console.log("Método da requisição:", req.method)
+    console.log("Body recebido:", req.body)
+    */
     try {
       const { slug } = req.params
       //const { gender, relationship, birth, death } = req.body // Aqui você pode pegar os dados do formulário

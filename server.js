@@ -4,47 +4,45 @@ const path = require("path")
 const conectarDB = require("./config/db")
 const session = require("express-session")
 const flash = require("connect-flash")
-const formData = require("express-form-data")
 const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
 const methodOverride = require("method-override")
-const helpers = require("./app/utils/helpers") // Importa os helpers externos
+const helpers = require("./app/utils/helpers")
 
 const moment = require("moment-timezone")
-// Configura o idioma para português
 moment.locale("pt-br")
 
 const app = express()
 
-conectarDB() // Conectar ao banco de dados
+// Conectar ao banco de dados
+conectarDB()
 
-app.use(express.urlencoded({ extended: true })) // Para processar POST forms
-app.use(express.json()) // Para processar JSON
-//app.use(formData.parse()) // Para lidar com uploads corretamente
+// Middlewares Básicos
+app.use(express.urlencoded({ extended: true }))
+app.use(express.json())
+app.use(express.static(path.join(__dirname, "public")))
 
-// Configurar sessões
+// Configuração de Sessão
 app.use(
   session({
-    secret: "seuSegredoSuperSeguro",
+    secret: process.env.SESSION_SECRET || "seuSegredoSuperSeguro",
     resave: false,
     saveUninitialized: false,
   })
 )
 app.use(flash())
 
-// Disponibiliza mensagens flash nas views
+// Middleware para flash messages
 app.use((req, res, next) => {
   res.locals.success_msg = req.flash("success_msg")
   res.locals.error_msg = req.flash("error_msg")
   next()
 })
 
-// Aplicar o middleware global para disponibilizar `loggedUser` em todas as views
+// Middleware de usuário
 app.use(setUserMiddleware)
 
-// Método adicionado para o formulário usar o PUT - sem isto só aceita POST
-app.use(methodOverride("_method"))
-/*
+// Method Override (para PUT/DELETE em formulários)
 app.use(
   methodOverride((req, res) => {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
@@ -52,38 +50,36 @@ app.use(
     }
   })
 )
-*/
-// Importar rotas
-const routes = require("./app/routes")
 
-// Configurações do Handlebars
+// Configuração do Handlebars (mantenha igual)
 const hbs = exphbs.create({
-  defaultLayout: "main", // Define o layout principal
-  extname: "hbs", // Extensão padrão para os templates Handlebars
-  layoutsDir: path.join(__dirname, "app/views/layouts"), // Diretório de layouts
+  defaultLayout: "main",
+  extname: "hbs",
+  layoutsDir: path.join(__dirname, "app/views/layouts"),
   partialsDir: [
-    path.join(__dirname, "app/views/partials/main"), // Partials para home e páginas que não são de memoriais
-    path.join(__dirname, "app/views/partials/memorial"), // Partials específicas de memoriais
+    path.join(__dirname, "app/views/partials/main"),
+    path.join(__dirname, "app/views/partials/memorial"),
   ],
-  helpers, // Usa os helpers externos do arquivo utils/helpers.js
-  cache: process.env.NODE_ENV === "production", // Habilita cache apenas em produção
+  helpers,
+  cache: process.env.NODE_ENV === "production",
 })
 
-// Configurar o Handlebars como motor de template
 app.engine(".hbs", hbs.engine)
 app.set("view engine", ".hbs")
 app.set("views", path.join(__dirname, "app/views"))
 
-// Middlewares
-app.use(express.static(path.join(__dirname, "public"))) // Arquivos estáticos (CSS, JS, imagens)
-
-// Usar rotas
+// Rotas
+const routes = require("./app/routes")
 app.use("/", routes)
 
-// Middleware de tratamento de erros
+// Middleware de erro (corrigido para evitar erro 500)
 app.use((err, req, res, next) => {
   console.error(err.stack)
-  res.status(500).render("500", { title: "Erro no Servidor", layout: false })
+  res.status(500).render("error", {
+    title: "Erro no Servidor",
+    message: "Ocorreu um erro inesperado",
+    layout: "main",
+  })
 })
 
 // Iniciar servidor

@@ -6,10 +6,10 @@
       <div class="col-md-9 my-4">
         <div class="custom-box p-4 ms-4">
           <!-- Formulário de Edição de História -->
-          <form action="/memorial/{{slug}}/lifestory/update/{{lifeStory._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
-            <input type="hidden" name="_method" value="PUT">
-            <input type="hidden" name="memorial" value="{{lifeStory.memorial}}" />
-            <input type="hidden" name="slug" value="{{slug}}" />
+          <form action="/memorial/{{slug}}/lifestory/update/{{lifeStory._id}}" method="POST" enctype="multipart/form-data">
+                <input type="hidden" name="_method" value="PUT">
+                <input type="hidden" name="memorial" value="{{lifeStory.memorial}}">
+                <input type="hidden" name="slug" value="{{slug}}">
 
             <div class="custom-box my-2 mx-4">
               <h3>Editar História</h3>
@@ -67,7 +67,7 @@
                     type="file"
                     class="form-control"
                     id="storyImage"
-                    name="image"
+                    name="file"
                     accept="image/*"
                   >
                   {{#if lifeStory.image}}
@@ -91,6 +91,7 @@
               </div>
             </div>
           </form>
+          
         </div>
       </div>
 

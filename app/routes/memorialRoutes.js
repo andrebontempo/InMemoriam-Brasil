@@ -25,7 +25,7 @@ router.get("/:slug/gallery/edit/:id", GalleryController.editGallery)
 router.post(
   "/:slug/sharedstory/create",
   authMiddleware,
-  upload.single("image"),
+  upload.single("file"),
   SharedStoryController.createSharedStory
 )
 
@@ -35,7 +35,7 @@ router.get("/:slug/sharedstory/edit/:id", SharedStoryController.editSharedStory)
 // Rota para atualizar uma história de vida
 router.put(
   "/:slug/sharedstory/update/:id",
-  upload.single("image"),
+  upload.single("file"),
   SharedStoryController.updateSharedStory
 )
 
@@ -51,7 +51,7 @@ router.get("/:slug/sharedstory", SharedStoryController.showSharedStory)
 router.post(
   "/:slug/lifestory/create",
   authMiddleware,
-  upload.single("image"),
+  upload.single("file"),
   LifeStoryController.createLifeStory
 )
 // Rota para mostrar uma história de vida
@@ -61,7 +61,7 @@ router.get("/:slug/lifestory/edit/:id", LifeStoryController.editLifeStory)
 // Rota para atualizar uma história de vida
 router.put(
   "/:slug/lifestory/update/:id",
-  upload.single("image"),
+  upload.single("file"),
   LifeStoryController.updateLifeStory
 )
 // Rota para excluir uma história de vida

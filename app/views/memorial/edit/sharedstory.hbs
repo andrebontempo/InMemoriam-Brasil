@@ -6,7 +6,8 @@
       <div class="col-md-9 my-4">
         <div class="custom-box p-4 ms-4">
           <!-- Formulário de Edição de História Compartilhada -->
-          <form action="/memorial/{{slug}}/sharedstory/update/{{sharedStory._id}}?_method=PUT" method="POST" enctype="multipart/form-data">
+          <!--<form action="/memorial/{{slug}}/sharedstory/update/{{sharedStory._id}}?_method=PUT" method="POST" enctype="multipart/form-data">-->
+            <form action="/memorial/{{slug}}/sharedstory/update/{{sharedStory._id}}" method="POST">
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="memorial" value="{{sharedStory.memorial}}" />
             <input type="hidden" name="slug" value="{{slug}}" />

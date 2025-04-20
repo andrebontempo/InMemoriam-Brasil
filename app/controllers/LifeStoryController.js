@@ -164,7 +164,7 @@ const LifeStoryController = {
   // Atualizar uma história de vida existente
   updateLifeStory: async (req, res) => {
     try {
-      //console.log("UPDATE LIFESTORY - Body recebido:", req.body)
+      console.log("UPDATE LIFESTORY - Body recebido:", req.body)
 
       const { title, content, eventDate, slug } = req.body
       const lifeStory = await LifeStory.findById(req.params.id)
