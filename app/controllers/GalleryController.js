@@ -69,7 +69,7 @@ const GalleryController = {
   // Editar galeria de um memorial
   editGallery: async (req, res) => {
     const { id } = req.params
-    //console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
+    console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
 
     try {
       const memorial = await Memorial.findOne({ _id: id })
@@ -127,8 +127,9 @@ const GalleryController = {
       })
     }
   },
-  uploadFile: (req, res) => {
+  updateGallery: (req, res) => {
     // Verificar se o arquivo foi enviado
+    console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug } = req.params
     if (!req.file) {
       return res.status(400).send("Nenhum arquivo enviado.")

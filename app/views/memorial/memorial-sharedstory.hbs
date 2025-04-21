@@ -22,7 +22,7 @@
                   <div class="d-flex flex-row">
                     <!-- Imagem da história -->
                     <div class="me-3">
-                      <img src="{{#if this.image}}/uploads/{{this.image}}{{else}}/site/default-story.jpg{{/if}}" class="img-fluid rounded custom-story-img" alt="Imagem da história">
+                      <img src="{{#if this.image}}/memorials/{{../slug}}/photos/{{this.image}}{{else}}/site/default-story.jpg{{/if}}" class="img-fluid rounded custom-story-img" alt="Imagem da história">
                     </div>
                     <div class="flex-grow-1">
                       <h5 class="fw-bold">{{this.title}}</h5>
@@ -52,7 +52,7 @@
         </div>
 
         <!-- Formulário de Envio de História -->
-        <form action="/memorial/{{slug}}/sharedstory/create" method="POST">
+        <form action="/memorial/{{slug}}/sharedstory/create" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="memorial" value="{{id}}" />
           <input type="hidden" name="slug" value="{{slug}}" />
           <div class="custom-box my-2 mx-4">
@@ -72,7 +72,7 @@
               </div>
               <div class="mb-2">
                 <label for="storyImage" class="form-label"><i class="bi bi-image"></i> Adicionar uma imagem</label>
-                <input type="file" class="form-control" id="storyImage" name="image" accept="image/*">
+                <input type="file" class="form-control" id="storyImage" name="file" accept="image/*">
               </div>
               <div class="text-muted mb-2 fs-7 text-end">Por usuário logado.</div>
               <div class="text-end">

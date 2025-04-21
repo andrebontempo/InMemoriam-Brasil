@@ -29,6 +29,7 @@ const SharedStoryController = {
         title: req.body.title,
         content: req.body.content,
         eventDate: req.body.eventDate,
+        image: req.file.filename,
       })
 
       await newSharedStory.save()

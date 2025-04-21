@@ -24,7 +24,7 @@
 
             <!-- Fotos -->
             <div class="tab-pane fade show active" id="fotos" role="tabpanel">
-              <form action="/memorial/{{slug}}/gallery/upload" method="POST" enctype="multipart/form-data">
+              <form action="/memorial/{{slug}}/gallery/update" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" accept="image/*" class="form-control my-2" required>
                 <input type="hidden" name="slug" value="{{slug}}">
                 <input type="hidden" name="memorialId" value="{{memorialId}}">
@@ -57,7 +57,7 @@
 
             <!-- Áudios -->
             <div class="tab-pane fade" id="audios" role="tabpanel">
-              <form action="/memorial/{{slug}}/gallery/upload" method="POST" enctype="multipart/form-data">
+              <form action="/memorial/{{slug}}/gallery/update" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" accept="audio/*" class="form-control my-2" required>
                 <input type="hidden" name="slug" value="{{slug}}">
                 <input type="hidden" name="memorialId" value="{{memorialId}}">
@@ -91,7 +91,7 @@
 
             <!-- Vídeos -->
             <div class="tab-pane fade" id="videos" role="tabpanel">
-              <form action="/memorial/{{slug}}/gallery/upload" method="POST" enctype="multipart/form-data">
+              <form action="/memorial/{{slug}}/gallery/update" method="POST" enctype="multipart/form-data">
                 <input type="file" name="file" accept="video/*" class="form-control my-2" required>
                 <input type="hidden" name="slug" value="{{slug}}">
                 <input type="hidden" name="memorialId" value="{{memorialId}}">

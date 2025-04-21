@@ -28,6 +28,13 @@ const LifeStoryController = {
         return res.status(404).send("Memorial não encontrado")
       }
 
+      /*
+      // Construir o caminho da imagem dinamicamente
+      const imagePath = req.file
+        ? `memorials/${memorial.slug}/photos/${req.file.filename}`
+        : null
+      */
+
       // Criar a história de vida com os dados corretos
       const newLifeStory = new LifeStory({
         memorial: memorial._id, // Pegando o ID do memorial corretamente
@@ -37,6 +44,7 @@ const LifeStoryController = {
         title: req.body.title,
         content: req.body.content,
         eventDate: req.body.eventDate,
+        image: req.file.filename,
       })
 
       // Salvar no banco de dados

@@ -1,4 +1,3 @@
-// app/middlewares/uploadMiddleware.js
 const multer = require("multer")
 const path = require("path")
 const fs = require("fs")
@@ -14,44 +13,81 @@ function getMediaFolder(mimetype) {
 // Configuração de armazenamento dinâmica
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    // Obter o slug a partir da rota
-    //const { slug } = req.params
-
-    // Verifique se o slug está sendo passado corretamente
     const slug = req.body.slug || req.params.slug
-    //console.log("Slug BODY:", req.body)
-    //console.log("Slug PARAMS:", req.params)
 
     if (!slug) {
       return cb(new Error("Slug não fornecido."))
     }
 
-    // Identificar a pasta do tipo de arquivo
     const mediaFolder = getMediaFolder(file.mimetype)
-
-    // Definir o caminho de upload para o diretório do memorial
     const uploadPath = path.join(
       __dirname,
       "..",
       "..",
       "public",
       "memorials",
-      slug, // Usar o slug como pasta para o memorial
-      mediaFolder // Fotos, áudios ou vídeos
+      slug,
+      mediaFolder
     )
 
-    // Garante que a pasta existe (criação da pasta caso não exista)
-    fs.mkdirSync(uploadPath, { recursive: true })
-
-    cb(null, uploadPath)
+    // Cria diretório com tratamento de erro
+    try {
+      fs.mkdirSync(uploadPath, { recursive: true })
+      cb(null, uploadPath)
+    } catch (err) {
+      cb(new Error(`Falha ao criar diretório: ${err.message}`))
+    }
   },
   filename: function (req, file, cb) {
     const ext = path.extname(file.originalname)
-    const filename = Date.now() + ext
+    const filename = `${Date.now()}-${Math.random()
+      .toString(36)
+      .substring(2, 9)}${ext}`
     cb(null, filename)
   },
 })
 
-const upload = multer({ storage })
+// Filtro para tipos de arquivo permitidos
+const fileFilter = (req, file, cb) => {
+  const allowedTypes = [
+    "image/jpeg",
+    "image/png",
+    "image/gif",
+    "image/webp",
+    "audio/mpeg",
+    "audio/wav",
+    "audio/ogg",
+    "video/mp4",
+    "video/webm",
+    "video/ogg",
+  ]
+
+  if (allowedTypes.includes(file.mimetype)) {
+    cb(null, true)
+  } else {
+    cb(new Error("Tipo de arquivo não suportado"), false)
+  }
+}
+
+const upload = multer({
+  storage: storage,
+  fileFilter: fileFilter,
+  limits: {
+    fileSize: 50 * 1024 * 1024, // 50MB
+  },
+})
+
+// Middleware para tratamento de erros do Multer
+const handleMulterErrors = (err, req, res, next) => {
+  if (err instanceof multer.MulterError) {
+    if (err.code === "LIMIT_FILE_SIZE") {
+      return res.status(400).json({ error: "Arquivo muito grande (máx. 50MB)" })
+    }
+    return res.status(400).json({ error: err.message })
+  } else if (err) {
+    return res.status(400).json({ error: err.message })
+  }
+  next()
+}
 
 module.exports = upload

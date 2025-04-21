@@ -13,9 +13,9 @@ const upload = require("../middlewares/uploadMiddleware")
 router.get("/:slug/gallery", GalleryController.showGallery)
 // Rotas para editar a galeria
 router.post(
-  "/:slug/gallery/upload",
+  "/:slug/gallery/update",
   upload.single("file"),
-  GalleryController.uploadFile
+  GalleryController.updateGallery
 )
 
 router.get("/:slug/gallery/edit/:id", GalleryController.editGallery)

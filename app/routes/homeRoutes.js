@@ -35,6 +35,10 @@ router.get("/plano-opcoes", (req, res) => {
 //  res.render("testemunhos", { title: "Testemunhos - In Memoriam Brasil" });
 //});
 router.get("/contato", (req, res) => {
+  console.log("🛬 [LOG] Rota acessada: /contato")
+  console.log("➡️ Params:", req.params)
+  console.log("➡️ Query:", req.query)
+  console.log("➡️ Body:", req.body)
   res.render("statics/contato", { title: "Contato - In Memoriam Brasil" })
 })
 router.get("/memoriais-virtuais", (req, res) => {
