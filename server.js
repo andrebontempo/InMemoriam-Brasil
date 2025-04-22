@@ -8,7 +8,6 @@ const setUserMiddleware = require("./app/middlewares/setUserMiddleware")
 require("dotenv").config()
 const methodOverride = require("method-override")
 const helpers = require("./app/utils/helpers")
-
 const moment = require("moment-timezone")
 moment.locale("pt-br")
 
