@@ -137,6 +137,7 @@ const MemorialController = {
 
       // Buscar os tributos relacionados ao memorial
       const tributes = await Tribute.find({ memorial: memorial._id })
+        .sort({ createdAt: -1 }) // 1 = crescente, -1 = decrescente
         .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
         .select("name message type image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)

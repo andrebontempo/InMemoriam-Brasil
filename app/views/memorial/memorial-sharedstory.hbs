@@ -28,7 +28,7 @@
                       <h5 class="fw-bold">{{this.title}}</h5>
                       <p class="card-text fs-5">{{this.content}}</p>
                       <p class="text-muted">
-                        <i class="bi bi-calendar-event"></i> {{#if this.eventDate}}{{formatDate this.eventDate "long"}}{{else}}Data não informada{{/if}}
+                        <i class="bi bi-calendar-event"></i> Em {{#if this.eventDate}}{{formatDate this.eventDate "long"}}{{else}}Data não informada{{/if}}
                       </p>
                       <div class="d-flex justify-content-end gap-2 mt-3">
                         <a href="/memorial/{{../slug}}/sharedstory/edit/{{this._id}}" class="btn btn-primary"><i class="bi bi-pencil-fill"></i> Editar</a>

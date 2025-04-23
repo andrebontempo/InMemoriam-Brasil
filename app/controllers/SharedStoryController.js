@@ -63,6 +63,7 @@ const SharedStoryController = {
 
       // Buscar os Sharedstories relacionados ao memorial
       const sharedstories = await SharedStory.find({ memorial: memorial._id })
+        .sort({ eventDate: 1 }) // 1 = crescente
         .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
         .select("title content eventDate image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
