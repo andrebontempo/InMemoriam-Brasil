@@ -1,16 +1,13 @@
-<main class="container my-0">
-  <div class="custom-container my-0 p-2">
-    <div class="row">
-      <!-- Coluna Principal (3/4) -->
-      <div class="col-md-9">
+<main>
+  <div class="custom-container my-0 p-2">      
         <!-- Conteúdo Principal -->
-        <div class="custom-box my-2 mx-4 text-start">
+        <div class="custom-box my-0 mx-0 text-start">
           <h3 class="text-start"><i class="bi bi-chat-left-heart me-2"></i>Jornada de Vida – Histórias Compartilhadas</h3>
           <p class="text-justify">Neste espaço, familiares, amigos e pessoas queridas são convidados a compartilhar lembranças significativas vividas ao lado de <strong>{{firstName}} {{lastName}}</strong>, construindo juntos uma narrativa afetiva feita de momentos únicos e especiais.</p>
         </div>
 
         <!-- Histórias Compartilhadas -->
-        <div class="custom-box my-2 mx-4 text-start">
+        <div class="custom-box my-2 mx-0 text-start">
           <h3 class="text-start">
             Histórias Compartilhadas:
             <span class="fs-5 text-muted">Participe, compartilhe uma história...</span>
@@ -55,7 +52,7 @@
         <form action="/memorial/{{slug}}/sharedstory/create" method="POST" enctype="multipart/form-data">
           <input type="hidden" name="memorial" value="{{id}}" />
           <input type="hidden" name="slug" value="{{slug}}" />
-          <div class="custom-box my-2 mx-4">
+          <div class="custom-box my-2 mx-0">
             <h3>Compartilhe uma História</h3>
             <div class="card p-3">
               <div class="mb-2">
@@ -81,40 +78,7 @@
             </div>
           </div>
         </form>
-      </div> <!-- Fim da Coluna Principal -->
+      
 
-      <!-- Coluna Lateral -->
-      <div class="col-md-3">
-        <div class="custom-box-sidebar p-3">
-          <h4 class="fw-semibold"><i class="bi bi-share-fill me-2"></i>Compartilhe</h4>
-          <ul class="list-unstyled small">
-            <li>Convide amigos e familiares para visitar este memorial.</li>
-            <li>Mantenha viva na memória as lembranças.</li>
-          </ul>
-        </div>
-
-        <div class="custom-box-sidebar my-2 mx-2 p-3">
-          <h4 class="fw-semibold"><i class="bi bi-bar-chart-fill me-2"></i>Estatísticas</h4>
-          <p><strong>Visitas:</strong> 1234</p>
-          <p><strong>Tributos:</strong> {{tribute.length}}</p>
-        </div>
-
-        <div class="custom-box-sidebar my-2 mx-2 p-3">
-          <h4 class="fw-semibold"><i class="bi bi-images me-2"></i>Galeria</h4>
-          {{#if gallery.photos.length}}
-            <div class="row g-2">
-              {{#each gallery.photos}}
-                <div class="col-6">
-                  <img src="/memorials/{{../slug}}/photos/{{this}}" class="img-fluid rounded shadow-sm custom-sidebar-photo" alt="Foto de {{../firstName}}">
-                </div>
-              {{/each}}
-            </div>
-
-          {{else}}
-            <p class="text-muted">Nenhuma foto disponível.</p>
-          {{/if}}
-        </div>
-      </div><!-- Fim da Coluna Lateral -->
-    </div>
   </div>
 </main>
