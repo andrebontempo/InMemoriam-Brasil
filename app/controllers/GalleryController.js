@@ -69,7 +69,7 @@ const GalleryController = {
   // Editar galeria de um memorial
   editGallery: async (req, res) => {
     const { id } = req.params
-    console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
+    //console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
 
     try {
       const memorial = await Memorial.findOne({ _id: id })
@@ -129,7 +129,7 @@ const GalleryController = {
   },
   uploadGallery: (req, res) => {
     // Verificar se o arquivo foi enviado
-    console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
+    //console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug } = req.params
     if (!req.file) {
       return res.status(400).send("Nenhum arquivo enviado.")
@@ -143,13 +143,13 @@ const GalleryController = {
   // Upload de arquivos na galeria
 
   updateGallery: async (req, res) => {
-    console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
+    //console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug, tipo } = req.params
     const file = req.file
 
-    console.log("Slug:", slug)
-    console.log("Tipo:", tipo)
-    console.log("Arquivo recebido:", req.file)
+    //console.log("Slug:", slug)
+    //console.log("Tipo:", tipo)
+    //console.log("Arquivo recebido:", req.file)
 
     // Verifica se o arquivo foi enviado
     if (!file) return res.status(400).send("Nenhum arquivo enviado")
@@ -227,8 +227,8 @@ const GalleryController = {
         fileName
       )
 
-      console.log("Caminho final:", filePath)
-      console.log("Arquivo existe?", fs.existsSync(filePath))
+      //console.log("Caminho final:", filePath)
+      //console.log("Arquivo existe?", fs.existsSync(filePath))
 
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath)
 
