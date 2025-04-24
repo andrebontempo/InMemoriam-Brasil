@@ -1,5 +1,6 @@
 const LifeStory = require("../models/LifeStory")
 const Memorial = require("../models/Memorial") // ✅ Importando o modelo correto
+const Gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
 const moment = require("moment-timezone")
@@ -78,6 +79,18 @@ const LifeStoryController = {
         })
       }
 
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       // Buscar os Lifestories relacionados ao memorial
       const lifestories = await LifeStory.find({ memorial: memorial._id })
         .sort({ eventDate: 1 }) // 1 = crescente
@@ -101,13 +114,7 @@ const LifeStoryController = {
         mainPhoto: memorial.mainPhoto,
         //tribute: tributes || [], // Passando os tributos para o template
         lifeStory: lifestories || [], // Passando lifeStory para o template
-
-        //stories: memorial.stories || [], // Passando stories para o template
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
+        gallery: galleryData,
         //idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
         birth: {
           date: memorial.birth?.date || "Não informada",

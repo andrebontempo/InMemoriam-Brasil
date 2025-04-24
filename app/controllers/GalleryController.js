@@ -127,7 +127,7 @@ const GalleryController = {
       })
     }
   },
-  updateGallery: (req, res) => {
+  uploadGallery: (req, res) => {
     // Verificar se o arquivo foi enviado
     console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug } = req.params
@@ -141,26 +141,51 @@ const GalleryController = {
   },
 
   // Upload de arquivos na galeria
-  uploadArquivo: async (req, res) => {
+
+  updateGallery: async (req, res) => {
+    console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug, tipo } = req.params
     const file = req.file
 
+    console.log("Slug:", slug)
+    console.log("Tipo:", tipo)
+    console.log("Arquivo recebido:", req.file)
+
+    // Verifica se o arquivo foi enviado
     if (!file) return res.status(400).send("Nenhum arquivo enviado")
 
     try {
       const memorial = await Memorial.findOne({ slug })
       if (!memorial) return res.status(404).send("Memorial não encontrado")
 
-      const novaEntrada = { url: `/memorial/${slug}/${tipo}/${file.filename}` }
+      // Localiza a galeria existente ou cria uma nova
+      let gallery = await Gallery.findOne({ memorial: memorial._id })
 
-      if (!memorial.gallery)
-        memorial.gallery = { photos: [], audios: [], videos: [] }
+      if (!gallery) {
+        gallery = new Gallery({
+          memorial: memorial._id,
+          user: req.body.userId, // ou quem está logado
+          photos: [],
+          audios: [],
+          videos: [],
+        })
+      }
 
-      if (tipo === "fotos") memorial.gallery.photos.push(novaEntrada)
-      else if (tipo === "audios") memorial.gallery.audios.push(novaEntrada)
-      else if (tipo === "videos") memorial.gallery.videos.push(novaEntrada)
+      // Insere no array correto conforme o tipo
+      const fileName = file.filename
 
-      await memorial.save()
+      if (tipo === "photo") {
+        gallery.photos.push(fileName)
+      } else if (tipo === "audio") {
+        gallery.audios.push(fileName)
+      } else if (tipo === "video") {
+        gallery.videos.push(fileName)
+      } else {
+        return res.status(400).send("Tipo de mídia inválido.")
+      }
+
+      await gallery.save()
+
       res.redirect(`/memorial/${slug}/gallery`)
     } catch (error) {
       console.error("Erro ao fazer upload:", error)
@@ -169,38 +194,54 @@ const GalleryController = {
   },
 
   // Deletar um arquivo da galeria
-  deletarArquivo: async (req, res) => {
-    const { slug, tipo, filename } = req.params
+  deleteFile: async (req, res) => {
+    const { slug, tipo } = req.params
+    const { fileName } = req.body
+
+    const tipoPasta =
+      tipo === "photo"
+        ? "photos"
+        : tipo === "audio"
+        ? "audios"
+        : tipo === "video"
+        ? "videos"
+        : null
+
+    if (!tipoPasta) return res.status(400).send("Tipo inválido")
 
     try {
       const memorial = await Memorial.findOne({ slug })
       if (!memorial) return res.status(404).send("Memorial não encontrado")
 
+      const gallery = await Gallery.findOne({ memorial: memorial._id }) // <- aqui
+      if (!gallery) return res.status(404).send("Galeria não encontrada")
+
       const filePath = path.join(
         __dirname,
         "..",
+        "..",
         "public",
-        "memorial",
+        "memorials",
         slug,
-        tipo,
-        filename
+        tipoPasta,
+        fileName
       )
+
+      console.log("Caminho final:", filePath)
+      console.log("Arquivo existe?", fs.existsSync(filePath))
+
       if (fs.existsSync(filePath)) fs.unlinkSync(filePath)
 
-      if (tipo === "fotos")
-        memorial.gallery.photos = memorial.gallery.photos.filter(
-          (m) => !m.url.includes(filename)
-        )
-      else if (tipo === "audios")
-        memorial.gallery.audios = memorial.gallery.audios.filter(
-          (m) => !m.url.includes(filename)
-        )
-      else if (tipo === "videos")
-        memorial.gallery.videos = memorial.gallery.videos.filter(
-          (m) => !m.url.includes(filename)
-        )
+      // Remover do array correto
+      if (tipo === "photo")
+        gallery.photos = gallery.photos.filter((f) => f !== fileName)
+      else if (tipo === "audio")
+        gallery.audios = gallery.audios.filter((a) => a !== fileName)
+      else if (tipo === "video")
+        gallery.videos = gallery.videos.filter((v) => v !== fileName)
 
-      await memorial.save()
+      await gallery.save()
+
       res.redirect(`/memorial/${slug}/gallery`)
     } catch (error) {
       console.error("Erro ao deletar arquivo:", error)

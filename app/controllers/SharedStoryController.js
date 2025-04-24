@@ -1,5 +1,6 @@
 const SharedStory = require("../models/SharedStory")
 const Memorial = require("../models/Memorial")
+const Gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
 const moment = require("moment-timezone")
@@ -61,6 +62,18 @@ const SharedStoryController = {
         })
       }
 
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       // Buscar os Sharedstories relacionados ao memorial
       const sharedstories = await SharedStory.find({ memorial: memorial._id })
         .sort({ eventDate: 1 }) // 1 = crescente
@@ -86,11 +99,7 @@ const SharedStoryController = {
         //tribute: tributes || [], // Passando os tributos para o template
         //lifeStory: lifestories || [], // Passando lifeStory para o template
         sharedStory: sharedstories || [], // Passando stories para o template
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
+        gallery: galleryData,
         //idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
         birth: {
           date: memorial.birth?.date || "Não informada",

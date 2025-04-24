@@ -13,12 +13,14 @@ const upload = require("../middlewares/uploadMiddleware")
 router.get("/:slug/gallery", GalleryController.showGallery)
 // Rotas para editar a galeria
 router.post(
-  "/:slug/gallery/update",
+  "/:slug/gallery/update/:tipo",
   upload.single("file"),
   GalleryController.updateGallery
 )
 
 router.get("/:slug/gallery/edit/:id", GalleryController.editGallery)
+
+router.post("/:slug/gallery/delete/:tipo", GalleryController.deleteFile)
 
 //*********ROTAS PARA O SHAREDSTORY CONTROLLER***********
 // Rota para criar uma nova história de vida

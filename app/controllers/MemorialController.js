@@ -142,6 +142,18 @@ const MemorialController = {
         .select("name message type image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
 
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
         user: {
@@ -158,11 +170,14 @@ const MemorialController = {
         tribute: tributes || [], // Passando os tributos para o template
         lifeStory: memorial.lifeStory || [], // Passando lifeStory para o template
         sharedStory: memorial.sharedStory || [], // Passando stories para o template
+        gallery: galleryData,
+        /*
         gallery: memorial.gallery || {
           photos: [],
           audios: [],
           videos: [],
         },
+        */
         idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
         birth: {
           date: memorial.birth?.date || "Não informada",
