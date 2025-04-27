@@ -15,12 +15,21 @@ router.get("/:slug/gallery", GalleryController.showGallery)
 router.post(
   "/:slug/gallery/update/:tipo",
   upload.single("file"),
+  authMiddleware,
   GalleryController.updateGallery
 )
 
-router.get("/:slug/gallery/edit/:id", GalleryController.editGallery)
+router.get(
+  "/:slug/gallery/edit/:id",
+  authMiddleware,
+  GalleryController.editGallery
+)
 
-router.post("/:slug/gallery/delete/:tipo", GalleryController.deleteFile)
+router.post(
+  "/:slug/gallery/delete/:tipo",
+  authMiddleware,
+  GalleryController.deleteFile
+)
 
 //*********ROTAS PARA O SHAREDSTORY CONTROLLER***********
 // Rota para criar uma nova história de vida

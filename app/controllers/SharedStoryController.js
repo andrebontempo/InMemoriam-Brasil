@@ -226,7 +226,7 @@ const SharedStoryController = {
             "photos",
             sharedStory.image
           )
-          console.log("🔥 Excluindo imagem antiga:", oldPath) // Verifique se o caminho está correto
+          //console.log("🔥 Excluindo imagem antiga:", oldPath) // Verifique se o caminho está correto
           if (fs.existsSync(oldPath)) {
             fs.unlinkSync(oldPath)
           }

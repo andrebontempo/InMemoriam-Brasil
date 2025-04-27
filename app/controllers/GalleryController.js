@@ -69,6 +69,7 @@ const GalleryController = {
   // Editar galeria de um memorial
   editGallery: async (req, res) => {
     const { id } = req.params
+    const userCurrent = req.session.loggedUser
     //console.log("ESTOU EM Edit GALERIA - ID recebido:", id)
 
     try {
@@ -104,6 +105,7 @@ const GalleryController = {
 
       res.render("memorial/edit/gallery", {
         layout: "memorial-layout",
+        user: userCurrent._id,
         slug: memorial.slug,
         id: memorial._id,
         firstName: memorial.firstName,
@@ -131,6 +133,7 @@ const GalleryController = {
     // Verificar se o arquivo foi enviado
     //console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug } = req.params
+    const userCurrent = req.session.loggedUser
     if (!req.file) {
       return res.status(400).send("Nenhum arquivo enviado.")
     }
@@ -146,6 +149,7 @@ const GalleryController = {
     //console.log("ESTOU EM UPDATE GALERIA - Slug recebido:", req.params.slug)
     const { slug, tipo } = req.params
     const file = req.file
+    const userCurrent = req.session.loggedUser
 
     //console.log("Slug:", slug)
     //console.log("Tipo:", tipo)
@@ -164,7 +168,8 @@ const GalleryController = {
       if (!gallery) {
         gallery = new Gallery({
           memorial: memorial._id,
-          user: req.body.userId, // ou quem está logado
+          user: userCurrent._id,
+          //user: req.body.userId, // ou quem está logado
           photos: [],
           audios: [],
           videos: [],
