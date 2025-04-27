@@ -13,13 +13,14 @@ const SharedStorySchema = new mongoose.Schema(
     user: {
       type: mongoose.Schema.Types.ObjectId,
       ref: "User",
+      required: true,
     },
 
     // Nome do autor (necessário se for anônimo)
     name: { type: String, required: false, trim: true },
 
-    // Título da história (Opcional, mas recomendado)
-    title: { type: String, trim: true, default: "" },
+    // Título da história de vida
+    title: { type: String, required: true, trim: true },
 
     // Conteúdo da história (Obrigatório)
     content: { type: String, required: true, trim: true },

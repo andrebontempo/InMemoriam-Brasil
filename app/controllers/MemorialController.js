@@ -13,15 +13,11 @@ const { calcularIdade } = require("../utils/helpers")
 
 const MemorialController = {
   createMemorial: async (req, res) => {
-    //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
-    //console.log("Corpo da requisição recebido:", req.body) // <-- Verifica os dados enviados
+    console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
+    console.log("Corpo da requisição recebido:", req.body) //  Verifica os dados enviados
 
-    // Garantir que o usuário autenticado esteja presente
     const userCurrent = req.session.loggedUser
-    //console.log("LOG CONTROLLER - Usuário atual (session):", userCurrent)
-
-    const { firstName, lastName, gender, kinship, mainPhoto, epitaph } =
-      req.body
+    const { firstName, lastName, gender, kinship } = req.body
 
     // Ajusta o objeto `birth` garantindo valores padrões
     const birth = {
@@ -61,6 +57,7 @@ const MemorialController = {
       .replace(/ç/g, "c")
       .replace(/\s+/g, "-")
 
+    // Verifica se o memorial já existe
     try {
       const memorialExistente = await Memorial.findOne({ slug })
       if (memorialExistente) {
@@ -68,9 +65,8 @@ const MemorialController = {
           message: "Já existe um memorial com esse nome.",
         })
       }
-
+      // Cria o memorial
       const memorial = new Memorial({
-        //user: new mongoose.Types.ObjectId(userCurrent._id),
         user: userCurrent._id,
         firstName,
         lastName,
@@ -78,31 +74,8 @@ const MemorialController = {
         gender: gender, // || "Não informado",
         kinship: kinship, // || "Não informado",
         visibility: req.body.visibility || "public", // Usa o valor de visibilidade do formulário
-        mainPhoto: {
-          url: req.file
-            ? `/uploads/${req.file.filename}`
-            : "/uploads/default.png", // URL padrão se não houver arquivo
-        },
-        epitaph: epitaph, // || "Nenhum epitáfio foi cadastrado.",
         birth,
         death,
-        /*
-        lifeStory: [
-          {
-            title: "Aqui será inseria a Mini Biograria do homenageado",
-            content: "Ainda não há conteúdo cadastrado.",
-          },
-        ],
-        stories: [
-          {
-            title: "Ainda Sem histórias compartilhadas",
-            content: "Nenhuma história foi compartilhada ainda.",
-          },
-        ],
-        gallery,
-        
-        theme: theme, || "blue-theme",
-        */
       })
 
       //console.log(memorial)

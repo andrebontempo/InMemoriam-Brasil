@@ -30,24 +30,30 @@ router.post(
   upload.single("file"),
   SharedStoryController.createSharedStory
 )
-
+// Rota para mostrar uma história compartilhada
+router.get("/:slug/sharedstory", SharedStoryController.showSharedStory)
 // Rota para editar uma história de vida
 router.get("/:slug/sharedstory/edit/:id", SharedStoryController.editSharedStory)
-
-// Rota para atualizar uma história de vida
-router.put(
+// Rota para atualizar uma história COmpartilhada com POST
+router.post(
   "/:slug/sharedstory/update/:id",
   upload.single("file"),
-  SharedStoryController.updateSharedStory
+  (req, res) => {
+    // Verificar se o campo _method existe e se é 'PUT'
+    if (req.body._method && req.body._method === "PUT") {
+      // Chama o controller de atualização se o _method for PUT
+      return SharedStoryController.updateSharedStory(req, res)
+    }
+    // Caso contrário, retorna um erro de método não permitido
+    res.status(400).send("Método não permitido")
+  }
 )
 
-// Rota para excluir uma história de vida
+// Rota para excluir uma história compartilhada
 router.post(
   "/:slug/sharedstory/delete/:id",
   SharedStoryController.deleteSharedStory
 )
-
-router.get("/:slug/sharedstory", SharedStoryController.showSharedStory)
 
 //*********ROTAS PARA O LIFESTORY CONTROLLER***********
 router.post(
@@ -60,8 +66,7 @@ router.post(
 router.get("/:slug/lifestory", LifeStoryController.showLifeStory)
 // Rota para editar uma história de vida
 router.get("/:slug/lifestory/edit/:id", LifeStoryController.editLifeStory)
-// Rota para atualizar uma história de vida
-// Rota de atualização com POST
+// Rota para atualizar uma história de vida com POST
 router.post(
   "/:slug/lifestory/update/:id",
   upload.single("file"),
@@ -75,14 +80,6 @@ router.post(
     res.status(400).send("Método não permitido")
   }
 )
-
-/*
-router.put(
-  "/:slug/lifestory/update/:id",
-  upload.single("file"),
-  LifeStoryController.updateLifeStory
-)
-*/
 // Rota para excluir uma história de vida
 router.post("/:slug/lifestory/delete/:id", LifeStoryController.deleteLifeStory)
 
@@ -97,8 +94,17 @@ router.get(
   authMiddleware,
   TributeController.editTribute
 )
-router.put(
+router.post(
   "/:slug/tribute/update/:id",
+  (req, res) => {
+    // Verificar se o campo _method existe e se é 'PUT'
+    if (req.body._method && req.body._method === "PUT") {
+      // Chama o controller de atualização se o _method for PUT
+      return TributeController.updateTribute(req, res)
+    }
+    // Caso contrário, retorna um erro de método não permitido
+    res.status(400).send("Método não permitido")
+  },
   authMiddleware,
   TributeController.updateTribute
 )
@@ -123,7 +129,19 @@ router.post(
 )
 router.get("/:slug/about", MemorialController.showMemorial)
 router.get("/:slug/memorial/edit", MemorialController.editMemorial)
-router.put("/:slug/memorial/update", MemorialController.updateMemorial)
+router.post(
+  "/:slug/memorial/update",
+  (req, res) => {
+    // Verificar se o campo _method existe e se é 'PUT'
+    if (req.body._method && req.body._method === "PUT") {
+      // Chama o controller de atualização se o _method for PUT
+      return MemorialController.updateMemorial(req, res)
+    }
+    // Caso contrário, retorna um erro de método não permitido
+    res.status(400).send("Método não permitido")
+  },
+  MemorialController.updateMemorial
+)
 // Rota genérica para /memorial/:slug/about"
 router.get("/:slug", (req, res) => {
   res.redirect(`/memorial/${req.params.slug}/about`)

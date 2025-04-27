@@ -4,17 +4,15 @@ const Gallery = require("../models/Gallery")
 const path = require("path")
 const fs = require("fs")
 const moment = require("moment-timezone")
-const { id } = require("bcrypto/lib/blake2b160")
 
 const LifeStoryController = {
-  // Criar uma nova história de vida
   createLifeStory: async (req, res) => {
     const userCurrent = req.session.loggedUser
 
-    //console.log("ESTOU AQUI NA CRIAÇÃO DO LIFESTORY")
     //console.log("Chegando em createLifeStory")
-    //console.log("req.body.memorial:", req.body.memorial)
     //console.log("req.params.slug:", req.params.slug)
+    //console.log("req.body:", req.body)
+
     try {
       // Buscar o memorial pelo ID (se estiver no body) ou pelo slug (se necessário)
       let memorial = await Memorial.findById(req.body.memorial)
@@ -29,23 +27,15 @@ const LifeStoryController = {
         return res.status(404).send("Memorial não encontrado")
       }
 
-      /*
-      // Construir o caminho da imagem dinamicamente
-      const imagePath = req.file
-        ? `memorials/${memorial.slug}/photos/${req.file.filename}`
-        : null
-      */
-
       // Criar a história de vida com os dados corretos
       const newLifeStory = new LifeStory({
         memorial: memorial._id, // Pegando o ID do memorial corretamente
         slug: req.params.slug,
         user: userCurrent ? userCurrent._id : null, // Definir usuário se estiver autenticado
-        //user: req.user ? req.user._id : null, // Definir usuário se estiver autenticado
         title: req.body.title,
         content: req.body.content,
         eventDate: req.body.eventDate,
-        image: req.file.filename,
+        image: req.file ? `${req.file.filename}` : "",
       })
 
       // Salvar no banco de dados
@@ -112,7 +102,6 @@ const LifeStoryController = {
         gender: memorial.gender,
         kinship: memorial.kinship,
         mainPhoto: memorial.mainPhoto,
-        //tribute: tributes || [], // Passando os tributos para o template
         lifeStory: lifestories || [], // Passando lifeStory para o template
         gallery: galleryData,
         //idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
@@ -129,8 +118,8 @@ const LifeStoryController = {
           country: memorial.death?.country || "País não informado",
         },
         about: memorial.about,
-        epitaph: memorial.epitaph, // || "",
-        theme: memorial.theme, // || "blue-theme",
+        epitaph: memorial.epitaph,
+        theme: memorial.theme,
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
@@ -139,7 +128,6 @@ const LifeStoryController = {
       })
     }
   },
-  // Método para editar uma história de vida existente
   editLifeStory: async (req, res) => {
     const { slug } = req.params
     try {
@@ -153,7 +141,16 @@ const LifeStoryController = {
 
       if (req.file) {
         if (lifeStory.image) {
-          const oldPath = path.join(__dirname, "..", "public", lifeStory.image)
+          const oldPath = path.join(
+            __dirname,
+            "..",
+            "..",
+            "public",
+            "memorials",
+            `${slug}`,
+            "photos",
+            lifeStory.image
+          )
           if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
         }
         lifeStory.image = `/uploads/${req.file.filename}`
@@ -163,7 +160,7 @@ const LifeStoryController = {
       const memorial = await Memorial.findOne({ slug })
         .populate({ path: "user", select: "firstName lastName" })
         .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
-        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
+        //.populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
         .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
         .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
         .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
@@ -175,7 +172,6 @@ const LifeStoryController = {
         })
       }
 
-      // Buscar as photos relacionados ao memorial
       // Buscar as photos relacionados ao memorial
       const galeria = await Gallery.findOne({ memorial: memorial._id })
         .populate({ path: "user", select: "firstName lastName" })
@@ -205,11 +201,8 @@ const LifeStoryController = {
       res.status(500).send("Erro interno do servidor")
     }
   },
-
-  // Atualizar uma história de vida existente
   updateLifeStory: async (req, res) => {
     try {
-      //console.log("UPDATE LIFESTORYYYY - Body recebido:", req.body)
       //console.log("🔥 Dentro do updateLifeStory")
       //console.log("📁 req.file:", req.file) // se enviou nova imagem
       //console.log("📝 req.body:", req.body) // dados do formulário
@@ -221,7 +214,7 @@ const LifeStoryController = {
         return res.status(404).send("História não encontrada")
       }
 
-      // Atualiza imagem, se houver novo upload
+      // Atualiza imagem se nova imagem for enviada
       if (req.file) {
         // Se já existe uma imagem associada, exclua a antiga
         if (lifeStory.image) {
@@ -235,17 +228,15 @@ const LifeStoryController = {
             "photos",
             lifeStory.image
           )
-          console.log("🔥 Excluindo imagem antiga:", oldPath) // Verifique se o caminho está correto
+          //console.log("🔥 Excluindo imagem antiga:", oldPath) // Verifique se o caminho está correto
           if (fs.existsSync(oldPath)) {
             fs.unlinkSync(oldPath)
           }
         }
-
         // Atualiza o campo de imagem para o novo caminho
-        // Aqui removemos qualquer caminho redundante e garantimos que o caminho esteja correto
         const newImagePath = `${req.file.filename}`
         lifeStory.image = newImagePath
-        console.log("📁 Nova imagem:", lifeStory.image) // Verifique se o novo caminho está correto
+        //console.log("📁 Nova imagem:", lifeStory.image) // Verifique se o novo caminho está correto
       }
 
       // Atualiza os campos
@@ -258,29 +249,37 @@ const LifeStoryController = {
       }
 
       await lifeStory.save()
-      req.flash("success_msg", "História atualizada com sucesso!")
+      req.flash("success_msg", "História de Vida atualizada com sucesso!")
       res.redirect(`/memorial/${slug}/lifestory`)
     } catch (error) {
-      console.error("Erro ao editar história:", error)
+      console.error("Erro ao editar História de Vida:", error)
       req.flash("error_msg", "Título e conteúdo são obrigatórios.")
       return res.redirect("back")
       //res.status(500).send("Erro interno do servidor")
     }
   },
-
-  // Deletar uma história de vida
   deleteLifeStory: async (req, res) => {
+    const { slug } = req.body
     try {
       const lifeStory = await LifeStory.findById(req.params.id).populate(
         "memorial"
       )
 
       if (!lifeStory) {
-        return res.status(404).send("História não encontrada")
+        return res.status(404).send("História de Vida não encontrada")
       }
 
       if (lifeStory.image) {
-        const imagePath = path.join(__dirname, "..", "public", lifeStory.image)
+        const imagePath = path.join(
+          __dirname,
+          "..",
+          "..",
+          "public",
+          "memorials",
+          `${slug}`,
+          "photos",
+          lifeStory.image
+        )
         if (fs.existsSync(imagePath)) fs.unlinkSync(imagePath)
       }
 

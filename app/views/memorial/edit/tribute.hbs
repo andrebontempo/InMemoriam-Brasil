@@ -2,7 +2,9 @@
   <div class="custom-container my-0 p-2">
         <!-- Formulário de Edição do Memorial -->
         <div class="custom-box p-4 ms-4">
-          <form action="/memorial/{{slug}}/tribute/update/{{tribute._id}}?_method=PUT" method="POST">
+       <!--   <form action="/memorial/{{slug}}/tribute/update/{{tribute._id}}?_method=PUT" method="POST">-->
+          <form action="/memorial/{{slug}}/tribute/update/{{tribute._id}}" method="POST">
+            <!-- Método PUT para atualização -->
             <input type="hidden" name="_method" value="PUT">
             <input type="hidden" name="memorial" value="{{tribute.memorial}}" />
             <input type="hidden" name="slug" value="{{slug}}" />

@@ -11,7 +11,7 @@ const MemorialSchema = new mongoose.Schema(
 
     // Foto principal
     mainPhoto: {
-      url: { type: String, required: true },
+      url: { type: String, required: false },
       updatedAt: { type: Date, default: Date.now },
     },
 
