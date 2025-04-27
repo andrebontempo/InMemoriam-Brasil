@@ -141,6 +141,7 @@ const LifeStoryController = {
   },
   // Método para editar uma história de vida existente
   editLifeStory: async (req, res) => {
+    const { slug } = req.params
     try {
       const lifeStory = await LifeStory.findById(req.params.id).populate(
         "memorial"
@@ -158,18 +159,46 @@ const LifeStoryController = {
         lifeStory.image = `/uploads/${req.file.filename}`
       }
 
-      //lifeStory.title = title
-      //lifeStory.content = content
-      //lifeStory.eventDate = moment(eventDate).toDate()
+      //Busca os dados para o painel lateral direito
+      const memorial = await Memorial.findOne({ slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
+        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedStory
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
+        .lean() // Converte o documento em um objeto simples
+
+      if (!memorial) {
+        return res.status(404).render("errors/404", {
+          message: "Memorial não encontrado.",
+        })
+      }
+
+      // Buscar as photos relacionados ao memorial
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
 
       res.render("memorial/edit/lifestory", {
         layout: "memorial-layout",
         lifeStory: lifeStory.toObject(), // Converte para objeto simples
         slug: lifeStory.memorial.slug, // Passa o slug do memorial
+        firstName: lifeStory.memorial.firstName,
+        lastName: lifeStory.memorial.lastName,
         mainPhoto: lifeStory.memorial.mainPhoto, // Passa a foto principal do memorial
         eventDate: moment(lifeStory.eventDate).format("YYYY-MM-DD"),
         birth: lifeStory.memorial.birth,
         death: lifeStory.memorial.death,
+        gallery: galleryData,
       })
     } catch (error) {
       console.error("Erro ao editar história:", error)
@@ -180,7 +209,7 @@ const LifeStoryController = {
   // Atualizar uma história de vida existente
   updateLifeStory: async (req, res) => {
     try {
-      console.log("UPDATE LIFESTORY - Body recebido:", req.body)
+      //console.log("UPDATE LIFESTORYYYY - Body recebido:", req.body)
 
       const { title, content, eventDate, slug } = req.body
       const lifeStory = await LifeStory.findById(req.params.id)

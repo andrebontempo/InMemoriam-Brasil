@@ -13,12 +13,21 @@
     <div class="row h-100 align-items-center">
       <!-- Foto do memorial à esquerda -->
       <div class="col-md-3 d-flex justify-content-center">
-        <img
-          src="{{mainPhoto.url}}"
-          alt="Imagem do Memorial"
-          class="img-fluid rounded"
-          style="max-width: 250px; height: 250px; object-fit: cover; border: 5px solid #4f0e21;"
-        />
+        {{#if mainPhoto.url}}
+          <img
+            src="/memorials/{{slug}}/photos/{{mainPhoto.url}}"
+            alt="Imagem do Memorial"
+            class="img-fluid rounded"
+            style="max-width: 250px; height: 250px; object-fit: cover; border: 5px solid #4f0e21;"
+          />
+        {{else}}
+          <img
+            src="/uploads/default.png"
+            alt="Imagem Padrão do Memorial"
+            class="img-fluid rounded"
+            style="max-width: 250px; height: 250px; object-fit: cover; border: 5px solid #4f0e21;"
+          />
+        {{/if}}
       </div>
 
       <!-- Conteúdo ao lado da foto com sombra no texto -->

@@ -209,10 +209,29 @@ const MemorialController = {
       //console.log("Recebendo requisição para editar memorial:", req.params.slug)
 
       const memorial = await Memorial.findOne({ slug: req.params.slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content" }) // Populate para lifeStory
+        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedstory
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
+        .lean() // Converte o documento em um objeto simples
 
       if (!memorial) {
         //console.log("Nenhum memorial encontrado com este slug")
         return res.status(404).send("Memorial não encontrado")
+      }
+
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
       }
 
       //console.log("Memorial encontrado:", memorial)
@@ -255,6 +274,7 @@ const MemorialController = {
         //  videos: [],
         //},
         theme: memorial.theme || "Flores",
+        gallery: galleryData,
       })
     } catch (error) {
       //console.error("Erro ao carregar memorial para edição:", error)

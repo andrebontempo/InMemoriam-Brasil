@@ -127,6 +127,7 @@ const SharedStoryController = {
 
   // Editar uma história compartilhada
   editSharedStory: async (req, res) => {
+    const { slug } = req.params
     try {
       const sharedStory = await SharedStory.findById(req.params.id).populate(
         "memorial"
@@ -149,14 +150,45 @@ const SharedStoryController = {
         sharedStory.image = `/uploads/${req.file.filename}`
       }
 
+      //Buscar dados do memorial para o painel direito
+      const memorial = await Memorial.findOne({ slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
+        .populate({ path: "sharedStory", select: "title content eventDate" }) // Populate para sharedStory
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
+        .lean() // Converte o documento em um objeto simples
+
+      if (!memorial) {
+        return res.status(404).render("errors/404", {
+          message: "Memorial não encontrado.",
+        })
+      }
+
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       res.render("memorial/edit/sharedstory", {
         layout: "memorial-layout",
         sharedStory: sharedStory.toObject(),
         slug: sharedStory.memorial.slug,
+        firstName: sharedStory.memorial.firstName,
+        lastName: sharedStory.memorial.lastName,
         mainPhoto: sharedStory.memorial.mainPhoto,
         eventDate: moment(sharedStory.eventDate).format("YYYY-MM-DD"),
         birth: sharedStory.memorial.birth,
         death: sharedStory.memorial.death,
+        gallery: galleryData,
       })
     } catch (error) {
       console.error("Erro ao editar história compartilhada:", error)

@@ -1,4 +1,6 @@
 const Tribute = require("../models/Tribute") // Ajuste o caminho conforme necessário
+const Memorial = require("../models/Memorial")
+const Gallery = require("../models/Gallery")
 const mongoose = require("mongoose")
 const moment = require("moment-timezone")
 
@@ -41,6 +43,7 @@ const TributeController = {
 
   // Método para editar um tributo (GET)
   editTribute: async (req, res) => {
+    const { slug } = req.params
     try {
       const tribute = await Tribute.findById(req.params.id).populate("memorial") // <--- aqui o populate
 
@@ -55,13 +58,45 @@ const TributeController = {
         deathDate: tribute.memorial.death?.date,
       })
       */
+      //Buscar dados do memorial para o painel direito
+      const memorial = await Memorial.findOne({ slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .populate({ path: "lifeStory", select: "title content eventDate" }) // Populate para lifeStory
+        .populate({ path: "sharedStory", select: "title content eventDate" }) // Populate para sharedStory
+        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
+        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
+        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
+        .lean() // Converte o documento em um objeto simples
+
+      if (!memorial) {
+        return res.status(404).render("errors/404", {
+          message: "Memorial não encontrado.",
+        })
+      }
+
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       res.render("memorial/edit/tribute", {
         layout: "memorial-layout",
         tribute: tribute.toObject(), // Converte para objeto simples
         slug: tribute.memorial.slug, // Passa o slug do memorial
+        firstName: tribute.memorial.firstName,
+        lastName: tribute.memorial.lastName,
         mainPhoto: tribute.memorial.mainPhoto, // Passa a foto principal do memorial
         birth: tribute.memorial.birth,
         death: tribute.memorial.death,
+        //gallery: tribute.memorial.gallery,
+        gallery: galleryData,
         //birthDate: tribute.memorial.birth?.date,
         //deathDate: tribute.memorial.death?.date,
         //birthDate: tribute.memorial.birthDate, // Passa a data de nascimento do memorial
