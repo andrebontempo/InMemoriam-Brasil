@@ -61,11 +61,28 @@ router.get("/:slug/lifestory", LifeStoryController.showLifeStory)
 // Rota para editar uma história de vida
 router.get("/:slug/lifestory/edit/:id", LifeStoryController.editLifeStory)
 // Rota para atualizar uma história de vida
+// Rota de atualização com POST
+router.post(
+  "/:slug/lifestory/update/:id",
+  upload.single("file"),
+  (req, res) => {
+    // Verificar se o campo _method existe e se é 'PUT'
+    if (req.body._method && req.body._method === "PUT") {
+      // Chama o controller de atualização se o _method for PUT
+      return LifeStoryController.updateLifeStory(req, res)
+    }
+    // Caso contrário, retorna um erro de método não permitido
+    res.status(400).send("Método não permitido")
+  }
+)
+
+/*
 router.put(
   "/:slug/lifestory/update/:id",
   upload.single("file"),
   LifeStoryController.updateLifeStory
 )
+*/
 // Rota para excluir uma história de vida
 router.post("/:slug/lifestory/delete/:id", LifeStoryController.deleteLifeStory)
 

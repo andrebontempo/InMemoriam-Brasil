@@ -42,14 +42,17 @@ app.use((req, res, next) => {
 app.use(setUserMiddleware)
 
 // Method Override (para PUT/DELETE em formulários)
+//app.use(methodOverride("_method"))
+// Quando for multipart/form-data (com Multer)
+/*
 app.use(
-  methodOverride((req, res) => {
+  methodOverride(function (req, res) {
     if (req.body && typeof req.body === "object" && "_method" in req.body) {
       return req.body._method
     }
   })
 )
-
+*/
 // Configuração do Handlebars (mantenha igual)
 const hbs = exphbs.create({
   defaultLayout: "main",
@@ -66,6 +69,14 @@ const hbs = exphbs.create({
 app.engine(".hbs", hbs.engine)
 app.set("view engine", ".hbs")
 app.set("views", path.join(__dirname, "app/views"))
+
+/*
+//log geral de requisições
+app.use((req, res, next) => {
+  console.log(`📡 Nova requisição: ${req.method} ${req.originalUrl}`)
+  next()
+})
+*/
 
 // Rotas
 const routes = require("./app/routes")

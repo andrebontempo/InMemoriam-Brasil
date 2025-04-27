@@ -210,6 +210,9 @@ const LifeStoryController = {
   updateLifeStory: async (req, res) => {
     try {
       //console.log("UPDATE LIFESTORYYYY - Body recebido:", req.body)
+      //console.log("🔥 Dentro do updateLifeStory")
+      //console.log("📁 req.file:", req.file) // se enviou nova imagem
+      //console.log("📝 req.body:", req.body) // dados do formulário
 
       const { title, content, eventDate, slug } = req.body
       const lifeStory = await LifeStory.findById(req.params.id)
@@ -220,11 +223,29 @@ const LifeStoryController = {
 
       // Atualiza imagem, se houver novo upload
       if (req.file) {
+        // Se já existe uma imagem associada, exclua a antiga
         if (lifeStory.image) {
-          const oldPath = path.join(__dirname, "..", "public", lifeStory.image)
-          if (fs.existsSync(oldPath)) fs.unlinkSync(oldPath)
+          const oldPath = path.join(
+            __dirname,
+            "..",
+            "..",
+            "public",
+            "memorials",
+            `${slug}`,
+            "photos",
+            lifeStory.image
+          )
+          console.log("🔥 Excluindo imagem antiga:", oldPath) // Verifique se o caminho está correto
+          if (fs.existsSync(oldPath)) {
+            fs.unlinkSync(oldPath)
+          }
         }
-        lifeStory.image = `/uploads/${req.file.filename}`
+
+        // Atualiza o campo de imagem para o novo caminho
+        // Aqui removemos qualquer caminho redundante e garantimos que o caminho esteja correto
+        const newImagePath = `${req.file.filename}`
+        lifeStory.image = newImagePath
+        console.log("📁 Nova imagem:", lifeStory.image) // Verifique se o novo caminho está correto
       }
 
       // Atualiza os campos
