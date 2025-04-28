@@ -1,67 +1,48 @@
 const Memorial = require("../models/Memorial")
 
 const EpitaphController = {
-  // Método para exibir a página de edição do epitáfio
-  editEpitaph: async (req, res) => {
+  editMemorialFET: async (req, res) => {
+    console.log("MEMORIAL-FET - Recebendo requisição:", req.params.slug)
     try {
-      //console.log("EPITAPH - Recebendo requisição para editar memorial:", req.params.slug)
-
       const memorial = await Memorial.findOne({ slug: req.params.slug })
+        .populate({ path: "user", select: "firstName lastName" })
+        .lean() // Converte o documento em um objeto simples
 
       if (!memorial) {
         //console.log("Nenhum memorial encontrado com este slug")
         return res.status(404).send("Memorial não encontrado")
       }
 
+      // Buscar as photos relacionados ao memorial
+      const galeria = await Gallery.findOne({ memorial: memorial._id })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("photos audios videos")
+        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+
+      const galleryData = galeria || {
+        photos: [],
+        audios: [],
+        videos: [],
+      }
+
       //console.log("Memorial encontrado:", memorial)
-      //res.render("memorial/edit/personal", { memorial })
-      return res.render("memorial/edit/epitaph", {
+      return res.render("memorial/edit/memorial-fet", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
         lastName: memorial.lastName,
         slug: memorial.slug,
-        gender: memorial.gender,
         mainPhoto: memorial.mainPhoto,
-        kinship: memorial.kinship,
-        birth: {
-          date: memorial.birth?.date
-            ? new Date(memorial.birth.date).toISOString().split("T")[0]
-            : "",
-          //date: memorial.birth?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.birth?.city || "Local desconhecido",
-          state: memorial.birth?.state || "Estado não informado",
-          country: memorial.birth?.country || "País não informado",
-        },
-        death: {
-          date: memorial.death?.date
-            ? new Date(memorial.death.date).toISOString().split("T")[0]
-            : "",
-
-          //date: memorial.death?.date || "Não informada", // Passa a data sem formatar
-          city: memorial.death?.city || "Local desconhecido",
-          state: memorial.death?.state || "Estado não informado",
-          country: memorial.death?.country || "País não informado",
-        },
-        about: memorial.about, // || "Informação não disponível.",
         epitaph: memorial.epitaph, // || "Nenhum epitáfio fornecido.",
-        //tribute: memorial.tribute || [], // Passando os tributos para o template
-        //lifeStory: Array.isArray(memorial.lifeStory) ? memorial.lifeStory : [],
-        //stories: Array.isArray(memorial.stories) ? memorial.stories : [],
-        //gallery: memorial.gallery || {
-        //  photos: [],
-        //  audios: [],
-        //  videos: [],
-        //},
+        gallery: galleryData,
         theme: memorial.theme || "Flores",
       })
     } catch (error) {
-      //console.error("Erro ao carregar memorial para edição:", error)
       res.status(500).send("Erro interno do servidorrrrr")
     }
   },
 
   // Atualizar memorial
-  updateEpitaph: async (req, res) => {
+  updateMemorialFET: async (req, res) => {
     /*
     console.log(
       "EPITAPH - Recebendo requisição para atualizar epitaph:",

@@ -1,7 +1,7 @@
 const express = require("express")
 const router = express.Router()
 const MemorialController = require("../controllers/MemorialController")
-const EpitaphController = require("../controllers/EpitaphController")
+const MemorialFETController = require("../controllers/MemorialFETController")
 const TributeController = require("../controllers/TributeController")
 const LifeStoryController = require("../controllers/LifeStoryController")
 const SharedStoryController = require("../controllers/SharedStoryController")
@@ -123,11 +123,14 @@ router.post(
   TributeController.deleteTribute
 )
 
-//*********ROTAS PARA O EPITAPH CONTROLLER***********
+//*********ROTAS PARA O MEMROIAL - FOTO, EPITÁFIO E TEMA CONTROLLER***********
 // Rota para editar o epitáfio
-router.get("/:slug/epitaph/edit", EpitaphController.editEpitaph)
+router.get("/:slug/memorial-fet/edit", MemorialFETController.editMemorialFET)
 // Rota para atualizar o epitáfio
-router.put("/:slug/epitaph/update", EpitaphController.updateEpitaph)
+router.put(
+  "/:slug/memorial-fet/update",
+  MemorialFETController.updateMemorialFET
+)
 
 //*********ROTAS PARA O MEMORIAL CONTROLLER***********
 router.get("/pesquisa", MemorialController.searchMemorial)
