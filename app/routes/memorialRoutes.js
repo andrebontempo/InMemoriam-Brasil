@@ -123,12 +123,22 @@ router.post(
   TributeController.deleteTribute
 )
 
-//*********ROTAS PARA O MEMROIAL - FOTO, EPITÁFIO E TEMA CONTROLLER***********
+//*********ROTAS PARA O MEMORIAL - FOTO, EPITÁFIO E TEMA CONTROLLER***********
 // Rota para editar o epitáfio
 router.get("/:slug/memorial-fet/edit", MemorialFETController.editMemorialFET)
 // Rota para atualizar o epitáfio
-router.put(
+router.post(
   "/:slug/memorial-fet/update",
+  upload.single("file"),
+  (req, res) => {
+    // Verificar se o campo _method existe e se é 'PUT'
+    if (req.body._method && req.body._method === "PUT") {
+      // Chama o controller de atualização se o _method for PUT
+      return MemorialFETController.updateMemorialFET(req, res)
+    }
+    // Caso contrário, retorna um erro de método não permitido
+    res.status(400).send("Método não Permitidooo")
+  },
   MemorialFETController.updateMemorialFET
 )
 
@@ -154,6 +164,12 @@ router.post(
   },
   MemorialController.updateMemorial
 )
+router.post("/:slug/delete", (req, res) => {
+  if (req.body._method && req.body._method === "DELETE") {
+    return MemorialController.deleteMemorial(req, res)
+  }
+  res.status(400).send("Método não permitido")
+})
 // Rota genérica para /memorial/:slug/about"
 router.get("/:slug", (req, res) => {
   res.redirect(`/memorial/${req.params.slug}/about`)

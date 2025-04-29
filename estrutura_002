@@ -2,11 +2,11 @@
 ├── app
 │   ├── controllers
 │   │   ├── AuthController.js
-│   │   ├── EpitaphController.js
 │   │   ├── GalleryController.js
 │   │   ├── HomeController.js
 │   │   ├── LifeStoryController.js
 │   │   ├── MemorialController.js
+│   │   ├── MemorialFETController.js
 │   │   ├── SharedStoryController.js
 │   │   └── TributeController.js
 │   ├── middlewares
@@ -51,8 +51,10 @@
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
+│       │   │   ├── epitaphNOVO.hbs
 │       │   │   ├── gallery.hbs
 │       │   │   ├── lifestory.hbs
+│       │   │   ├── memorial-fet.hbs
 │       │   │   ├── memorial.hbs
 │       │   │   ├── sharedstory.hbs
 │       │   │   └── tribute.hbs
@@ -75,6 +77,7 @@
 │       └── statics
 │           ├── condicoes-utilizacao.hbs
 │           ├── contato.hbs
+│           ├── criar-memorial copy.hbs
 │           ├── criar-memorial.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
@@ -107,4 +110,4 @@
 ├── server copy.js
 └── server.js
 
-25 directories, 83 files
+25 directories, 86 files

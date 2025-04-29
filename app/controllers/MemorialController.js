@@ -13,8 +13,8 @@ const { calcularIdade } = require("../utils/helpers")
 
 const MemorialController = {
   createMemorial: async (req, res) => {
-    console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
-    console.log("Corpo da requisição recebido:", req.body) //  Verifica os dados enviados
+    //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
+    //console.log("Corpo da requisição recebido:", req.body) //  Verifica os dados enviados
 
     const userCurrent = req.session.loggedUser
     const { firstName, lastName, gender, kinship } = req.body
@@ -80,7 +80,7 @@ const MemorialController = {
 
       //console.log(memorial)
       await memorial.save()
-      return res.redirect(`/memorial/${slug}`)
+      return res.redirect(`/memorial/${slug}/memorial-fet/edit`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)
       return res
@@ -282,10 +282,18 @@ const MemorialController = {
   },
 
   // Método para exibir a página de pesquisa por memorial
+  // Método para exibir a página de pesquisa por memorial
   searchMemorial: async (req, res) => {
     const termo = req.query.q // Obtém o termo digitado na pesquisa
+    const loggedUser = req.session.loggedUser // Obtém o usuário logado
+    //console.log("loggedUser", loggedUser)
+
     if (!termo) {
-      return res.render("memorial/memorial-pesquisa", { resultados: [], termo })
+      return res.render("memorial/memorial-pesquisa", {
+        resultados: [],
+        termo,
+        loggedUser,
+      })
     }
 
     try {
@@ -294,14 +302,70 @@ const MemorialController = {
           { firstName: { $regex: termo, $options: "i" } }, // Busca pelo primeiro nome (case-insensitive)
           { lastName: { $regex: termo, $options: "i" } }, // Busca pelo sobrenome (case-insensitive)
         ],
-      }).lean() // Exibição da data. Adiciona o .lean() para garantir que os resultados sejam objetos simples
+      }).lean() // Garante que os resultados sejam objetos simples
 
-      res.render("memorial/memorial-pesquisa", { resultados, termo })
+      // Converte o _id do usuário logado para string
+      if (loggedUser && loggedUser._id) {
+        loggedUser._id = loggedUser._id.toString()
+      }
+
+      // Converte todos os userId dos memoriais para string
+      resultados.forEach((memorial) => {
+        if (memorial.userId) {
+          memorial.userId = memorial.userId.toString()
+        }
+      })
+
+      res.render("memorial/memorial-pesquisa", {
+        resultados,
+        termo,
+        loggedUser, // Passa o usuário logado para o template
+      })
+
+      //console.log("loggedUser (confirmado para template):", loggedUser)
     } catch (error) {
       console.error("Erro na pesquisa:", error)
       res
         .status(500)
         .render("errors/500", { message: "Erro ao realizar a pesquisa." })
+    }
+  },
+  // Método para deletar memorial
+  deleteMemorial: async (req, res) => {
+    try {
+      const { slug } = req.params
+
+      //console.log("Recebendo requisição para deletar memorial:", slug)
+
+      // Buscar memorial
+      const memorial = await Memorial.findOne({ slug })
+      if (!memorial) {
+        return res.status(404).send("Memorial não encontrado.")
+      }
+
+      // (Opcional) Apagar as fotos e pastas
+      const folderPath = path.join(
+        __dirname,
+        "..",
+        "..",
+        "public",
+        "memorials",
+        slug
+      )
+      if (fs.existsSync(folderPath)) {
+        fs.rmSync(folderPath, { recursive: true, force: true })
+        //console.log("Pasta do memorial apagada:", folderPath)
+        //console.log("Pasta de fotos do memorial apagada.")
+      }
+
+      // Deletar o memorial do banco
+      await Memorial.deleteOne({ slug })
+
+      // Redirecionar para o dashboard
+      res.redirect("/auth/dashboard")
+    } catch (error) {
+      console.error("Erro ao deletar memorial:", error)
+      res.status(500).send("Erro ao deletar memorial.")
     }
   },
 }

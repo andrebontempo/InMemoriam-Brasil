@@ -1,9 +1,16 @@
 const Memorial = require("../models/Memorial")
 const Gallery = require("../models/Gallery")
+const fs = require("fs")
+const path = require("path")
 
 const EpitaphController = {
   editMemorialFET: async (req, res) => {
-    console.log("MEMORIAL-FET - Recebendo requisição:", req.params.slug)
+    /*
+    console.log(
+      "MEMORIAL-FET - Recebendo requisição PARA EDITAR:",
+      req.params.slug
+    )
+    */
     try {
       // Buscar memorial
       const memorial = await Memorial.findOne({ slug: req.params.slug })
@@ -33,6 +40,18 @@ const EpitaphController = {
         slug: memorial.slug,
         mainPhoto: memorial.mainPhoto,
         epitaph: memorial.epitaph,
+        birth: {
+          date: memorial.birth?.date || "Não informada",
+          city: memorial.birth?.city || "Local desconhecido",
+          state: memorial.birth?.state || "Estado não informado",
+          country: memorial.birth?.country || "País não informado",
+        },
+        death: {
+          date: memorial.death?.date || "Não informada",
+          city: memorial.death?.city || "Local desconhecido",
+          state: memorial.death?.state || "Estado não informado",
+          country: memorial.death?.country || "País não informado",
+        },
         gallery: galleryData,
         theme: memorial.theme || "Flores",
       })
@@ -46,32 +65,63 @@ const EpitaphController = {
   updateMemorialFET: async (req, res) => {
     /*
     console.log(
-      "EPITAPH - Recebendo requisição para atualizar epitaph:",
+      "MEMORIAL-FET - Recebendo requisição para ATUALIZAR:",
       req.params.slug
     )
-
-    console.log("Body recebido:", req.body)
-    console.log("Método da requisição:", req.method)
-    console.log("Body recebido:", req.body)
     */
     try {
       const { slug } = req.params
-      //const { gender, relationship, birth, death } = req.body // Aqui você pode pegar os dados do formulário
-      const updateData = req.body
+      const { epitaph, theme } = req.body // Campos de texto que sempre podem ser atualizados
 
-      await Memorial.findOneAndUpdate({ slug: slug }, updateData, { new: true })
+      const memorial = await Memorial.findOne({ slug })
 
-      /*
-      // Lógica para encontrar e atualizar o memorial no banco
-      const memorial = await Memorial.findOneAndUpdate(
-        { slug: slug },
-        { gender, relationship, birth, death },
-        { new: true } // Retorna o memorial atualizado
-      )
-      */
+      if (!memorial) {
+        return res.status(404).send("Memorial não encontrado")
+      }
 
-      // Redirecionar ou exibir o memorial atualizado
-      res.redirect(`/memorial/${slug}`) // Ou qualquer outro redirecionamento que faça sentido
+      // Vamos preparar os dados que queremos atualizar
+      const updateData = {
+        epitaph,
+        theme,
+      }
+
+      // Se vier uma nova foto no req.file
+      if (req.file) {
+        //console.log("Nova foto recebida:", req.file.filename)
+
+        // Caminho da foto atual
+        const fotoAntiga = memorial.mainPhoto?.url
+        if (fotoAntiga) {
+          const caminhoFotoAntiga = path.join(
+            __dirname,
+            "..",
+            "..",
+            "public",
+            "memorials",
+            slug,
+            "photos",
+            fotoAntiga
+          )
+
+          // Verifica se o arquivo existe antes de tentar apagar
+          if (fs.existsSync(caminhoFotoAntiga)) {
+            fs.unlinkSync(caminhoFotoAntiga)
+            //console.log("Foto antiga deletada:", fotoAntiga)
+          }
+        }
+
+        // Atualizar a mainPhoto no memorial
+        updateData.mainPhoto = {
+          url: req.file.filename,
+          originalName: req.file.originalname,
+        }
+      }
+
+      // Agora atualiza no banco de dados
+      await Memorial.findOneAndUpdate({ slug }, updateData, { new: true })
+
+      // Redirecionar para o memorial
+      res.redirect(`/memorial/${slug}`)
     } catch (err) {
       console.error(err)
       res.status(500).send("Erro ao atualizar memorial")
