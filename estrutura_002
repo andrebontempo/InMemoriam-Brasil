@@ -61,6 +61,7 @@
 │       │   ├── memorial-about.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
+│       │   ├── memorial-pesquisa99.hbs
 │       │   ├── memorial-pesquisa.hbs
 │       │   └── memorial-sharedstory.hbs
 │       ├── partials
@@ -91,7 +92,6 @@
 │   └── playground-1.mongodb.js
 ├── estrutura_001
 ├── estrutura_002
-├── estrutura_003
 ├── LICENSE
 ├── package.json
 ├── package-lock.json
