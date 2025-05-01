@@ -93,14 +93,18 @@ const MemorialController = {
   showMemorial: async (req, res) => {
     const { slug } = req.params
     try {
-      const memorial = await Memorial.findOne({ slug })
+      const memorial = await Memorial.findOneAndUpdate(
+        { slug },
+        { $inc: { visits: 1 } },
+        { new: true }
+      )
         .populate({ path: "user", select: "firstName lastName" })
-        .populate({ path: "lifeStory", select: "title content" }) // Populate para lifeStory
-        .populate({ path: "sharedStory", select: "title content" }) // Populate para sharedstory
-        .populate({ path: "gallery.photos", select: "url" }) // Populate para fotos da galeria
-        .populate({ path: "gallery.audios", select: "url" }) // Populate para áudios da galeria
-        .populate({ path: "gallery.videos", select: "url" }) // Populate para vídeos da galeria
-        .lean() // Converte o documento em um objeto simples
+        .populate({ path: "lifeStory", select: "title content" })
+        .populate({ path: "sharedStory", select: "title content" })
+        .populate({ path: "gallery.photos", select: "url" })
+        .populate({ path: "gallery.audios", select: "url" })
+        .populate({ path: "gallery.videos", select: "url" })
+        .lean() // somente depois do populate e update
 
       if (!memorial) {
         return res.status(404).render("errors/404", {

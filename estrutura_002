@@ -8,6 +8,7 @@
 │   │   ├── MemorialController.js
 │   │   ├── MemorialFETController.js
 │   │   ├── SharedStoryController.js
+│   │   ├── StatsController.js
 │   │   └── TributeController.js
 │   ├── middlewares
 │   │   ├── authMiddleware.js
@@ -80,6 +81,9 @@
 │           ├── contato.hbs
 │           ├── criar-memorial copy.hbs
 │           ├── criar-memorial.hbs
+│           ├── dashboard99.hbs
+│           ├── dashboard.hbs
+│           ├── home copy.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
 │           ├── memoriais-virtuais.hbs
@@ -110,4 +114,4 @@
 ├── server copy.js
 └── server.js
 
-25 directories, 86 files
+25 directories, 90 files

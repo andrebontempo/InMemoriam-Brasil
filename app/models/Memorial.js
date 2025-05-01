@@ -108,6 +108,8 @@ const MemorialSchema = new mongoose.Schema(
         },
       ],
     },
+    // **Campo visits**: Contador de visitas
+    visits: { type: Number, default: 0 },
 
     // Logs de atualização
     updateLogs: [

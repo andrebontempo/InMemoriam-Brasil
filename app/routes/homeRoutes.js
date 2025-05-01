@@ -2,9 +2,13 @@ const express = require("express")
 const router = express.Router()
 const HomeController = require("../controllers/HomeController")
 const authMiddleware = require("../middlewares/authMiddleware")
+const StatsController = require("../controllers/StatsController")
 
 // Rota raiz do site
 router.get("/", HomeController.index)
+
+// Rota para estatísticas
+router.get("/dashboard", StatsController.getStatistics)
 
 // Rotas estáticas
 router.get("/sobre", (req, res) => {
