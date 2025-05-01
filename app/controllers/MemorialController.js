@@ -10,6 +10,7 @@ const { Console } = require("console")
 const mongoose = require("mongoose")
 const moment = require("moment-timezone")
 const { calcularIdade } = require("../utils/helpers")
+const MailService = require("../services/MailService")
 
 const MemorialController = {
   createMemorial: async (req, res) => {
@@ -80,6 +81,17 @@ const MemorialController = {
 
       //console.log(memorial)
       await memorial.save()
+
+      // Envia e-mail para o usuário
+      await MailService.sendEmail({
+        to: userCurrent.email,
+        subject: "Seu memorial foi criado com sucesso",
+        html: `
+          <h1>Olá, ${userCurrent.firstName}</h1>
+          <p>O memorial de <strong>${firstName} ${lastName}</strong> foi criado com sucesso.</p>
+          <p>Você pode acessá-lo aqui: <a href="localhost:3000/memorial/${slug}">Ver memorial</a></p>
+        `,
+      })
       return res.redirect(`/memorial/${slug}/memorial-fet/edit`)
     } catch (error) {
       console.error("Erro ao criar memorial:", error)

@@ -30,8 +30,15 @@
 │   │   └── memorialRoutes.js
 │   ├── services
 │   │   ├── authService.js
+│   │   ├── MailService.js
 │   │   ├── memorialService.js
 │   │   └── userService.js
+│   ├── templates
+│   │   └── emails
+│   │       ├── admin-alert.hbs
+│   │       ├── adminNotification.hbs
+│   │       ├── memorialCreated.hbs
+│   │       └── welcome.hbs
 │   ├── utils
 │   │   ├── helpers.js
 │   │   └── logger.js
@@ -114,4 +121,4 @@
 ├── server copy.js
 └── server.js
 
-25 directories, 90 files
+27 directories, 95 files
