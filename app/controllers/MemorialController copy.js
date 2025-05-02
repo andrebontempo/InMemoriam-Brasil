@@ -11,7 +11,6 @@ const mongoose = require("mongoose")
 const moment = require("moment-timezone")
 const { calcularIdade } = require("../utils/helpers")
 const MailService = require("../services/MailService")
-const session = require("express-session")
 
 const MemorialController = {
   renderStep1: (req, res) => {
@@ -25,7 +24,7 @@ const MemorialController = {
     const { firstName, lastName } = req.body
 
     if (!userCurrent) {
-      return res.redirect("/auth/login")
+      return res.redirect("/login")
     }
 
     if (!req.session.memorial) req.session.memorial = {}
@@ -84,85 +83,38 @@ const MemorialController = {
   createStep3: async (req, res) => {
     try {
       const { plan } = req.body
-      const memorial = req.session.memorial
+      const memorialData = req.session.memorial
       const user = req.session.loggedUser
-      const userCurrent = req.session.loggedUser
 
-      if (!memorial || !user) {
+      if (!memorialData || !user) {
         return res.redirect("/memorial/create-step1")
       }
 
-      // Ajusta a galeria para garantir um array mesmo que esteja vazio
-      const gallery = {
-        photos: req.body["gallery.photos"] ? [req.body["gallery.photos"]] : [],
-        audios: req.body["gallery.audios"] ? [req.body["gallery.audios"]] : [],
-        videos: req.body["gallery.videos"] ? [req.body["gallery.videos"]] : [],
-      }
-
-      // Verifica se nome e sobrenome foram informados
-      if (!memorial.firstName || !memorial.lastName) {
-        return res.status(400).render("errors/400", {
-          message: "Nome e sobrenome são obrigatórios!",
-        })
-      }
-
       // Gera o slug baseado no nome e sobrenome
-      const slug = `${memorial.firstName}-${memorial.lastName}`
+      const slug = `${memorialData.firstName}-${memorialData.lastName}`
         .toLowerCase()
         .normalize("NFD")
         .replace(/[̀-ͯ]/g, "")
         .replace(/ç/g, "c")
         .replace(/\s+/g, "-")
 
-      memorial.plan = plan
-      memorial.user = user._id
-      memorial.slug = slug
+      memorialData.plan = plan
+      memorialData.user = user._id
+      memorialData.slug = slug
 
       // ✅ Corrigir mainPhoto se for string
-      if (typeof memorial.mainPhoto === "string") {
-        memorial.mainPhoto = {
-          url: memorial.mainPhoto,
+      if (typeof memorialData.mainPhoto === "string") {
+        memorialData.mainPhoto = {
+          url: memorialData.mainPhoto,
           //originalName: "foto-sem-nome.jpg", // opcional
         }
       }
 
-      //console.log("DADOS do memorial:", memorialData)
+      console.log("DADOS do memorial:", memorialData)
 
-      // Verifica se o memorial já existe
-      const memorialExistente = await Memorial.findOne({ slug })
-      if (memorialExistente) {
-        return res.status(400).render("errors/400", {
-          message: "Já existe um memorial com esse nome.",
-        })
-      }
-      // Cria o memorial
-      const newMemorial = new Memorial({
-        user: userCurrent._id,
-        firstName: memorial.firstName,
-        lastName: memorial.lastName,
-        mainPhoto: memorial.mainPhoto,
-        plan: memorial.plan,
-        slug: memorial.slug,
-        gender: memorial.gender, // || "Não informado",
-        kinship: memorial.kinship, // || "Não informado",
-        visibility: req.body.visibility || "public", // Usa o valor de visibilidade do formulário
-        birth: memorial.birth,
-        death: memorial.death,
-      })
       // Salvar memorial no banco
-      //const newMemorial = await Memorial.create(memorial)
-      await newMemorial.save()
+      const newMemorial = await Memorial.create(memorialData)
 
-      // Envia e-mail para o usuário
-      await MailService.sendEmail({
-        to: userCurrent.email,
-        subject: "Seu memorial foi criado com sucesso",
-        html: `
-          <h1>Olá, ${userCurrent.firstName}</h1>
-          <p>O memorial de <strong>${memorial.firstName} ${memorial.lastName}</strong> foi criado com sucesso.</p>
-          <p>Você pode acessá-lo aqui: <a href="localhost:3000/memorial/${slug}">Ver memorial</a></p>
-        `,
-      })
       // Atualizar sessão
       req.session.memorialId = newMemorial._id
       req.session.memorialSlug = newMemorial.slug
@@ -187,69 +139,38 @@ const MemorialController = {
     })
   },
   createStep4: async (req, res) => {
-    //console.log("STEP4 - Recebendo requisição para ATUALIZAR:", req.params)
-    //console.log("Corpo da requisição recebido:", req.body)
-    //console.log("Arquivo recebido:", req.file)
     try {
-      //const { slug } = req.params
-      const { slug, epitaph, theme } = req.body // Campos de texto que sempre podem ser atualizados
+      console.log("Dados do memorial:", req.session.memorial)
+      console.log("Dados do memorialId:", req.session.memorialId)
+      console.log("Dados do memorialSlug:", req.session.memorialSlug)
+      const { epitaph, theme } = req.body
+      const { memorialId, memorialSlug } = req.session
+      const file = req.file
 
-      const memorial = await Memorial.findOne({ slug })
-
-      if (!memorial) {
-        return res.status(404).send("Memorial não encontrado")
+      if (!memorialId || !file) {
+        return res.redirect("/memorial/create-step1")
       }
+      // Atualizar a mainPhoto no memorial
+      updateData.mainPhoto = {
+        url: req.file.filename,
+        updatedAt: new Date(),
+      }
+      //const photoFileName = file.filename
 
-      // Vamos preparar os dados que queremos atualizar
-      const updateData = {
+      await Memorial.findByIdAndUpdate(memorialId, {
         epitaph,
         theme,
-      }
+        mainPhoto,
+      })
 
-      // Se vier uma nova foto no req.file
-      if (req.file) {
-        //console.log("Nova foto recebida:", req.file.filename)
-
-        // Caminho da foto atual
-        const fotoAntiga = memorial.mainPhoto?.url
-        if (fotoAntiga) {
-          const caminhoFotoAntiga = path.join(
-            __dirname,
-            "..",
-            "..",
-            "public",
-            "memorials",
-            slug,
-            "photos",
-            fotoAntiga
-          )
-
-          // Verifica se o arquivo existe antes de tentar apagar
-          if (fs.existsSync(caminhoFotoAntiga)) {
-            fs.unlinkSync(caminhoFotoAntiga)
-            //console.log("Foto antiga deletada:", fotoAntiga)
-          }
-        }
-
-        // Atualizar a mainPhoto no memorial
-        updateData.mainPhoto = {
-          url: req.file.filename,
-          updatedAt: new Date(),
-          originalName: req.file.originalname,
-        }
-      }
-
-      // Agora atualiza no banco de dados
-      await Memorial.findOneAndUpdate({ slug }, updateData, { new: true })
-
-      // Redirecionar para o memorial
-      res.redirect(`/memorial/${slug}`)
+      res.redirect(`/memorial/${memorialSlug}`)
     } catch (err) {
-      console.error(err)
-      res.status(500).send("Erro ao atualizar memorial")
+      console.error("Erro na etapa 4:", err)
+      res.status(500).render("error", {
+        message: "Erro ao personalizar memorial. Tente novamente.",
+      })
     }
   },
-
   createMemorial: async (req, res) => {
     //console.log("Usuário logado:", req.session.loggedUser) // Exibe o usuário autenticado no console
     //console.log("Corpo da requisição recebido:", req.body) //  Verifica os dados enviados

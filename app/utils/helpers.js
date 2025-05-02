@@ -63,6 +63,10 @@ const ifEquals = function (a, b, options) {
   return a === b ? options.fn(this) : options.inverse(this)
 }
 
+const array = function () {
+  return Array.prototype.slice.call(arguments, 0, -1)
+}
+
 // Exporta todas as funções
 module.exports = {
   formatDate,
@@ -70,4 +74,5 @@ module.exports = {
   calcularIdade,
   eq,
   ifEquals,
+  array,
 }

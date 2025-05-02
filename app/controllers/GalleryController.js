@@ -180,11 +180,20 @@ const GalleryController = {
       const fileName = file.filename
 
       if (tipo === "photo") {
-        gallery.photos.push(fileName)
+        gallery.photos.push({
+          filename: fileName,
+          uploadedBy: userCurrent._id,
+        })
       } else if (tipo === "audio") {
-        gallery.audios.push(fileName)
+        gallery.audios.push({
+          filename: fileName,
+          uploadedBy: userCurrent._id,
+        })
       } else if (tipo === "video") {
-        gallery.videos.push(fileName)
+        gallery.videos.push({
+          filename: fileName,
+          uploadedBy: userCurrent._id,
+        })
       } else {
         return res.status(400).send("Tipo de mídia inválido.")
       }
@@ -207,10 +216,10 @@ const GalleryController = {
       tipo === "photo"
         ? "photos"
         : tipo === "audio"
-        ? "audios"
-        : tipo === "video"
-        ? "videos"
-        : null
+          ? "audios"
+          : tipo === "video"
+            ? "videos"
+            : null
 
     if (!tipoPasta) return res.status(400).send("Tipo inválido")
 
@@ -239,11 +248,11 @@ const GalleryController = {
 
       // Remover do array correto
       if (tipo === "photo")
-        gallery.photos = gallery.photos.filter((f) => f !== fileName)
+        gallery.photos = gallery.photos.filter((f) => f.filename !== fileName)
       else if (tipo === "audio")
-        gallery.audios = gallery.audios.filter((a) => a !== fileName)
+        gallery.audios = gallery.audios.filter((a) => a.filename !== fileName)
       else if (tipo === "video")
-        gallery.videos = gallery.videos.filter((v) => v !== fileName)
+        gallery.videos = gallery.videos.filter((v) => v.filename !== fileName)
 
       await gallery.save()
 

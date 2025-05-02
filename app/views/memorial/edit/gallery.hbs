@@ -34,11 +34,11 @@
                 {{#if gallery.photos.length}}
                   {{#each gallery.photos}}
                     <div class="col-sm-6 col-md-4 col-lg-3 mb-4 position-relative">
-                      <a href="/memorials/{{../slug}}/photos/{{this}}" target="_blank">
-                        <img src="/memorials/{{../slug}}/photos/{{this}}" class="galeria-foto rounded shadow-sm img-fluid" alt="Foto do memorial {{../slug}}">
+                      <a href="/memorials/{{../slug}}/photos/{{this.filename}}" target="_blank">
+                        <img src="/memorials/{{../slug}}/photos/{{this.filename}}" class="galeria-foto rounded shadow-sm img-fluid" alt="Foto do memorial {{../slug}}">
                       </a>
                       <form action="/memorial/{{../slug}}/gallery/delete/photo" method="POST" class="delete-form">
-                        <input type="hidden" name="fileName" value="{{this}}" />
+                        <input type="hidden" name="fileName" value="{{this.filename}}" />
                         <button type="submit" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 shadow-sm">
                           <i class="bi bi-trash-fill"></i>
                         </button>

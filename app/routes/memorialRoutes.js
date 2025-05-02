@@ -143,12 +143,34 @@ router.post(
 )
 
 //*********ROTAS PARA O MEMORIAL CONTROLLER***********
+// Etapa 1: Nome e Sobrenome (Verificar se o usuário está cadastrado)
+router.get("/create-step1", MemorialController.renderStep1) // Mostrar o formulário da etapa 1
+router.post("/create-step1", MemorialController.createStep1) // Processar os dados da etapa 1
+
+// Etapa 2: Dados de Nascimento, Falecimento, Sexo e Parentesco
+router.get("/create-step2", authMiddleware, MemorialController.renderStep2) // Mostrar o formulário da etapa 2
+router.post("/create-step2", MemorialController.createStep2) // Processar os dados da etapa 2
+
+// Etapa 3: Escolha do Plano
+router.get("/create-step3", MemorialController.renderStep3) // Mostrar o formulário da etapa 3 (escolha do plano)
+router.post("/create-step3", MemorialController.createStep3) // Processar a escolha do plano e criar o memorial
+
+// Etapa 4: Foto de Capa, Epitáfio e Tema
+router.get("/create-step4", MemorialController.renderStep4) // Mostrar o formulário da etapa 4 (personalização)
+router.post(
+  "/create-step4",
+  upload.single("file"), // Para o upload da foto de capa
+  MemorialController.createStep4 // Processar a foto de capa, epitáfio e tema
+)
+
 router.get("/pesquisa", MemorialController.searchMemorial)
+
 router.post(
   "/create-memorial",
   authMiddleware,
   MemorialController.createMemorial
-)
+) // Criar um novo memorial
+router.get("/create-memorial", MemorialController.createStep1)
 router.get("/:slug/about", MemorialController.showMemorial)
 router.get("/:slug/memorial/edit", MemorialController.editMemorial)
 router.post(

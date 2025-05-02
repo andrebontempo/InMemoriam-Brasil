@@ -3,7 +3,7 @@ const Gallery = require("../models/Gallery")
 const fs = require("fs")
 const path = require("path")
 
-const EpitaphController = {
+const MemorialFETController = {
   editMemorialFET: async (req, res) => {
     /*
     console.log(
@@ -113,6 +113,7 @@ const EpitaphController = {
         // Atualizar a mainPhoto no memorial
         updateData.mainPhoto = {
           url: req.file.filename,
+          updatedAt: new Date(),
           originalName: req.file.originalname,
         }
       }
@@ -129,4 +130,4 @@ const EpitaphController = {
   },
 }
 
-module.exports = EpitaphController
+module.exports = MemorialFETController

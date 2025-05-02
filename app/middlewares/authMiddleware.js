@@ -7,7 +7,7 @@ module.exports = (req, res, next) => {
     */
     // Salvar a URL original para redirecionamento após login
     //req.session.returnTo = req.originalUrl
-    req.session.returnTo = "/criar-memorial"
+    req.session.returnTo = "/create-step1"
 
     //req.session.returnTo = "/criar-memorial"
     //req.session.returnTo = req.originalUrl
