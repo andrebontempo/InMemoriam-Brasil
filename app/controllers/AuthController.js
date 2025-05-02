@@ -45,12 +45,8 @@ const AuthController = {
         email: user.email,
       }
 
-      const formData = req.session.formData
-      delete req.session.formData
-
       const redirectTo = req.session.returnTo || "/auth/dashboard" // Definir antes do uso
       delete req.session.returnTo // Remover a URL salva para evitar redirecionamentos repetidos
-
       req.session.save(() => {
         res.redirect(redirectTo)
       })
@@ -58,7 +54,7 @@ const AuthController = {
       //res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
     } catch (error) {
       console.error("Erro ao processar login:", error)
-      res.status(500).render("/auth/login", { error: "Erro ao fazer login." })
+      res.status(500).render("auth/login", { error: "Erro ao fazer login." })
     }
   },
 

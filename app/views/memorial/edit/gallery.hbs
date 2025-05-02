@@ -68,11 +68,11 @@
                   {{#each gallery.audios}}
                     <div class="col-md-6 mb-3 position-relative">
                       <audio controls class="media-player w-100 border rounded shadow-sm p-2">
-                        <source src="/memorials/{{../slug}}/audios/{{this}}" type="audio/mpeg" />
+                        <source src="/memorials/{{../slug}}/audios/{{this.filename}}" type="audio/mpeg" />
                         Seu navegador não suporta áudio.
                       </audio>
                       <form action="/memorial/{{../slug}}/gallery/delete/audio" method="POST" class="delete-form">
-                        <input type="hidden" name="fileName" value="{{this}}" />
+                        <input type="hidden" name="fileName" value="{{this.filename}}" />
                         <button type="submit" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 shadow-sm">
                           <i class="bi bi-trash-fill"></i>
                         </button>
@@ -102,11 +102,11 @@
                   {{#each gallery.videos}}
                     <div class="col-md-6 mb-4 position-relative">
                       <video controls class="media-player w-100 rounded shadow-sm">
-                        <source src="/memorials/{{../slug}}/videos/{{this}}" type="video/mp4" />
+                        <source src="/memorials/{{../slug}}/videos/{{this.filename}}" type="video/mp4" />
                         Seu navegador não suporta vídeos.
                       </video>
                       <form action="/memorial/{{../slug}}/gallery/delete/video" method="POST" class="delete-form">
-                        <input type="hidden" name="fileName" value="{{this}}" />
+                        <input type="hidden" name="fileName" value="{{this.filename}}" />
                         <button type="submit" class="btn btn-sm btn-danger position-absolute top-0 end-0 m-1 shadow-sm">
                           <i class="bi bi-trash-fill"></i>
                         </button>

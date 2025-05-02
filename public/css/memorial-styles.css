@@ -367,7 +367,10 @@ iframe {
   font-size: 2.5rem;
   font-style: normal;
 
-  text-shadow: 2px 2px 4px white, 0 0 5px white, 0 0 10px white;
+  text-shadow:
+    2px 2px 4px white,
+    0 0 5px white,
+    0 0 10px white;
 
   border: none;
   background-color: transparent;
@@ -516,4 +519,25 @@ iframe {
   height: 80px;
   object-fit: cover;
   border-radius: 0.5rem;
+}
+
+/* Customização de botões */
+.btn-light {
+  background-color: #ffffff;
+  color: #4f0e21;
+  border: 2px solid #4f0e21;
+  transition: all 0.3s ease;
+}
+
+.btn-light:hover {
+  background-color: #4f0e21;
+  color: white;
+}
+
+.hover-shadow:hover {
+  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+}
+
+.transition-all {
+  transition: all 0.3s ease;
 }

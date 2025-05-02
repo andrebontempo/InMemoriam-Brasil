@@ -14,7 +14,6 @@
 │   │   ├── authMiddleware.js
 │   │   ├── errorHandlerMiddleware.js
 │   │   ├── setUserMiddleware.js
-│   │   ├── uploadMiddleware copy.js
 │   │   └── uploadMiddleware.js
 │   ├── models
 │   │   ├── Gallery.js
@@ -48,14 +47,20 @@
 │       │   ├── login.hbs
 │       │   ├── register.hbs
 │       │   └── user.hbs
+│       ├── error.hbs
 │       ├── errors
 │       │   ├── 400.hbs
 │       │   ├── 404.hbs
-│       │   └── 500.hbs
+│       │   ├── 500.hbs
+│       │   └── error.hbs
 │       ├── layouts
 │       │   ├── main.hbs
 │       │   └── memorial-layout.hbs
 │       ├── memorial
+│       │   ├── create-step1.hbs
+│       │   ├── create-step2.hbs
+│       │   ├── create-step3.hbs
+│       │   ├── create-step4.hbs
 │       │   ├── edit
 │       │   │   ├── about.hbs
 │       │   │   ├── epitaph.hbs
@@ -69,7 +74,6 @@
 │       │   ├── memorial-about.hbs
 │       │   ├── memorial-gallery.hbs
 │       │   ├── memorial-lifestory.hbs
-│       │   ├── memorial-pesquisa99.hbs
 │       │   ├── memorial-pesquisa.hbs
 │       │   └── memorial-sharedstory.hbs
 │       ├── partials
@@ -111,6 +115,9 @@
 │   │   ├── main-styles.css
 │   │   ├── memorial-styles.css
 │   │   └── templates
+│   │       ├── azul.css
+│   │       ├── roxo.css
+│   │       └── vinho.css
 │   ├── js
 │   │   ├── calcula_idade.js
 │   │   ├── navbar.js
@@ -121,4 +128,4 @@
 ├── server copy.js
 └── server.js
 
-27 directories, 95 files
+27 directories, 102 files

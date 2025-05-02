@@ -4,6 +4,9 @@
     style="background-color: #4f0e21;"
   >
     <h2 class="text-center mb-4 fw-bold">Etapa 1: Nome do Homenageado</h2>
+    {{#if error}}
+      <div class="alert alert-danger">{{error}}</div>
+    {{/if}}
     <form
       action="/memorial/create-step1"
       method="POST"
@@ -19,6 +22,10 @@
             id="firstName"
             name="firstName"
             required
+            pattern="[A-Za-zÀ-ú\s]+"
+            title="Somente letras são permitidas"
+            autocomplete="given-name"
+            value="{{firstName}}"
           />
         </div>
         <div class="col-md-6">
@@ -29,6 +36,10 @@
             id="lastName"
             name="lastName"
             required
+            pattern="[A-Za-zÀ-ú\s]+"
+            title="Somente letras são permitidas"
+            autocomplete="family-name"
+            value="{{lastName}}"
           />
         </div>
       </div>
