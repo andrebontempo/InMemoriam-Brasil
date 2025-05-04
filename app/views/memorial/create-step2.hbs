@@ -12,45 +12,48 @@
       class="mx-auto"
     >
 
-      <!-- Sexo e Parentesco -->
+      <!-- Nome e Sobrenome (readonly + hidden) -->
       <div class="row g-3">
-
-        <!--
         <div class="col-md-6">
-          <label class="form-label">Sexo:</label>
-          <div class="d-flex gap-3">
-            {{! radios }}
-            {{#each (array "Masculino" "Feminino" "Outros")}}
-              <div class="form-check">
-                <input
-                  type="radio"
-                  class="form-check-input"
-                  name="gender"
-                  value="{{this}}"
-                  required
-                />
-                <label class="form-check-label">{{this}}</label>
-              </div>
-            {{/each}}
-          </div>
+          <label for="firstName" class="form-label">Nome:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="firstName"
+            name="firstNameDisplay"
+            value="{{step1Data.firstName}}"
+            readonly
+          />
+          <input
+            type="hidden"
+            name="firstName"
+            value="{{step1Data.firstName}}"
+          />
         </div>
-        -->
+
+        <div class="col-md-6">
+          <label for="lastName" class="form-label">Sobrenome:</label>
+          <input
+            type="text"
+            class="form-control"
+            id="lastName"
+            name="lastNameDisplay"
+            value="{{step1Data.lastName}}"
+            readonly
+          />
+          <input type="hidden" name="lastName" value="{{step1Data.lastName}}" />
+        </div>
+      </div>
+
+      <!-- Sexo e Parentesco -->
+      <div class="row g-3 mt-3">
         <div class="col-md-6">
           <label for="kinship" class="form-label">Parentesco:</label>
           <select class="form-select" id="kinship" name="kinship" required>
             <option value="">Selecione</option>
-            <option value="pai">Pai</option>
-            <option value="mae">Mãe</option>
-            <option value="irmao">Irmão</option>
-            <option value="irma">Irmã</option>
-            <option value="filho">Filho</option>
-            <option value="filha">Filha</option>
-            <option value="avo">Avô</option>
-            <option value="avó">Avó</option>
-            <option value="amigo">Amigo</option>
-            <option value="amiga">Amiga</option>
-            <option value="marido">Marido</option>
-            <option value="esposa">Esposa</option>
+            {{#each kinships}}
+              <option value="{{this.value}}">{{this.label}}</option>
+            {{/each}}
           </select>
         </div>
       </div>

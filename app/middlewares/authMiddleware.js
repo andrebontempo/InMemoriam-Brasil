@@ -1,8 +1,17 @@
+// app/middlewares/authMiddleware.js
+
 module.exports = (req, res, next) => {
-  if (!req.session.loggedUser) {
-    // Salvar a URL original para redirecionamento após login
-    req.session.returnTo = req.originalUrl
-    return res.redirect("/auth/login")
+  if (req.session.loggedUser) {
+    return next()
   }
-  next()
+
+  // Salva a URL original para redirecionar após login
+  req.session.redirectTo = req.originalUrl
+
+  // Se for POST e tiver dados do formulário, armazena na sessão
+  if (req.method === "POST") {
+    req.session.formDataStep1 = req.body
+  }
+
+  res.redirect("/auth/login")
 }

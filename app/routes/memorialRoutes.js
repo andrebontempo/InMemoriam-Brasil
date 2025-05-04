@@ -149,6 +149,7 @@ router.post("/create-step1", MemorialController.createStep1) // Processar os dad
 
 // Etapa 2: Dados de Nascimento, Falecimento, Sexo e Parentesco
 router.get("/create-step2", authMiddleware, MemorialController.renderStep2) // Mostrar o formulário da etapa 2
+
 router.post("/create-step2", MemorialController.createStep2) // Processar os dados da etapa 2
 
 // Etapa 3: Escolha do Plano

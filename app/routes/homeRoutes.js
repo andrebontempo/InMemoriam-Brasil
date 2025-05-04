@@ -21,6 +21,7 @@ router.get("/criar-memorial", (req, res) => {
   })
 })
 */
+/*
 // Rota para exibir o formulário de criação do memorial
 router.get("/criar-memorial", authMiddleware, (req, res) => {
   const formData = req.session.formData || {} // Recupera os dados ou mantém vazio
@@ -28,7 +29,7 @@ router.get("/criar-memorial", authMiddleware, (req, res) => {
 
   res.render("statics/criar-memorial", { formData })
 })
-
+*/
 router.get("/plano-opcoes", (req, res) => {
   res.render("statics/plano-opcoes", {
     title: "Plano e Opções - In Memoriam Brasil",

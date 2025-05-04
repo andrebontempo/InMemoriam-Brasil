@@ -36,7 +36,32 @@ const MemorialController = {
     res.redirect("/memorial/create-step2")
   },
   renderStep2: (req, res) => {
-    res.render("memorial/create-step2") // Renderiza a view do passo 2 (Dados de Nascimento e Falecimento)
+    const step1Data = req.session.memorial || {}
+
+    //Lista de parentesco
+    const kinships = [
+      { value: "amiga", label: "Amiga" },
+      { value: "amigo", label: "Amigo" },
+      { value: "avo", label: "Avô" },
+      { value: "avó", label: "Avó" },
+      { value: "filha", label: "Filha" },
+      { value: "filho", label: "Filho" },
+      { value: "irma", label: "Irmã" },
+      { value: "irmao", label: "Irmão" },
+      { value: "mae", label: "Mãe" },
+      { value: "marido", label: "Marido" },
+      { value: "esposa", label: "Esposa" },
+      { value: "pai", label: "Pai" },
+      { value: "tia", label: "Tia" },
+      { value: "tio", label: "Tio" },
+      { value: "sogro", label: "Sogro" },
+      { value: "sogra", label: "Sogra" },
+    ]
+
+    // Ordena por ordem alfabética do label
+    kinships.sort((a, b) => a.label.localeCompare(b.label))
+
+    res.render("memorial/create-step2", { step1Data, kinships }) // Renderiza a view do passo 2 (Dados de Nascimento e Falecimento)
   },
   createStep2: async (req, res) => {
     const { gender, kinship, birth, death } = req.body
@@ -67,7 +92,6 @@ const MemorialController = {
     if (!req.session.memorial) {
       return res.redirect("/memorial/create-step1")
     }
-
     req.session.memorial.gender = gender
     req.session.memorial.kinship = kinship
     req.session.memorial.birth = birth1
