@@ -1,5 +1,8 @@
 const Memorial = require("../models/Memorial")
 const Gallery = require("../models/Gallery")
+const Tribute = require("../models/Tribute")
+const LifeStory = require("../models/LifeStory")
+const SharedStory = require("../models/SharedStory")
 const fs = require("fs")
 const path = require("path")
 
@@ -33,6 +36,19 @@ const MemorialFETController = {
         videos: [],
       }
 
+      // Buscar contagem de tributos (caso tenha múltiplas associadas a esse memorial)
+      const totalTributos = await Tribute.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias de vida (caso tenha múltiplas associadas a esse memorial)
+      const totalHistorias = await LifeStory.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias compartilhadas (caso tenha múltiplas associadas a esse memorial)
+      const totalHistoriasCom = await SharedStory.countDocuments({
+        memorial: memorial._id,
+      })
+
       return res.render("memorial/edit/memorial-fet", {
         layout: "memorial-layout",
         firstName: memorial.firstName,
@@ -54,6 +70,13 @@ const MemorialFETController = {
         },
         gallery: galleryData,
         theme: memorial.theme || "Flores",
+        // Envia estatísticas específicas para a view
+        estatisticas: {
+          totalVisitas: memorial.visits || 0,
+          totalTributos,
+          totalHistorias,
+          totalHistoriasCom,
+        },
       })
     } catch (error) {
       console.error("Erro ao carregar memorial:", error)

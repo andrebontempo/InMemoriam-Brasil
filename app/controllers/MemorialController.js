@@ -495,6 +495,19 @@ const MemorialController = {
         videos: galeria?.videos || [],
       }
 
+      // Buscar contagem de tributos (caso tenha múltiplas associadas a esse memorial)
+      const totalTributos = await Tribute.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias de vida (caso tenha múltiplas associadas a esse memorial)
+      const totalHistorias = await LifeStory.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias compartilhadas (caso tenha múltiplas associadas a esse memorial)
+      const totalHistoriasCom = await SharedStory.countDocuments({
+        memorial: memorial._id,
+      })
+
       //console.log("Memorial encontrado:", memorial)
       //res.render("memorial/edit/personal", { memorial })
       return res.render("memorial/edit/memorial", {
@@ -536,6 +549,13 @@ const MemorialController = {
         //},
         theme: memorial.theme || "Flores",
         gallery: galleryData,
+        // Envia estatísticas específicas para a view
+        estatisticas: {
+          totalVisitas: memorial.visits || 0,
+          totalTributos,
+          totalHistorias,
+          totalHistoriasCom,
+        },
       })
     } catch (error) {
       //console.error("Erro ao carregar memorial para edição:", error)

@@ -1,4 +1,6 @@
+const Tribute = require("../models/Tribute")
 const LifeStory = require("../models/LifeStory")
+const SharedStory = require("../models/SharedStory")
 const Memorial = require("../models/Memorial") // ✅ Importando o modelo correto
 const Gallery = require("../models/Gallery")
 const path = require("path")
@@ -88,6 +90,19 @@ const LifeStoryController = {
         .select("title content eventDate image createdAt") // Selecionando campos específicos dos tributos
         .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
 
+      // Buscar contagem de tributos (caso tenha múltiplas associadas a esse memorial)
+      const totalTributos = await Tribute.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias de vida (caso tenha múltiplas associadas a esse memorial)
+      const totalHistorias = await LifeStory.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias compartilhadas (caso tenha múltiplas associadas a esse memorial)
+      const totalHistoriasCom = await SharedStory.countDocuments({
+        memorial: memorial._id,
+      })
+
       return res.render("memorial/memorial-lifestory", {
         layout: "memorial-layout",
         id: memorial._id,
@@ -120,6 +135,13 @@ const LifeStoryController = {
         about: memorial.about,
         epitaph: memorial.epitaph,
         theme: memorial.theme,
+        // Envia estatísticas específicas para a view
+        estatisticas: {
+          totalVisitas: memorial.visits || 0,
+          totalTributos,
+          totalHistorias,
+          totalHistoriasCom,
+        },
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)
