@@ -4,6 +4,7 @@
 │   │   ├── AuthController.js
 │   │   ├── GalleryController.js
 │   │   ├── HomeController.js
+│   │   ├── InviteController.js
 │   │   ├── LifeStoryController.js
 │   │   ├── MemorialController.js
 │   │   ├── MemorialFETController.js
@@ -90,11 +91,8 @@
 │       └── statics
 │           ├── condicoes-utilizacao.hbs
 │           ├── contato.hbs
-│           ├── criar-memorial copy.hbs
 │           ├── criar-memorial.hbs
-│           ├── dashboard99.hbs
 │           ├── dashboard.hbs
-│           ├── home copy.hbs
 │           ├── home.hbs
 │           ├── mapa-site.hbs
 │           ├── memoriais-virtuais.hbs
@@ -128,4 +126,4 @@
 ├── server copy.js
 └── server.js
 
-27 directories, 102 files
+27 directories, 100 files

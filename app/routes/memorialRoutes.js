@@ -8,6 +8,12 @@ const SharedStoryController = require("../controllers/SharedStoryController")
 const GalleryController = require("../controllers/GalleryController")
 const authMiddleware = require("../middlewares/authMiddleware")
 const upload = require("../middlewares/uploadMiddleware")
+const InviteController = require("../controllers/InviteController")
+
+//*********ROTAS PARA O ENVIO DE EMAIL***********
+
+// Rota para envio de convite por e-mail
+router.post("/:slug/invite", InviteController.sendInvite)
 
 //*********ROTAS PARA O GALELRY CONTROLLER***********
 router.get("/:slug/gallery", GalleryController.showGallery)

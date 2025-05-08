@@ -366,6 +366,7 @@ const MemorialController = {
   showMemorial: async (req, res) => {
     const { slug } = req.params
     try {
+      // Atualiza visitas e popula os dados do memorial
       const memorial = await Memorial.findOneAndUpdate(
         { slug },
         { $inc: { visits: 1 } },
@@ -377,7 +378,7 @@ const MemorialController = {
         .populate({ path: "gallery.photos", select: "url" })
         .populate({ path: "gallery.audios", select: "url" })
         .populate({ path: "gallery.videos", select: "url" })
-        .lean() // somente depois do populate e update
+        .lean()
 
       if (!memorial) {
         return res.status(404).render("errors/404", {
@@ -385,24 +386,33 @@ const MemorialController = {
         })
       }
 
-      // Buscar os tributos relacionados ao memorial
+      // Buscar tributos relacionados
       const tributes = await Tribute.find({ memorial: memorial._id })
-        .sort({ createdAt: -1 }) // 1 = crescente, -1 = decrescente
-        .populate({ path: "user", select: "firstName lastName" }) // Aqui, populando o campo user com firstName e lastName
-        .select("name message type image createdAt") // Selecionando campos específicos dos tributos
-        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+        .sort({ createdAt: -1 })
+        .populate({ path: "user", select: "firstName lastName" })
+        .select("name message type image createdAt")
+        .lean()
 
-      // Buscar as photos relacionados ao memorial
+      // Buscar galeria relacionada
       const galeria = await Gallery.findOne({ memorial: memorial._id })
         .populate({ path: "user", select: "firstName lastName" })
         .select("photos audios videos")
-        .lean() // Garantir que o resultado seja simples (não um documento Mongoose)
+        .lean()
 
       const galleryData = galeria || {
         photos: [],
         audios: [],
         videos: [],
       }
+
+      // Buscar contagem de histórias (caso tenha múltiplas associadas a esse memorial)
+      const totalHistorias = await LifeStory.countDocuments({
+        memorial: memorial._id,
+      })
+      // Buscar contagem de histórias (caso tenha múltiplas associadas a esse memorial)
+      const totalHistoriasCom = await SharedStory.countDocuments({
+        memorial: memorial._id,
+      })
 
       return res.render("memorial/memorial-about", {
         layout: "memorial-layout",
@@ -417,17 +427,10 @@ const MemorialController = {
         gender: memorial.gender,
         kinship: memorial.kinship,
         mainPhoto: memorial.mainPhoto,
-        tribute: tributes || [], // Passando os tributos para o template
-        lifeStory: memorial.lifeStory || [], // Passando lifeStory para o template
-        sharedStory: memorial.sharedStory || [], // Passando stories para o template
+        tribute: tributes || [],
+        lifeStory: memorial.lifeStory || [],
+        sharedStory: memorial.sharedStory || [],
         gallery: galleryData,
-        /*
-        gallery: memorial.gallery || {
-          photos: [],
-          audios: [],
-          videos: [],
-        },
-        */
         idade: calcularIdade(memorial.birth?.date, memorial.death?.date),
         birth: {
           date: memorial.birth?.date || "Não informada",
@@ -442,8 +445,16 @@ const MemorialController = {
           country: memorial.death?.country || "País não informado",
         },
         about: memorial.about,
-        epitaph: memorial.epitaph, // || "",
-        theme: memorial.theme, // || "blue-theme",
+        epitaph: memorial.epitaph,
+        theme: memorial.theme,
+
+        // Envia estatísticas específicas para a view
+        estatisticas: {
+          totalVisitas: memorial.visits || 0,
+          totalTributos: tributes.length || 0,
+          totalHistorias,
+          totalHistoriasCom,
+        },
       })
     } catch (error) {
       console.error("Erro ao exibir memorial:", error)

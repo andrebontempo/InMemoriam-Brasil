@@ -17,7 +17,6 @@
           compartilhar com familiares e amigos. Honre aqueles que fizeram parte
           da sua vida e mantenha suas histórias vivas para sempre.
         </p>
-
         <div class="text-end">
           <a
             href="/memorial/create-step1"
@@ -36,11 +35,12 @@
       </div>
     </div>
   </section>
+
   <!-- Memoriais existentes como exemplos -->
   <section class="my-5">
     <h2 class="mb-4 text-center text-secondary">Páginas de Memoriais Existentes</h2>
     <div class="row">
-
+      {{! Card 1 }}
       <div class="col-md-3">
         <a href="/memorial/pateta-pereira/about" style="text-decoration: none;">
           <div
@@ -59,6 +59,7 @@
         </a>
       </div>
 
+      {{! Card 2 }}
       <div class="col-md-3">
         <a
           href="/memorial/mickey-oliveira/about"
@@ -80,6 +81,7 @@
         </a>
       </div>
 
+      {{! Card 3 }}
       <div class="col-md-3">
         <a href="/memorial/olivia-palito/about" style="text-decoration: none;">
           <div
@@ -98,6 +100,7 @@
         </a>
       </div>
 
+      {{! Card 4 }}
       <div class="col-md-3">
         <a
           href="/memorial/mulher-maravilha/about"
@@ -118,85 +121,107 @@
           </div>
         </a>
       </div>
-
     </div>
   </section>
-  <!-- Estatísticas do Site com dados reais -->
+
+  <!-- Estatísticas do Site - Versão compacta e responsiva -->
   <section class="my-5">
     <div class="container text-center">
-      <h2 class="mb-4 text-center text-secondary">Números do InMemoriamBrasil</h2>
-      <div class="row g-2 justify-content-center">
+      <h2 class="mb-4 text-secondary">Números do InMemoriamBrasil</h2>
 
-        <!-- Memoriais Cadastrados -->
-        <div class="col-md-3">
-          <div class="card border-0 shadow py-1 bg-white">
-            <div
-              class="card-body text-dark d-flex flex-column align-items-center"
-            >
-              <i
-                class="bi bi-person-lines-fill fs-4"
-                style="color: #4f0e21;"
-              ></i>
-              <h6
-                class="mt-1 mb-0 fw-bold"
-                style="color: #4f0e21;"
-              >Memoriais</h6>
-              <p class="fs-5 fw-bold mb-1">{{totalMemoriais}}</p>
-            </div>
+      <div
+        class="d-flex flex-wrap justify-content-center gap-3 overflow-auto px-2"
+      >
+        <!-- Card: Memoriais -->
+        <div
+          class="card border-0 shadow py-2 px-2 bg-white text-center"
+          style="width: 220px; flex: 0 0 auto;"
+        >
+          <div
+            class="card-body text-dark d-flex flex-column align-items-center p-2"
+          >
+            <i class="bi bi-person-lines-fill fs-5" style="color: #4f0e21;"></i>
+            <h6
+              class="mt-1 mb-0 fw-bold small"
+              style="color: #4f0e21;"
+            >Memoriais</h6>
+            <p class="fs-6 fw-bold mb-1">{{totalMemoriais}}</p>
           </div>
         </div>
 
-        <!-- Visitantes -->
-        <div class="col-md-3">
-          <div class="card border-0 shadow py-1 bg-white">
-            <div
-              class="card-body text-dark d-flex flex-column align-items-center"
-            >
-              <i class="bi bi-eye-fill fs-4" style="color: #4f0e21;"></i>
-              <h6
-                class="mt-1 mb-0 fw-bold"
-                style="color: #4f0e21;"
-              >Visitantes</h6>
-              <p class="fs-5 fw-bold mb-1">{{totalVisitas}}</p>
-            </div>
+        <!-- Card: Visitantes -->
+        <div
+          class="card border-0 shadow py-2 px-2 bg-white text-center"
+          style="width: 220px; flex: 0 0 auto;"
+        >
+          <div
+            class="card-body text-dark d-flex flex-column align-items-center p-2"
+          >
+            <i class="bi bi-eye-fill fs-5" style="color: #4f0e21;"></i>
+            <h6
+              class="mt-1 mb-0 fw-bold small"
+              style="color: #4f0e21;"
+            >Visitantes</h6>
+            <p class="fs-6 fw-bold mb-1">{{totalVisitas}}</p>
           </div>
         </div>
 
-        <!-- Tributos Publicados -->
-        <div class="col-md-3">
-          <div class="card border-0 shadow py-1 bg-white">
-            <div
-              class="card-body text-dark d-flex flex-column align-items-center"
-            >
-              <i class="bi bi-flower1 fs-4" style="color: #4f0e21;"></i>
-              <h6
-                class="mt-1 mb-0 fw-bold"
-                style="color: #4f0e21;"
-              >Tributos</h6>
-              <p class="fs-5 fw-bold mb-1">{{totalTributos}}</p>
-            </div>
+        <!-- Card: Tributos -->
+        <div
+          class="card border-0 shadow py-2 px-2 bg-white text-center"
+          style="width: 220px; flex: 0 0 auto;"
+        >
+          <div
+            class="card-body text-dark d-flex flex-column align-items-center p-2"
+          >
+            <i class="bi bi-flower1 fs-5" style="color: #4f0e21;"></i>
+            <h6
+              class="mt-1 mb-0 fw-bold small"
+              style="color: #4f0e21;"
+            >Tributos</h6>
+            <p class="fs-6 fw-bold mb-1">{{totalTributos}}</p>
           </div>
         </div>
 
-        <!-- Histórias Publicadas -->
-        <div class="col-md-3">
-          <div class="card border-0 shadow py-1 bg-white">
-            <div
-              class="card-body text-dark d-flex flex-column align-items-center"
-            >
-              <i
-                class="bi bi-journal-bookmark-fill fs-4"
-                style="color: #4f0e21;"
-              ></i>
-              <h6
-                class="mt-1 mb-0 fw-bold"
-                style="color: #4f0e21;"
-              >Histórias</h6>
-              <p class="fs-5 fw-bold mb-1">{{totalHistorias}}</p>
-            </div>
+        <!-- Card: Histórias de Vida -->
+        <div
+          class="card border-0 shadow py-2 px-2 bg-white text-center"
+          style="width: 220px; flex: 0 0 auto;"
+        >
+          <div
+            class="card-body text-dark d-flex flex-column align-items-center p-2"
+          >
+            <i
+              class="bi bi-journal-bookmark-fill fs-5"
+              style="color: #4f0e21;"
+            ></i>
+            <h6
+              class="mt-1 mb-0 fw-bold small"
+              style="color: #4f0e21;"
+            >Histórias de Vida</h6>
+            <p class="fs-6 fw-bold mb-1">{{totalHistorias}}</p>
           </div>
         </div>
 
+        <!-- Card: Histórias Compartilhadas -->
+        <div
+          class="card border-0 shadow py-2 px-2 bg-white text-center"
+          style="width: 220px; flex: 0 0 auto;"
+        >
+          <div
+            class="card-body text-dark d-flex flex-column align-items-center p-2"
+          >
+            <i
+              class="bi bi-journal-bookmark-fill fs-5"
+              style="color: #4f0e21;"
+            ></i>
+            <h6
+              class="mt-1 mb-0 fw-bold small"
+              style="color: #4f0e21;"
+            >Histórias Compartilhadas</h6>
+            <p class="fs-6 fw-bold mb-1">{{totalCompartilhadas}}</p>
+          </div>
+        </div>
       </div>
     </div>
   </section>
