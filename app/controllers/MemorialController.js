@@ -24,10 +24,11 @@ const MemorialController = {
     const userCurrent = req.session.loggedUser
     const { firstName, lastName } = req.body
 
+    /*
     if (!userCurrent) {
       return res.redirect("/auth/login")
     }
-
+    */
     if (!req.session.memorial) req.session.memorial = {}
 
     req.session.memorial.firstName = firstName

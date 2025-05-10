@@ -1,17 +1,13 @@
-// app/middlewares/authMiddleware.js
+module.exports = function authMiddleware(req, res, next) {
+  //console.log("🔐 Entrou no authMiddleware")
+  //console.log("Sessão atual:", req.session)
 
-module.exports = (req, res, next) => {
-  if (req.session.loggedUser) {
+  if (req.session && req.session.loggedUser) {
+    //console.log("✅ Usuário autenticado:", req.session.loggedUser.email)
     return next()
   }
 
-  // Salva a URL original para redirecionar após login
-  req.session.redirectTo = req.originalUrl
-
-  // Se for POST e tiver dados do formulário, armazena na sessão
-  if (req.method === "POST") {
-    req.session.formDataStep1 = req.body
-  }
-
+  //console.log("❌ Usuário não autenticado. Redirecionando...", req.originalUrl)
+  req.session.redirectAfterLogin = req.originalUrl // salva o caminho desejado
   res.redirect("/auth/login")
 }

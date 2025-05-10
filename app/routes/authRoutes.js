@@ -10,7 +10,7 @@ router.get("/login", AuthController.showLoginForm) // Rota para exibir o formul�
 router.post("/login", AuthController.loginUser) // Rota para processar o login
 //router.get("/forgot-password", AuthController.showForgotPasswordForm) // Rota para exibir o formulário de recuperação de senha
 //router.post("/forgot-password", AuthController.forgotPassword) // Rota para processar a recuperação de senha
-router.get("/dashboard", authMiddleware, AuthController.showDashboard) // Rota para exibir o painel do usuário autenticado
+router.get("/dashboard", AuthController.showDashboard) // Rota para exibir o painel do usuário autenticado
 /*
 router.get("/dashboard", authMiddleware, (req, res) => {
   res.render("auth/dashboard", { user: req.session.loggedUser })

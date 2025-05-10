@@ -7,8 +7,16 @@ const LifeStoryController = require("../controllers/LifeStoryController")
 const SharedStoryController = require("../controllers/SharedStoryController")
 const GalleryController = require("../controllers/GalleryController")
 const authMiddleware = require("../middlewares/authMiddleware")
+//const { ensureAuthenticated } = require("../middlewares/authMiddleware")
 const upload = require("../middlewares/uploadMiddleware")
 const InviteController = require("../controllers/InviteController")
+
+/*
+router.use((req, res, next) => {
+  console.log("📍 Middleware de rota executado:", req.method, req.originalUrl)
+  next()
+})
+*/
 
 //*********ROTAS PARA O ENVIO DE EMAIL***********
 
@@ -155,17 +163,17 @@ router.post("/create-step1", MemorialController.createStep1) // Processar os dad
 
 // Etapa 2: Dados de Nascimento, Falecimento, Sexo e Parentesco
 router.get("/create-step2", authMiddleware, MemorialController.renderStep2) // Mostrar o formulário da etapa 2
-
-router.post("/create-step2", MemorialController.createStep2) // Processar os dados da etapa 2
+router.post("/create-step2", authMiddleware, MemorialController.createStep2) // Processar os dados da etapa 2
 
 // Etapa 3: Escolha do Plano
-router.get("/create-step3", MemorialController.renderStep3) // Mostrar o formulário da etapa 3 (escolha do plano)
-router.post("/create-step3", MemorialController.createStep3) // Processar a escolha do plano e criar o memorial
+router.get("/create-step3", authMiddleware, MemorialController.renderStep3) // Mostrar o formulário da etapa 3 (escolha do plano)
+router.post("/create-step3", authMiddleware, MemorialController.createStep3) // Processar a escolha do plano e criar o memorial
 
 // Etapa 4: Foto de Capa, Epitáfio e Tema
-router.get("/create-step4", MemorialController.renderStep4) // Mostrar o formulário da etapa 4 (personalização)
+router.get("/create-step4", authMiddleware, MemorialController.renderStep4) // Mostrar o formulário da etapa 4 (personalização)
 router.post(
   "/create-step4",
+  authMiddleware,
   upload.single("file"), // Para o upload da foto de capa
   MemorialController.createStep4 // Processar a foto de capa, epitáfio e tema
 )

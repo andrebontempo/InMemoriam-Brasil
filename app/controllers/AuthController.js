@@ -11,9 +11,15 @@ const AuthController = {
 
   // Exibir o formulário de login
   showLoginForm: (req, res) => {
-    res.render("auth/login")
+    const redirectTo = req.session.redirectAfterLogin || null
+    res.render("auth/login", { redirectTo })
   },
 
+  /*
+  showLoginForm: (req, res) => {
+    res.render("auth/login")
+  },
+  */
   // Processar o login do usuário
   loginUser: async (req, res) => {
     try {
@@ -45,12 +51,26 @@ const AuthController = {
         email: user.email,
       }
 
-      const redirectTo = req.session.returnTo || "/auth/dashboard" // Definir antes do uso
-      delete req.session.returnTo // Remover a URL salva para evitar redirecionamentos repetidos
+      // Redireciona para a URL original, se existir
+      /*
+      console.log(
+        "loginUser - Redirecionando para:",
+        req.session.redirectAfterLogin
+      )
+      */
+      const redirectTo = req.session.redirectAfterLogin || "/auth/dashboard"
+
+      // Garante que a sessão será salva antes de redirecionar
       req.session.save(() => {
+        //console.log("🔁 Redirecionando para:", redirectTo)
+        delete req.session.redirectAfterLogin
         res.redirect(redirectTo)
       })
 
+      /*
+      delete req.session.redirectAfterLogin
+      return res.redirect(redirectTo)
+      */
       //res.redirect("/auth/dashboard") // Redireciona para o painel do usuário
     } catch (error) {
       console.error("Erro ao processar login:", error)
@@ -130,7 +150,7 @@ const AuthController = {
       //console.log("Usuário cadastrado com sucesso:", newUser)
       // Agora que o usuário foi registrado, vamos logá-lo automaticamente:
       // A autenticação será o mesmo processo que ocorre no login
-      req.session.user = {
+      req.session.loggedUser = {
         id: newUser._id,
         firstName: newUser.firstName,
         lastName: newUser.lastName,
