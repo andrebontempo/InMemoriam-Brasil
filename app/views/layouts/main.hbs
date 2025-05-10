@@ -12,6 +12,24 @@
 
 </head>
 <body>
+    <!-- Mensagens de Sucesso e Erro 
+  <div class="container mt-0">-->
+  <div class="flash-container position-fixed top-0 start-50 translate-middle-x mt-3" style="z-index: 1055; max-width: 90%;">
+    {{#if success_msg}}
+      <div class="alert alert-success alert-dismissible fade show" role="alert">
+        <i class="bi bi-check-circle-fill"></i> {{success_msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>
+    {{/if}}
+
+    {{#if error_msg}}
+      <div class="alert alert-danger alert-dismissible fade show" role="alert">
+        <i class="bi bi-exclamation-triangle-fill"></i> {{error_msg}}
+        <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Fechar"></button>
+      </div>
+    {{/if}}
+  </div>
+
     {{> header}}
     {{> navbar}}
 
@@ -24,5 +42,18 @@
     <script src="/js/navbar.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
 
+    <script>
+  document.addEventListener("DOMContentLoaded", function () {
+    const alerts = document.querySelectorAll(".alert");
+
+    setTimeout(() => {
+      alerts.forEach((alert) => {
+        alert.classList.remove("show"); // remove classe Bootstrap
+        alert.classList.add("fade-out-up"); // aplica nossa animação
+        setTimeout(() => alert.remove(), 500); // remove do DOM
+      });
+    }, 2000); // tempo visível na tela
+  });
+</script>
 </body>
 </html>

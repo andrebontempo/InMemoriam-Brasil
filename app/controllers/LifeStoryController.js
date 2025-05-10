@@ -43,6 +43,7 @@ const LifeStoryController = {
       // Salvar no banco de dados
       await newLifeStory.save()
       //console.log("História de vida salva com sucesso!")
+      req.flash("success_msg", "História de Vida criada com sucesso!")
 
       res.redirect(`/memorial/${memorial.slug}/lifestory`)
     } catch (error) {
@@ -306,6 +307,9 @@ const LifeStoryController = {
       }
 
       await LifeStory.findByIdAndDelete(req.params.id)
+
+      req.flash("success_msg", "História de Vida - Excluída com Sucesso!")
+
       res.redirect(`/memorial/${lifeStory.memorial.slug}/lifestory`)
     } catch (error) {
       console.error("Erro ao deletar história:", error)

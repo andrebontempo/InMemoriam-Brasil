@@ -180,3 +180,28 @@ footer {
 .nav-item.active .nav-link {
   color: #ffffff;
 }
+
+/* Customização das flash messages*/
+
+.flash-container {
+  z-index: 1055;
+  max-width: 90%;
+  animation: slide-down 0.6s ease-out forwards;
+}
+
+@keyframes slide-down {
+  from {
+    opacity: 0;
+    transform: translateY(-30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+.fade-out-up {
+  opacity: 0;
+  transform: translateY(-30px);
+  transition: all 0.5s ease-in;
+}

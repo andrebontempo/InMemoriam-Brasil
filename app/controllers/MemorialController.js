@@ -267,6 +267,8 @@ const MemorialController = {
       // Agora atualiza no banco de dados
       await Memorial.findOneAndUpdate({ slug }, updateData, { new: true })
 
+      req.flash("success_msg", "Memorial Virtual - Criado com Sucesso!")
+
       // Redirecionar para o memorial
       res.redirect(`/memorial/${slug}`)
     } catch (err) {
